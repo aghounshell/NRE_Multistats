@@ -61,11 +61,13 @@ env <- my_data2[,c(5:9)]
 dom <- my_data2[,c(13,16,18,20,22:23)]
 pom <- my_data2[,c(29,32:36,39:40)]
 
-# Take the square root of the DOM and POM data - to 'correct' for the left-skewdness
+# Take the square root of the DOM and POM data - to 'correct' for the right-skewdness
+env.sqrt <- sqrt(env)
 dom.sqrt <- sqrt(dom)
 pom.sqrt <- sqrt(pom)
 
 # Check correlation plots
+chart.Correlation(env.sqrt,histogram=TRUE,method=c("pearson"))
 chart.Correlation(dom.sqrt,histogram=TRUE,method=c("pearson"))
 chart.Correlation(pom.sqrt,histogram=TRUE,method=c("pearson"))
 
