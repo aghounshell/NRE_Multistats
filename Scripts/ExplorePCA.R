@@ -774,6 +774,7 @@ env_pca <- rda(env_scale)
 summary(env_pca,axes=0)
 plot(env_pca)
 text(env_pca)
+screeplot(env_pca, bstick = TRUE)
 
 dom_pca <- rda(dom_scale)
 summary(dom_pca,axes=0)
@@ -784,6 +785,12 @@ pom_pca <- rda(pom_scale)
 summary(pom_pca,axes=0)
 plot(pom_pca)
 text(pom_pca)
+
+# Make screeplot for each of the PCA output
+par(mfrow=c(2,2))
+screeplot(env_pca,bstick=TRUE)
+screeplot(dom_pca,bstick=TRUE)
+screeplot(pom_pca,bstick=TRUE)
 
 # Construct PCA biplot that will be divided by season and will include objects and variables 
 # The graph will be in scaling 2
@@ -898,6 +905,11 @@ pom_pca_t <- rda(pom_sq_scale)
 summary(pom_pca_t,axes=0)
 plot(pom_pca_t)
 text(pom_pca_t)
+
+# Plot screeplot for POM data: transformed and un-transformed
+par(mfrow=c(1,2))
+screeplot(pom_pca,bstick=TRUE)
+screeplot(pom_pca_t,bstick=TRUE)
 
 pomspe_sc2_t <- scores(pom_pca_t, display="sp", choices=c(1,2))
 
