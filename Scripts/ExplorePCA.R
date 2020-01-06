@@ -105,6 +105,10 @@ ggplot(env_b,aes(Date,Sal,group=Station))+
         axis.title=element_text(size=15),
         axis.text.x = element_text(angle=90))
 
+dev.off()
+
+pdf("C:/Users/ahoun/Dropbox/NRE_MultiStats/NRE_Multistats/Plots/Env_Time_DOSat.pdf", width=12, height=8)
+
 boxplot(DO_Sat~Station,data=env_all,varwidth=TRUE,cex.axis=1.5,cex.lab=1.5)
 
 ggplot(env_s,aes(Date,DO_Sat,group=Station))+
@@ -126,6 +130,8 @@ ggplot(env_b,aes(Date,DO_Sat,group=Station))+
   theme(axis.text=element_text(size=15),
         axis.title=element_text(size=15),
         axis.text.x = element_text(angle=90))
+
+dev.off()
 
 boxplot(Turb~Station,data=env_all,varwidth=TRUE,cex.axis=1.5,cex.lab=1.5)
 
