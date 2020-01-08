@@ -13,6 +13,8 @@
 #   Conduct RDA using selected variables from PCA
 # A Hounshell, 01 Jan. 2020
 
+# Save rfile as: PCA_SandB
+
 # Load in libraries need
 pacman::p_load(vegan,adespatial,ade4,PerformanceAnalytics,corrplot,Hmisc,ggplot2,tidyverse,vegan3d,
                scatterplot3d,rgl,car)
