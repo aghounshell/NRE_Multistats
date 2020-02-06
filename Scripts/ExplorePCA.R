@@ -10,7 +10,7 @@
 
 # Load in libraries need
 pacman::p_load(vegan,adespatial,ade4,PerformanceAnalytics,corrplot,Hmisc,ggplot2,tidyverse,vegan3d,
-               scatterplot3d,rgl)
+               scatterplot3d,rgl,ggpubr)
 
 # Load in data (Database_DOSat.csv)
 my_data <- read.csv(file.choose())
@@ -180,10 +180,60 @@ ggplot(env_b,aes(Date,Chla,group=Station))+
 dev.off()
 
 ## DOM Data
+# Boxplot of DOM and POM data for MS
+
+doc_g <- ggplot(dom_all,aes(Station,DOC_mg,group=Station))+
+  geom_boxplot()+
+  ylab(expression(paste("DOC (mg L"^-1*")")))+
+  ylim(0,15)+
+  geom_hline(yintercept=7.58,color="red",linetype="dashed")+
+  theme_classic(base_size=15)
+
+poc_g <- ggplot(pom_all,aes(Station,POC_mg,group=Station))+
+  geom_boxplot()+
+  ylab(expression(paste("POC (mg L"^-1*")")))+
+  ylim(0,6)+
+  geom_hline(yintercept=1.28,color="red",linetype="dashed")+
+  theme_classic(base_size=15)
+
+dhix <- ggplot(dom_all,aes(Station,HIX_DOM,group=Station))+
+  geom_boxplot()+
+  ylab("DOM HIX")+
+  ylim(0,26)+
+  geom_hline(yintercept=11.67,color="red",linetype="dashed")+
+  theme_classic(base_size=15)
+
+phix <- ggplot(pom_all,aes(Station,HIX_POM,group=Station))+
+  geom_boxplot()+
+  ylab("POM HIX")+
+  ylim(0,26)+
+  geom_hline(yintercept=6.47,color="red",linetype="dashed")+
+  theme_classic(base_size=15)
+
+dbix <- ggplot(dom_all,aes(Station,BIX_DOM,group=Station))+
+  geom_boxplot()+
+  ylab("DOM BIX")+
+  ylim(0,1.3)+
+  geom_hline(yintercept=0.57,color="red",linetype="dashed")+
+  theme_classic(base_size=15)
+
+pbix <- ggplot(pom_all,aes(Station,BIX_POM,group=Station))+
+  geom_boxplot()+
+  ylab("POM BIX")+
+  ylim(0,1.3)+
+  geom_hline(yintercept=0.51,color="red",linetype="dashed")+
+  theme_classic(base_size=15)
+
+ggarrange(doc_g,poc_g,dhix,phix,dbix,pbix,ncol=2,nrow=3)
 
 pdf("C:/Users/ahoun/Dropbox/NRE_MultiStats/NRE_Multistats/Plots/DOM_Time.pdf", width=12, height=8)
 
-boxplot(DOC_mg~Station,data=dom_all,varwidth=TRUE,cex.axis=1.5,cex.lab=1.5)
+boxplot(DOC_mg~Station,data=dom_all,varwidth=TRUE,cex.axis=1.5,cex.lab=1.5,
+        ylab=expression(paste("DOC (mg L"^-1*")")))
+
+boxplot(DOC_mg~Station,data=dom_s,varwidth=TRUE,cex.axis=1.5,cex.lab=1.5)
+
+boxplot(DOC_mg~Station,data=dom_b,varwidth=TRUE,cex.axis=1.5,cex.lab=1.5)
 
 ggplot(dom_s,aes(Date,DOC_mg,group=Station))+
   geom_point(aes(colour=Station))+
