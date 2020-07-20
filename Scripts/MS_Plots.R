@@ -2,7 +2,7 @@
 # A Hounshell, 11 Mar 2020
 
 # Load in libraries
-pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr)
+pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr)
 
 # Load in data (Database_DOSat.csv)
 my_data <- read.csv(file.choose())
@@ -56,6 +56,10 @@ poc_spring <- median(long_spring$POC,na.rm=TRUE)
 poc_summer <- median(long_summer$POC,na.rm=TRUE)
 poc_fall <- median(long_fall$POC,na.rm=TRUE)
 
+## Calculate median for the yearly data (2015-2016) for each season
+med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM) %>% group_by(Season) %>% 
+  summarize_all(funs(median))
+
 # Plot salinity and chla
 my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
 par(mar=c(5.1,5.1,4.1,2.1))
@@ -81,31 +85,56 @@ par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(2,2))
 my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
 ylab.text=expression(paste("DOC (mg L"^"-1"*")"))
-boxplot(DOC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,ylim=c(0,15))
+boxplot(DOC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,ylim=c(0,15),col=FALSE)
 segments(0.7,6.82,1.3,6.82,col="#005b96",lwd=2,lty=5)
 segments(1.7,6.99,2.3,6.99,col="#005b96",lwd=2,lty=5)
 segments(2.7,6.52,3.3,6.52,col="#005b96",lwd=2,lty=5)
-segments(3.7,7.75,4.3,7.75,col="#005b96",lwd=2,lty=5)
+segments(3.7,7.75,4.3,7.78,col="#005b96",lwd=2,lty=5)
 text(1.6,14,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
 my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
 ylab.text=expression(paste("POC (mg L"^"-1"*")"))
-boxplot(POC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5)
+boxplot(POC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,col=FALSE)
 segments(0.7,1.32,1.3,1.32,col="#005b96",lwd=2,lty=5)
 segments(1.7,1.44,2.3,1.44,col="#005b96",lwd=2,lty=5)
 segments(2.7,1.42,3.3,1.42,col="#005b96",lwd=2,lty=5)
 segments(3.7,1.21,4.3,1.21,col="#005b96",lwd=2,lty=5)
 text(3.4,4.8,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
-boxplot(HIX_DOM~Season,data=my_data2,varwidth=TRUE,ylab="DOM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25))
+boxplot(HIX_DOM~Season,data=my_data2,varwidth=TRUE,ylab="DOM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col=FALSE)
 abline(h=6,lty=2)
 abline(h=16,lty=2)
-text(1.7,4,labels="Fresher material",cex=1.5)
+text(1.7,4,labels="Less humified material",cex=1.5)
 text(1.7,23,labels="More humified material",cex=1.5)
 
-boxplot(HIX_POM~Season,data=my_data2,varwidth=TRUE,ylab="POM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25))
+boxplot(HIX_POM~Season,data=my_data2,varwidth=TRUE,ylab="POM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col=FALSE)
 abline(h=6,lty=2)
 abline(h=16,lty=2)
+
+# Crossplot of HIX and BIX by season/location
+dom_plot <- ggplot()+
+  geom_point(my_data2,mapping=aes(HIX_DOM,BIX_DOM,color=Season),size=2.5)+
+  ylim(0,1.3)+
+  xlim(0,27)+
+  scale_color_manual(breaks=c("Winter","Spring","Summer","Fall"),
+                     values=c("#1E88E5","#004D40","#FFC107","#D81B60"))+
+  ylab("DOM BIX")+
+  xlab("DOM HIX")+
+  theme_classic(base_size = 15)+
+  theme(legend.position=c(0.8,0.8))
+
+pom_plot <- ggplot()+
+  geom_point(my_data2,mapping=aes(HIX_POM,BIX_POM,color=Season),size=2.5)+
+  ylim(0,1.3)+
+  xlim(0,27)+
+  scale_color_manual(breaks=c("Winter","Spring","Summer","Fall"),
+                     values=c("#1E88E5","#004D40","#FFC107","#D81B60"))+
+  ylab("POM BIX")+
+  xlab("POM HIX")+
+  theme_classic(base_size = 15)+
+  theme(legend.position='none')
+
+ggarrange(dom_plot,pom_plot,common.legend=FALSE,ncol=2,nrow=1)
 
 # Separate data by data pool and by surface and bottom
 env_s <- my_data2 %>% filter(Depth == "S") %>% select(Temp,Sal,DO_Sat,Turb,Chla)
