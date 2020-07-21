@@ -80,6 +80,17 @@ segments(2.7,12.19,3.3,12.19,col="#005b96",lwd=2,lty=5)
 segments(3.7,10.37,4.3,10.37,col="#005b96",lwd=2,lty=5)
 text(1.6,125,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
+# Plot stratication index for SI
+my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
+par(mar=c(5.1,5.1,4.1,2.1))
+par(mfrow=c(1,2))
+ylab.text=expression(paste("Stratification index (ppt m"^"-1"*")"))
+boxplot(Strat_Index~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.5,cex.axis=1.5,col=FALSE)
+
+ylab.text=expression(paste("Flushing time (d"^"-1"*")"))
+boxplot(Flushing_Time~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.5,cex.axis=1.5,col=FALSE)
+
+
 # Plot DOM and POM parameter by season as box plots
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(2,2))
