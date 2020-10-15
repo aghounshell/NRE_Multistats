@@ -61,27 +61,27 @@ med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM) %>% g
   summarize_all(funs(median))
 
 # Plot salinity and chla
-my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
+my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(1,2))
-boxplot(Sal~Season,data=my_data2,varwidth=TRUE,ylab="Salinity",cex.lab=1.5,cex.axis=1.5)
+boxplot(Sal~Season,data=my_data2,varwidth=TRUE,ylab="Salinity",cex.lab=1.5,cex.axis=1.5,col="white")
 segments(0.7,7.52,1.3,7.52,col="#005b96",lwd=2,lty=5)
 segments(1.7,4.65,2.3,4.65,col="#005b96",lwd=2,lty=5)
 segments(2.7,10.9,3.3,10.9,col="#005b96",lwd=2,lty=5)
 segments(3.7,9.26,4.3,9.26,col="#005b96",lwd=2,lty=5)
-text(1.6,19,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
+text(3.5,19,labels="- - - 2000-2019\nmedian",col="#005b96",cex=1.5)
 
 # Chla plotted w/o outliers
 ylab.text=expression(paste("Chla (",mu,"g L"^"-1"*")"))
-boxplot(Chla~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.5,cex.axis=1.5)
+boxplot(Chla~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.5,cex.axis=1.5,col="white")
 segments(0.7,11.65,1.3,11.65,col="#005b96",lwd=2,lty=5)
 segments(1.7,12.0,2.3,12.0,col="#005b96",lwd=2,lty=5)
 segments(2.7,12.19,3.3,12.19,col="#005b96",lwd=2,lty=5)
 segments(3.7,10.37,4.3,10.37,col="#005b96",lwd=2,lty=5)
-text(1.6,125,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
+text(3.5,125,labels="- - - 2000-2019\nmedian",col="#005b96",cex=1.5)
 
-# Plot stratication index for SI
-my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
+# Plot stratication index for SI (1100 x 600)
+my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(1,2))
 ylab.text=expression(paste("Stratification index (ppt m"^"-1"*")"))
@@ -91,17 +91,17 @@ ylab.text=expression(paste("Flushing time (d"^"-1"*")"))
 boxplot(Flushing_Time~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.5,cex.axis=1.5,col=FALSE)
 
 
-# Plot DOM and POM parameter by season as box plots
+# Plot DOM and POM parameter by season as box plots (1100 x 1000)
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(2,2))
-my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
+my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
 ylab.text=expression(paste("DOC (mg L"^"-1"*")"))
 boxplot(DOC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,ylim=c(0,15),col=FALSE)
 segments(0.7,6.82,1.3,6.82,col="#005b96",lwd=2,lty=5)
 segments(1.7,6.99,2.3,6.99,col="#005b96",lwd=2,lty=5)
 segments(2.7,6.52,3.3,6.52,col="#005b96",lwd=2,lty=5)
 segments(3.7,7.75,4.3,7.78,col="#005b96",lwd=2,lty=5)
-text(1.6,14,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
+text(3.4,14,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
 my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
 ylab.text=expression(paste("POC (mg L"^"-1"*")"))
@@ -124,24 +124,24 @@ abline(h=16,lty=2)
 
 # Crossplot of HIX and BIX by season/location
 dom_plot <- ggplot()+
-  geom_point(my_data2,mapping=aes(HIX_DOM,BIX_DOM,color=Season),size=2.5)+
-  ylim(0,1.3)+
-  xlim(0,27)+
+  geom_point(my_data2,mapping=aes(BIX_DOM,HIX_DOM,color=Season),size=2.5)+
+  xlim(0,1.3)+
+  ylim(0,27)+
   scale_color_manual(breaks=c("Winter","Spring","Summer","Fall"),
                      values=c("#1E88E5","#004D40","#FFC107","#D81B60"))+
-  ylab("DOM BIX")+
-  xlab("DOM HIX")+
+  ylab("DOM HIX")+
+  xlab("DOM BIX")+
   theme_classic(base_size = 15)+
   theme(legend.position=c(0.8,0.8))
 
 pom_plot <- ggplot()+
-  geom_point(my_data2,mapping=aes(HIX_POM,BIX_POM,color=Season),size=2.5)+
-  ylim(0,1.3)+
-  xlim(0,27)+
+  geom_point(my_data2,mapping=aes(BIX_POM,HIX_POM,color=Season),size=2.5)+
+  xlim(0,1.3)+
+  ylim(0,27)+
   scale_color_manual(breaks=c("Winter","Spring","Summer","Fall"),
                      values=c("#1E88E5","#004D40","#FFC107","#D81B60"))+
-  ylab("POM BIX")+
-  xlab("POM HIX")+
+  xlab("POM BIX")+
+  ylab("POM HIX")+
   theme_classic(base_size = 15)+
   theme(legend.position='none')
 
@@ -180,24 +180,24 @@ chart.Correlation(pom_b, histogram=TRUE, method=c("pearson"))
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(3,2))
 ylab.text=expression(paste("DOC (mg L"^"-1"*")"))
-boxplot(DOC_mg~Station,data=dom_all,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,ylim=c(0,15))
+boxplot(DOC_mg~Station,data=dom_all,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,ylim=c(0,15),col="white")
 
 ylab.text=expression(paste("POC (mg L"^"-1"*")"))
-boxplot(POC_mg~Station,data=pom_all,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5)
+boxplot(POC_mg~Station,data=pom_all,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,col="white")
 
-boxplot(HIX_DOM~Station,data=dom_all,varwidth=TRUE,ylab="DOM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25))
+boxplot(HIX_DOM~Station,data=dom_all,varwidth=TRUE,ylab="DOM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col="white")
 abline(h=6,lty=2)
 abline(h=16,lty=2)
 text(3,4,labels="Fresher material",cex=1.5)
 text(4,23,labels="More humified material",cex=1.5)
 
-boxplot(HIX_POM~Station,data=pom_all,varwidth=TRUE,ylab="POM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25))
+boxplot(HIX_POM~Station,data=pom_all,varwidth=TRUE,ylab="POM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col="white")
 abline(h=6,lty=2)
 abline(h=16,lty=2)
 
-boxplot(BIX_DOM~Station,data=dom_all,varwidth=TRUE,ylab="DOM BIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,1.3))
+boxplot(BIX_DOM~Station,data=dom_all,varwidth=TRUE,ylab="DOM BIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,1.3),col="white")
 
-boxplot(BIX_POM~Station,data=pom_all,varwidth=TRUE,ylab="POM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,1.3))
+boxplot(BIX_POM~Station,data=pom_all,varwidth=TRUE,ylab="POM BIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,1.3),col="white")
 
 ## Plot surface and bottom salinity by station down estuary
 par(mar=c(5.1,5.1,4.1,2.1))
