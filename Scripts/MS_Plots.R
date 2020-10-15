@@ -57,8 +57,10 @@ poc_summer <- median(long_summer$POC,na.rm=TRUE)
 poc_fall <- median(long_fall$POC,na.rm=TRUE)
 
 ## Calculate median for the yearly data (2015-2016) for each season
-med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM) %>% group_by(Season) %>% 
+med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM,Flushing_Time) %>% group_by(Season) %>% 
   summarize_all(funs(median))
+
+median(my_data2$Flushing_Time)
 
 # Plot salinity and chla
 my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
@@ -90,6 +92,9 @@ boxplot(Strat_Index~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.
 ylab.text=expression(paste("Flushing time (d"^"-1"*")"))
 boxplot(Flushing_Time~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.5,cex.axis=1.5,col=FALSE)
 
+# Calculate median flushing time
+
+
 
 # Plot DOM and POM parameter by season as box plots (1100 x 1000)
 par(mar=c(5.1,5.1,4.1,2.1))
@@ -103,20 +108,20 @@ segments(2.7,6.52,3.3,6.52,col="#005b96",lwd=2,lty=5)
 segments(3.7,7.75,4.3,7.78,col="#005b96",lwd=2,lty=5)
 text(3.4,14,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
-my_data2$Season<-factor(my_data2$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
+my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
 ylab.text=expression(paste("POC (mg L"^"-1"*")"))
 boxplot(POC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,col=FALSE)
 segments(0.7,1.32,1.3,1.32,col="#005b96",lwd=2,lty=5)
 segments(1.7,1.44,2.3,1.44,col="#005b96",lwd=2,lty=5)
 segments(2.7,1.42,3.3,1.42,col="#005b96",lwd=2,lty=5)
 segments(3.7,1.21,4.3,1.21,col="#005b96",lwd=2,lty=5)
-text(3.4,4.8,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
+text(1.6,4.8,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
 boxplot(HIX_DOM~Season,data=my_data2,varwidth=TRUE,ylab="DOM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col=FALSE)
 abline(h=6,lty=2)
 abline(h=16,lty=2)
 text(1.7,4,labels="Less humified material",cex=1.5)
-text(1.7,23,labels="More humified material",cex=1.5)
+text(3.4,23,labels="More humified material",cex=1.5)
 
 boxplot(HIX_POM~Season,data=my_data2,varwidth=TRUE,ylab="POM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col=FALSE)
 abline(h=6,lty=2)
