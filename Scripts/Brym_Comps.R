@@ -111,6 +111,8 @@ data15$SD_a254p[11] <- sd(sta180$a254_POM,na.rm=TRUE)
 data15 <- as.data.frame(data15)
 data15 <- data15 %>% arrange(Station)
 
+write_csv(data15,'./Data/Multistats_Data.csv')
+
 sal <- ggplot()+
   geom_point(data15,mapping=aes(x=Station,y=Mean_Sal,color="2015-2016"),size=3)+
   geom_line(data15,mapping=aes(x=Station,y=Mean_Sal,color="2015-2016"),size=1)+
@@ -122,6 +124,7 @@ sal <- ggplot()+
                                  color="2011-2012"),size=1)+
   scale_color_manual(breaks=c("2015-2016","2011-2012"), values=c('#173f5f','#3caea3'))+
   ylab("Salinity")+
+  scale_x_continuous(breaks=c(0,20,30,50,60,70,100,120,140,160,180))+
   theme_classic(base_size=15)+
   theme(legend.title = element_blank())
 
@@ -136,6 +139,7 @@ chla <- ggplot()+
                                  color="2011-2012"),size=1)+
   scale_color_manual(breaks=c("2015-2016","2011-2012"), values=c('#173f5f','#3caea3'))+
   ylab(expression(paste("Chla (", mu,"g L"^-1*")")))+
+  scale_x_continuous(breaks=c(0,20,30,50,60,70,100,120,140,160,180))+
   theme_classic(base_size=15)+
   theme(legend.title = element_blank())
 
@@ -150,10 +154,14 @@ a254 <- ggplot()+
                                  color="2011-2012"),size=1)+
   scale_color_manual(breaks=c("2015-2016","2011-2012"), values=c('#173f5f','#3caea3'))+
   ylab(expression(paste("a254 (m"^-1*")")))+
+  scale_x_continuous(breaks=c(0,20,30,50,60,70,100,120,140,160,180))+
   theme_classic(base_size=15)+
   theme(legend.title = element_blank())
 
-ggarrange(sal,chla,a254,common.legend=TRUE,ncol=2,nrow=2)
+brym_fig <- ggarrange(sal,chla,a254,common.legend=TRUE,ncol=2,nrow=2)
+
+ggsave("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure8_sta.jpg",brym_fig,dpi=800,width=10,height=8,
+       units=c("in"))
 
 ggplot()+
   geom_point(data15,mapping=aes(x=Station,y=Mean_a254p,color="2015-2016"),size=3)+
