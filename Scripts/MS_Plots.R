@@ -64,23 +64,30 @@ median(my_data2$Flushing_Time)
 
 # Plot salinity and chla
 my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
+
+
+jpeg("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure3.jpg",width=200,height=110,units="mm",res=800)
+
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(1,2))
-boxplot(Sal~Season,data=my_data2,varwidth=TRUE,ylab="Salinity",cex.lab=1.5,cex.axis=1.5,col="white")
-segments(0.7,7.52,1.3,7.52,col="#005b96",lwd=2,lty=5)
-segments(1.7,4.65,2.3,4.65,col="#005b96",lwd=2,lty=5)
-segments(2.7,10.9,3.3,10.9,col="#005b96",lwd=2,lty=5)
-segments(3.7,9.26,4.3,9.26,col="#005b96",lwd=2,lty=5)
-text(3.5,19,labels="- - - 2000-2019\nmedian",col="#005b96",cex=1.5)
+
+boxplot(Sal~Season,data=my_data2,varwidth=TRUE,ylab="Salinity",cex.lab=0.8,cex.axis=0.8,col="white")
+segments(0.7,11.03,1.3,11.03,col="#005b96",lwd=2,lty=5) # Summer
+segments(1.7,9.39,2.3,9.39,col="#005b96",lwd=2,lty=5) # Fall
+segments(2.7,7.53,3.3,7.53,col="#005b96",lwd=2,lty=5) # Winter
+segments(3.7,4.73,4.3,4.73,col="#005b96",lwd=2,lty=5) # Spring
+text(3.5,19,labels="- - - 2000-2019\nmedian",col="#005b96",cex=0.8)
 
 # Chla plotted w/o outliers
 ylab.text=expression(paste("Chla (",mu,"g L"^"-1"*")"))
-boxplot(Chla~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=1.5,cex.axis=1.5,col="white")
-segments(0.7,11.65,1.3,11.65,col="#005b96",lwd=2,lty=5)
-segments(1.7,12.0,2.3,12.0,col="#005b96",lwd=2,lty=5)
-segments(2.7,12.19,3.3,12.19,col="#005b96",lwd=2,lty=5)
-segments(3.7,10.37,4.3,10.37,col="#005b96",lwd=2,lty=5)
-text(3.5,125,labels="- - - 2000-2019\nmedian",col="#005b96",cex=1.5)
+boxplot(Chla~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=0.8,cex.axis=0.8,col="white")
+segments(0.7,12.27,1.3,12.27,col="#005b96",lwd=2,lty=5) #Summer
+segments(1.7,10.40,2.3,10.40,col="#005b96",lwd=2,lty=5) #Fall
+segments(2.7,11.86,3.3,11.86,col="#005b96",lwd=2,lty=5) #Winter
+segments(3.7,12.23,4.3,12.23,col="#005b96",lwd=2,lty=5) #Spring
+text(3.5,125,labels="- - - 2000-2019\nmedian",col="#005b96",cex=0.8)
+
+dev.off()
 
 # Plot stratication index for SI (1100 x 600)
 my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
@@ -97,35 +104,39 @@ boxplot(Flushing_Time~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=
 
 
 # Plot DOM and POM parameter by season as box plots (1100 x 1000)
+jpeg("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure4.jpg",width=250,height=250,units="mm",res=800)
+
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(2,2))
 my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
 ylab.text=expression(paste("DOC (mg L"^"-1"*")"))
 boxplot(DOC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,ylim=c(0,15),col=FALSE)
-segments(0.7,6.82,1.3,6.82,col="#005b96",lwd=2,lty=5)
-segments(1.7,6.99,2.3,6.99,col="#005b96",lwd=2,lty=5)
-segments(2.7,6.52,3.3,6.52,col="#005b96",lwd=2,lty=5)
-segments(3.7,7.75,4.3,7.78,col="#005b96",lwd=2,lty=5)
-text(3.4,14,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
+segments(0.7,6.52,1.3,6.52,col="#005b96",lwd=2,lty=5) #Summer
+segments(1.7,7.78,2.3,7.78,col="#005b96",lwd=2,lty=5) #Fall
+segments(2.7,6.83,3.3,6.83,col="#005b96",lwd=2,lty=5) #Winter
+segments(3.7,7.00,4.3,7.00,col="#005b96",lwd=2,lty=5) #Spring
+text(3.4,1,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
 my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
 ylab.text=expression(paste("POC (mg L"^"-1"*")"))
 boxplot(POC_mg~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.axis=1.5,cex.lab=1.5,col=FALSE)
-segments(0.7,1.32,1.3,1.32,col="#005b96",lwd=2,lty=5)
-segments(1.7,1.44,2.3,1.44,col="#005b96",lwd=2,lty=5)
-segments(2.7,1.42,3.3,1.42,col="#005b96",lwd=2,lty=5)
-segments(3.7,1.21,4.3,1.21,col="#005b96",lwd=2,lty=5)
-text(1.6,4.8,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
+segments(0.7,1.43,1.3,1.43,col="#005b96",lwd=2,lty=5) #Summer
+segments(1.7,1.22,2.3,1.22,col="#005b96",lwd=2,lty=5) #Fall
+segments(2.7,1.33,3.3,1.33,col="#005b96",lwd=2,lty=5) #Winter
+segments(3.7,1.46,4.3,1.46,col="#005b96",lwd=2,lty=5) #SPring
+text(1.7,4.8,labels="- - - 2000-2019 median",col="#005b96",cex=1.5)
 
 boxplot(HIX_DOM~Season,data=my_data2,varwidth=TRUE,ylab="DOM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col=FALSE)
 abline(h=6,lty=2)
 abline(h=16,lty=2)
 text(1.7,4,labels="Less humified material",cex=1.5)
-text(3.4,23,labels="More humified material",cex=1.5)
+text(3.3,23,labels="More humified material",cex=1.5)
 
 boxplot(HIX_POM~Season,data=my_data2,varwidth=TRUE,ylab="POM HIX",cex.axis=1.5,cex.lab=1.5,ylim=c(0,25),col=FALSE)
 abline(h=6,lty=2)
 abline(h=16,lty=2)
+
+dev.off()
 
 # Crossplot of HIX and BIX by season/location
 dom_plot <- ggplot()+

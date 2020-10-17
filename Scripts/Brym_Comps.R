@@ -158,10 +158,9 @@ a254 <- ggplot()+
   theme_classic(base_size=15)+
   theme(legend.title = element_blank())
 
-brym_fig <- ggarrange(sal,chla,a254,common.legend=TRUE,ncol=2,nrow=2)
+ggarrange(sal,chla,a254,common.legend=TRUE,ncol=2,nrow=2)
 
-ggsave("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure8_sta.jpg",brym_fig,dpi=800,width=10,height=8,
-       units=c("in"))
+#ggsave("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure8_sta.jpg",brym_fig,dpi=800,width=1000,height=800)
 
 ggplot()+
   geom_point(data15,mapping=aes(x=Station,y=Mean_a254p,color="2015-2016"),size=3)+

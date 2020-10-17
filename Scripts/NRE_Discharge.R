@@ -17,7 +17,7 @@ q_avg <- read_csv("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Data/Avg_Q.csv
 q_avg$DateTime <- as.POSIXct(strptime(q_avg$DateTime, "%m/%d/%Y", tz="EST"))
 q_avg$mean_va <- q_avg$mean_va*0.02832/0.69
 
-ggplot()+
+dis <- ggplot()+
   geom_line(q,mapping=aes(x=datetime,y=q$`85489_00060_00003`,linetype="Q"),size=1)+
   geom_line(q_avg,mapping=aes(x=DateTime,y=mean_va,linetype="Yearly average"),size=1)+
   geom_vline(xintercept = as.POSIXct("2015-07-20"),color="#D3D3D3")+ 
@@ -48,3 +48,5 @@ ggplot()+
   theme(legend.position = c(0.15,0.85),legend.title = element_blank(),
         legend.box.background = element_rect(color="black"), 
         legend.box.margin = margin(0.2,0.2,0.2,0.2))
+
+ggsave("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure2.jpg",dis,dpi=800,width=174,height=100,units=c("mm"))
