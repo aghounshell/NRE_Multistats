@@ -84,7 +84,10 @@ hix <- ggplot()+
   theme_classic(base_size = 15)+
   theme(legend.title = element_blank())
 
-ggarrange(sal,doc,suva,hix,common.legend=TRUE,ncol=2,nrow=2)
+all <- ggarrange(sal,doc,suva,hix,common.legend=TRUE,ncol=2,nrow=2)
+
+ggsave("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure7.jpg",all,dpi=800,width=250,height=250,
+       units=c("mm"))
 
 # Plot Chla comp between the two study periods
 ggplot()+
