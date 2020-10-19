@@ -372,6 +372,9 @@ pomspe_b_sc2 <- scores(pom_b_pca_2, choices=1:3, display="sp", scaling=2)
 ## Re-arranged for publication: 6 panel graph with each PCA result
 # Env_S
 # Season ordered as: winter, spring, summer, fall
+
+jpeg("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure5.jpg",width=300,height=350,units="mm",res=800)
+
 env_s$Season<-factor(env_s$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
 with(env_s,levels(Season))
 colvec<-c("#1E88E5","#004D40","#FFC107","#D81B60")
@@ -380,16 +383,17 @@ sq<-c(21,22,23,24)
 
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(3,2))
-plot(env_s_pca_2,type="n",scaling=2,xlab="PC1 (54% var. explained)",ylab="PC2 (23% var. explained)",cex.axis=1.5,
-     cex.lab=1.5,xlim=c(-3,3))
+
+plot(env_s_pca_2,type="n",scaling=2,xlab="PC1 (54% var. explained)",ylab="PC2 (23% var. explained)",cex.axis=2,
+     cex.lab=2,xlim=c(-3,3))
 with(env_s,points(env_s_pca_2,display="sites",col=c("black","black","black","black"),scaling=2,pch=sq[Season],
-                  bg=colvec[Season],cex=1.5))
+                  bg=colvec[Season],cex=2))
 arrows(0, 0, envspe_s_sc2[,1], envspe_s_sc2[,2], angle=20, col="black")
-text(env_s_pca_2, display = "species", labels=c("","","",""), scaling=2, cex = 0.8, col = "black")
-text(-2.55,1.1,labels="Temp",cex=1.5,col="black")
-text(-2.55,-0.15,labels="Sal",cex=1.5,col="black")
-text(2.85,-0.35,labels="Turb",cex=1.5,col="black")
-text(-1.8,-2.3,labels="Chla",cex=1.5,col="black")
+text(env_s_pca_2, display = "species", labels=c("","","",""), scaling=2, cex = 1, col = "black")
+text(-2.55,1.1,labels="Temp",cex=2,col="black")
+text(-2.55,-0.15,labels="Sal",cex=2,col="black")
+text(2.85,-0.35,labels="Turb",cex=2,col="black")
+text(-1.8,-2.3,labels="Chla",cex=2,col="black")
 
 # Env_B
 # Season ordered as: winter, spring, summer, fall
@@ -399,17 +403,17 @@ colvec<-c("#1E88E5","#004D40","#FFC107","#D81B60")
 with(env_b,levels(Season))
 sq<-c(21,22,23,24)
 
-plot(env_b_pca_2,type="n",scaling=2,xlab="PC1 (51% var. explained)",ylab="PC2 (24% var. explained)",cex.axis=1.5,
-     cex.lab=1.5,xlim=c(-3,3))
+plot(env_b_pca_2,type="n",scaling=2,xlab="PC1 (51% var. explained)",ylab="PC2 (24% var. explained)",cex.axis=2,
+     cex.lab=2,xlim=c(-3,3))
 with(env_b,points(env_b_pca_2,display="sites",col=c("black","black","black","black"),scaling=2,pch=sq[Season],
-                  bg=colvec[Season],cex=1.5))
+                  bg=colvec[Season],cex=2))
 arrows(0, 0, envspe_b_sc2[,1], envspe_b_sc2[,2], angle=20, col="black")
-text(env_b_pca_2, display = "species", labels=c("","","","",""), scaling=2, cex = 0.8, col = "black")
-text(-2.55,1.0,labels="Temp",cex=1.5,col="black")
-text(-2.5,-0.65,labels="Sal",cex=1.5,col="black")
-text(2.55,-1.1,labels="%DO",cex=1.5,col="black")
-text(2.55,0.8,labels="Turb",cex=1.5,col="black")
-text(-0.3,-2.6,labels="Chla",cex=1.5,col="black")
+text(env_b_pca_2, display = "species", labels=c("","","","",""), scaling=2, cex = 1, col = "black")
+text(-2.55,1.0,labels="Temp",cex=2,col="black")
+text(-2.5,-0.65,labels="Sal",cex=2,col="black")
+text(2.55,-1.1,labels="%DO",cex=2,col="black")
+text(2.55,0.8,labels="Turb",cex=2,col="black")
+text(-0.3,-2.6,labels="Chla",cex=2,col="black")
 
 # dom_s
 dom_s$Season<-factor(dom_s$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
@@ -418,20 +422,20 @@ colvec<-c("#1E88E5","#004D40","#FFC107","#D81B60")
 with(dom_s,levels(Season))
 sq<-c(21,22,23,24)
 
-plot(dom_s_pca_2,type="n",scaling=2,xlab="PC1 (59% var. explained)",ylab="PC2 (22% var. explained)",cex.axis=1.5,
-     cex.lab=1.5,xlim=c(-3,3))
+plot(dom_s_pca_2,type="n",scaling=2,xlab="PC1 (59% var. explained)",ylab="PC2 (22% var. explained)",cex.axis=2,
+     cex.lab=2,xlim=c(-3,3))
 with(dom_s,points(dom_s_pca_2,display="sites",col=c("black","black","black","black"),scaling=2,pch=sq[Season],
-                  bg=colvec[Season],cex=1.5))
+                  bg=colvec[Season],cex=2))
 with(dom_s,legend("topleft",legend=levels(Season),bty="n",col=c("black","black","black","black"),
-                  pch=c(21,22,23,24),pt.bg=colvec,cex=1.3))
+                  pch=c(21,22,23,24),pt.bg=colvec,cex=2))
 arrows(0, 0, domspe_s_sc2[,1], domspe_s_sc2[,2], angle=20, col="black")
-text(dom_s_pca_2, display = "species", labels=c("","","","",""), scaling=2, cex = 0.8, 
+text(dom_s_pca_2, display = "species", labels=c("","","","",""), scaling=2, cex = 1, 
      col = "black")
-text(2.6,-0.7,labels="DOC",cex=1.5,col="black")
-text(1.95,1.15,labels="DOC:DON",cex=1.5,col="black")
-text(2.6,0.4,labels="a254",cex=1.5,col="black")
-text(-1.8,-1.6,labels="BIX",cex=1.5,col="black")
-text(1.3,-2.4,labels="T",cex=1.5,col="black")
+text(2.6,-0.7,labels="DOC",cex=2,col="black")
+text(1.95,1.15,labels="DOC:DON",cex=2,col="black")
+text(2.6,0.4,labels="a254",cex=2,col="black")
+text(-1.8,-1.6,labels="BIX",cex=2,col="black")
+text(1.3,-2.4,labels="T",cex=2,col="black")
 
 # dom_b
 dom_b$Season<-factor(dom_b$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
@@ -440,18 +444,18 @@ colvec<-c("#1E88E5","#004D40","#FFC107","#D81B60")
 with(dom_b,levels(Season))
 sq<-c(21,22,23,24)
 
-plot(dom_b_pca_2,type="n",scaling=2,xlab="PC1 (60% var. explained)",ylab="PC2 (17% var. explained)",cex.axis=1.5,
-     cex.lab=1.5,xlim=c(-3,3))
+plot(dom_b_pca_2,type="n",scaling=2,xlab="PC1 (60% var. explained)",ylab="PC2 (17% var. explained)",cex.axis=2,
+     cex.lab=2,xlim=c(-3,3))
 with(dom_b,points(dom_b_pca_2,display="sites",col=c("black","black","black","black"),scaling=2,pch=sq[Season],
-                  bg=colvec[Season],cex=1.5))
+                  bg=colvec[Season],cex=2))
 arrows(0, 0, domspe_b_sc2[,1], domspe_b_sc2[,2], angle=20, col="black")
-text(dom_b_pca_2, display = "species", labels=c("","","","",""), scaling=2, cex = 0.8, 
+text(dom_b_pca_2, display = "species", labels=c("","","","",""), scaling=2, cex = 1, 
      col = "black")
-text(2.5,-0.7,labels="DOC",cex=1.5,col="black")
-text(1.7,1.4,labels="DOC:DON",cex=1.5,col="black")
-text(2.4,0.6,labels="SUVA",cex=1.5,col="black")
-text(-2.55,-0.4,labels="BIX",cex=1.5,col="black")
-text(1.1,-2.5,labels="T",cex=1.5,col="black")
+text(2.5,-0.7,labels="DOC",cex=2,col="black")
+text(1.7,1.4,labels="DOC:DON",cex=2,col="black")
+text(2.4,0.6,labels="SUVA",cex=2,col="black")
+text(-2.55,-0.4,labels="BIX",cex=2,col="black")
+text(1.1,-2.5,labels="T",cex=2,col="black")
 
 # pom_s
 pom_s$Season<-factor(pom_s$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
@@ -460,20 +464,20 @@ colvec<-c("#1E88E5","#004D40","#FFC107","#D81B60")
 with(pom_s,levels(Season))
 sq<-c(21,22,23,24)
 
-plot(pom_s_pca_2,type="n",scaling=2,xlab="PC1 (39% var. explained)",ylab="PC2 (25% var. explained)",cex.axis=1.5,
-     cex.lab=1.5,xlim=c(-3,3))
+plot(pom_s_pca_2,type="n",scaling=2,xlab="PC1 (39% var. explained)",ylab="PC2 (25% var. explained)",cex.axis=2,
+     cex.lab=2,xlim=c(-3,3))
 with(pom_s,points(pom_s_pca_2,display="sites",col=c("black","black","black","black"),scaling=2,pch=sq[Season],
-                  bg=colvec[Season],cex=1.5))
+                  bg=colvec[Season],cex=2))
 arrows(0, 0, pomspe_s_sc2[,1], pomspe_s_sc2[,2], angle=20, col="black")
 text(pom_s_pca_2, display = "species", labels=c("","","","","","",""), scaling=2, 
-     cex = 0.8, col = "black")
-text(2.6,-0.3,labels="POC",cex=1.5,col="black")
-text(-0.2,-1.4,labels="POC:PN",cex=1.5,col="black")
-text(0.9,-2.3,labels="a254",cex=1.5,col="black")
-text(-1.7,-1.9,labels="SUVA",cex=1.5,col="black")
-text(-2.3,-0.3,labels="HIX",cex=1.5,col="black")
-text(1.9,0.4,labels="BIX",cex=1.5,col="black")
-text(1.9,-0.8,labels="T",cex=1.5,col="black")
+     cex = 1, col = "black")
+text(2.6,-0.3,labels="POC",cex=2,col="black")
+text(-0.2,-1.4,labels="POC:PN",cex=2,col="black")
+text(0.9,-2.3,labels="a254",cex=2,col="black")
+text(-1.7,-1.9,labels="SUVA",cex=2,col="black")
+text(-2.3,-0.3,labels="HIX",cex=2,col="black")
+text(1.9,0.4,labels="BIX",cex=2,col="black")
+text(1.9,-0.8,labels="T",cex=2,col="black")
 
 # pom_b
 pom_b$Season<-factor(pom_b$Season, levels=c("Winter", "Spring", "Summer", "Fall"))
@@ -482,23 +486,23 @@ colvec<-c("#1E88E5","#004D40","#FFC107","#D81B60")
 with(pom_b,levels(Season))
 sq<-c(21,22,23,24)
 
-plot(pom_b_pca_2,type="n",scaling=2,xlab="PC1 (38% var. explained)",ylab="PC2 (28% var. explained)",cex.axis=1.5,
-     cex.lab=1.5)
+plot(pom_b_pca_2,type="n",scaling=2,xlab="PC1 (38% var. explained)",ylab="PC2 (28% var. explained)",cex.axis=2,
+     cex.lab=2)
 with(pom_b,points(pom_b_pca_2,display="sites",col=c("black","black","black","black"),scaling=2,pch=sq[Season],
-                  bg=colvec[Season],cex=1.5))
+                  bg=colvec[Season],cex=2))
 arrows(0, 0, pomspe_b_sc2[,1], pomspe_b_sc2[,2], angle=20, col="black")
 text(pom_b_pca_2, display = "species", labels=c("","","","","","","",
-                                              ""), scaling=2, cex = 0.8, col = "black")
-text(2.2,-0.2,labels="POC",cex=1.5,col="black")
-text(0,1.5,labels="POC:PN",cex=1.5,col="black")
-text(0.9,2.2,labels="a254",cex=1.5,col="black")
-text(-0.6,2.1,labels="SUVA",cex=1.5,col="black")
-text(-1.4,0.8,labels="HIX",cex=1.5,col="black")
-text(1.2,-1.1,labels="BIX",cex=1.5,col="black")
-text(2.2,0.3,labels="T",cex=1.5,col="black")
-text(2.2,0.7,labels="N",cex=1.5,col="black")
+                                              ""), scaling=2, cex = 1, col = "black")
+text(2.2,-0.2,labels="POC",cex=2,col="black")
+text(0,1.5,labels="POC:PN",cex=2,col="black")
+text(0.9,2.2,labels="a254",cex=2,col="black")
+text(-0.6,2.1,labels="SUVA",cex=2,col="black")
+text(-1.4,0.8,labels="HIX",cex=2,col="black")
+text(1.2,-1.1,labels="BIX",cex=2,col="black")
+text(2.2,0.3,labels="T",cex=2,col="black")
+text(2.2,0.7,labels="N",cex=2,col="black")
 
-#dev.off()
+dev.off()
 
 ###################################### RDA ######################################
 # Now conduct RDA on each DOM or POM data matrix using pared down variables
@@ -588,6 +592,8 @@ pom_b_rbp.sc2 <- scores(pom_b_rda_final,display="bp",choices=c(1,2),scaling=2)
 ## Plot RDA results
 #pdf("C:/Users/ahoun/OneDrive/Desktop/NRE_MultiStats/Plots/RDA_SandB.pdf", width=12, height=8)
 
+jpeg("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure6.jpg",width=250,height=250,units="mm",res=800)
+
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(2,2))
 
@@ -670,5 +676,5 @@ text(0.8,-0.5,labels="BIX",cex=1.5,col="black")
 text(0.9,1.1,labels="N",cex=1.5,col="black")
 text(pom_b_rda_final,display="bp",labels=c("Chla","Turb","Sal"),scaling=2,cex=1.5,col="black")
 
-#dev.off()
+dev.off()
 
