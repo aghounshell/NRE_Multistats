@@ -2,12 +2,13 @@
 # A Hounshell, 11 Mar 2020
 
 # Load in libraries
-pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr)
+pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr,ggplot2)
 
 # Load in data (Database_DOSat.csv)
 my_data <- read.csv(file.choose())
 # Remove un-complete data rows (any rows that do not have all data associated with them)
 my_data2 <- my_data[complete.cases(my_data),]
+my_data2$Date <- as.POSIXct(strptime(my_data2$Date, "%m/%d/%Y", tz="EST"))
 
 # Load in historical data: to calculate median (NRWQ_2000to2019)
 long_data <- read.csv(file.choose())
@@ -17,6 +18,190 @@ long_data$DOC <- long_data$DOC*12.011/1000
 
 # Convert POC from ug/L to mg/L
 long_data$POC <- long_data$POC/1000
+
+###### UPDATED EXPLORATORY GRAPHS FOR REVISIONS ######
+# Create graphs that capture temporal and spatial variability of various parameters
+# Calculate mean and SD for each station for each season (Summer 2015; Fall 2015; Winter 2015/2016; Spring 2015;
+# Summer 2016)
+mean_s_summer15 <- my_data2 %>% 
+  filter(Date >= "2015-07-20" & Date <= "2015-09-01") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Summer15") %>% 
+  mutate(Depth = "S")
+
+stdev_s_summer15 <- my_data2 %>% 
+  filter(Date >= "2015-07-20" & Date <= "2015-09-01") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Summer15") %>% 
+  mutate(Depth = "S")
+
+mean_b_summer15 <- my_data2 %>% 
+  filter(Date >= "2015-07-20" & Date <= "2015-09-01") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Summer15") %>% 
+  mutate(Depth = "B")
+
+stdev_b_summer15 <- my_data2 %>% 
+  filter(Date >= "2015-07-20" & Date <= "2015-09-01") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Summer15") %>% 
+  mutate(Depth = "B")
+
+mean_s_fall15 <- my_data2 %>% 
+  filter(Date>="2015-09-14" & Date<"2015-12-08") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Fall15") %>% 
+  mutate(Depth = "S")
+
+stdev_s_fall15 <- my_data2 %>% 
+  filter(Date>="2015-09-14" & Date<"2015-12-08") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Fall15") %>% 
+  mutate(Depth = "S")
+
+mean_b_fall15 <- my_data2 %>% 
+  filter(Date>="2015-09-14" & Date<"2015-12-08") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Fall15") %>% 
+  mutate(Depth = "B")
+
+stdev_b_fall15 <- my_data2 %>% 
+  filter(Date>="2015-09-14" & Date<"2015-12-08") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Fall15") %>% 
+  mutate(Depth = "B")
+
+mean_s_winter15 <- my_data2 %>% 
+  filter(Date>= "2015-12-01" & Date< "2016-03-07") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Winter15") %>% 
+  mutate(Depth = "S")
+
+stdev_s_winter15 <- my_data2 %>% 
+  filter(Date>= "2015-12-01" & Date< "2016-03-07") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Winter15") %>% 
+  mutate(Depth = "S")
+
+mean_b_winter15 <- my_data2 %>% 
+  filter(Date>= "2015-12-01" & Date< "2016-03-07") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Winter15") %>% 
+  mutate(Depth = "B")
+
+stdev_b_winter15 <- my_data2 %>% 
+  filter(Date>= "2015-12-01" & Date< "2016-03-07") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Winter15") %>% 
+  mutate(Depth = "B")
+
+mean_s_spring16 <- my_data2 %>% 
+  filter(Date>="2016-03-07" & Date<"2016-06-06") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Spring16") %>% 
+  mutate(Depth = "S")
+
+stdev_s_spring16 <- my_data2 %>% 
+  filter(Date>="2016-03-07" & Date<"2016-06-06") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Spring16") %>% 
+  mutate(Depth = "S")
+
+mean_b_spring16 <- my_data2 %>% 
+  filter(Date>="2016-03-07" & Date<"2016-06-06") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Spring16") %>% 
+  mutate(Depth = "B")
+
+stdev_b_spring16 <- my_data2 %>% 
+  filter(Date>="2016-03-07" & Date<"2016-06-06") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Spring16") %>% 
+  mutate(Depth = "B")
+
+mean_s_summer16 <- my_data2 %>% 
+  filter(Date>="2016-06-06") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Summer16") %>% 
+  mutate(Depth = "S")
+
+stdev_s_summer16 <- my_data2 %>% 
+  filter(Date>="2016-06-06") %>% 
+  filter(Depth == "S") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Summer16") %>% 
+  mutate(Depth = "S")
+
+mean_b_summer16 <- my_data2 %>% 
+  filter(Date>="2016-06-06") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(mean)) %>% 
+  mutate(Season = "Summer16") %>% 
+  mutate(Depth = "B")
+
+stdev_b_summer16 <- my_data2 %>% 
+  filter(Date>="2016-06-06") %>% 
+  filter(Depth == "B") %>% 
+  group_by(Station) %>% 
+  summarize_all(funs(sd)) %>% 
+  mutate(Season = "Summer16") %>% 
+  mutate(Depth = "B")
+
+## Use rbind to concatenate into one matrix for surface and bottom, mean and sd
+mean_s <- rbind(mean_s_summer15,mean_s_fall15,mean_s_winter15,mean_s_spring16,mean_s_summer16)
+
+stdev_s <- rbind(stdev_s_summer15,stdev_s_fall15,stdev_s_winter15,stdev_s_spring16,stdev_s_summer16)
+
+mean_b <- rbind(mean_b_summer15,mean_b_fall15,mean_b_winter15,mean_b_spring16,mean_b_summer16)
+
+stdev_b <- rbind(stdev_b_summer15,stdev_b_fall15,stdev_b_winter15,stdev_b_spring16,stdev_b_summer16)
+
+## Then plot!
+ggplot()+
+  geom_line(mean_s,mapping=aes(x=Station,y=Sal,color=Season))+
+  geom_point(mean_s,mapping=aes(x=Station,y=Sal,color=Season))+
+  geom_errorbar(stdev_s,mapping=aes(x=Station,ymin=mean_s$Sal-Sal,ymax=mean_s$Sal+Sal,color=Season))
+
+ggplot()+
+  geom_line(mean_b,mapping=aes(x=Station,y=Sal,color=Season))+
+  geom_point(mean_b,mapping=aes(x=Station,y=Sal,color=Season))+
+  geom_errorbar(stdev_b,mapping=aes(x=Station,ymin=mean_b$Sal-Sal,ymax=mean_b$Sal+Sal,color=Season))
 
 # FIlter out S and B
 long_b <- long_data %>% filter(Depth == "B")
