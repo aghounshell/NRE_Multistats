@@ -19,6 +19,289 @@ long_data$DOC <- long_data$DOC*12.011/1000
 # Convert POC from ug/L to mg/L
 long_data$POC <- long_data$POC/1000
 
+############ Heatmaps for spatial/temporal visualizations of key parameters? #######################
+## In response to paper revisions: 26 Jan 2021
+
+# Meh - not a great visualization....
+# Try heatmaps?
+# Need to interpret among data first....
+# Separate into S and B
+mydata_s <- my_data2 %>% 
+  filter(Depth == "S") %>% 
+  mutate(Date = as.Date(Date))
+mydata_b <- my_data2 %>% 
+  filter(Depth == "B") %>% 
+  mutate(Date=as.Date(Date))
+
+interp_sal <- interp(x=mydata_s$Date, y=mydata_s$Station, z=mydata_s$Sal,
+                     xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                     yo = seq(0,180,by = 1),
+                     extrap = F, linear = T, duplicate = "strip")
+interp_sal <- interp2xyz(interp_sal,data.frame=T)
+interp_sal$Date <- as.Date(interp_sal$x)
+
+interp_sal_b <- interp(x=mydata_b$Date, y=mydata_b$Station, z=mydata_b$Sal,
+                       xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                       yo = seq(0,180,by = 1),
+                       extrap = F, linear = T, duplicate = "strip")
+interp_sal_b <- interp2xyz(interp_sal_b,data.frame=T)
+interp_sal_b$Date <- as.Date(interp_sal_b$x)
+
+interp_do <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DO_Sat,
+                    xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                    yo = seq(0,180,by = 1),
+                    extrap = F, linear = T, duplicate = "strip")
+interp_do <- interp2xyz(interp_do,data.frame=T)
+interp_do$Date <- as.Date(interp_do$x)
+
+interp_do_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DO_Sat,
+                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_do_b <- interp2xyz(interp_do_b,data.frame=T)
+interp_do_b$Date <- as.Date(interp_do_b$x)
+
+interp_chla <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$Chla,
+                      xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_chla <- interp2xyz(interp_chla,data.frame=T)
+interp_chla$Date <- as.Date(interp_chla$x)
+
+interp_chla_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$Chla,
+                        xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                        yo = seq(0,180,by = 1),
+                        extrap = F, linear = T, duplicate = "strip")
+interp_chla_b <- interp2xyz(interp_chla_b,data.frame=T)
+interp_chla_b$Date <- as.Date(interp_chla_b$x)
+
+# Plot salinity heatmap
+sals <- ggplot()+
+  geom_tile(interp_sal,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
+  labs(x = "",y="Distance down estuary (km)",fill="Sal")+
+  theme_classic(base_size=10)
+
+salb <- ggplot()+
+  geom_tile(interp_sal_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
+  labs(x = "",y="Distance down estuary (km)",fill="Sal")+
+  theme_classic(base_size=10)
+
+# Plot chla heatmaps
+chlas <- ggplot()+
+  geom_tile(interp_chla,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
+  labs(x = "",y="Distance down estuary (km)",fill=expression(paste("Chla (",mu,"g L"^-1*")")))+
+  theme_classic(base_size=10)
+
+chlab <- ggplot()+
+  geom_tile(interp_chla_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
+  labs(x = "",y="Distance down estuary (km)",fill=expression(paste("Chla (",mu,"g L"^-1*")")))+
+  theme_classic(base_size=10)
+
+# What if we did a graph of sal, DOC, POC? Then a separate heatmap of FDOM parameters?
+interp_doc <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DOC_mg,
+                     xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                     yo = seq(0,180,by = 1),
+                     extrap = F, linear = T, duplicate = "strip")
+interp_doc <- interp2xyz(interp_doc,data.frame=T)
+interp_doc$Date <- as.Date(interp_doc$x)
+
+interp_doc_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DOC_mg,
+                       xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                       yo = seq(0,180,by = 1),
+                       extrap = F, linear = T, duplicate = "strip")
+interp_doc_b <- interp2xyz(interp_doc_b,data.frame=T)
+interp_doc_b$Date <- as.Date(interp_doc_b$x)
+
+interp_poc <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$POC_mg,
+                     xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                     yo = seq(0,180,by = 1),
+                     extrap = F, linear = T, duplicate = "strip")
+interp_poc <- interp2xyz(interp_poc,data.frame=T)
+interp_poc$Date <- as.Date(interp_poc$x)
+
+interp_poc_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$POC_mg,
+                       xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                       yo = seq(0,180,by = 1),
+                       extrap = F, linear = T, duplicate = "strip")
+interp_poc_b <- interp2xyz(interp_poc_b,data.frame=T)
+interp_poc_b$Date <- as.Date(interp_poc_b$x)
+
+# DOC heatmaps
+docs <- ggplot()+
+  geom_tile(interp_doc,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
+  labs(x = "",y="Distance down estuary (km)",fill=expression("DOC (mg L"^-1*")"))+
+  theme_classic(base_size=10)
+
+docb <- ggplot()+
+  geom_tile(interp_doc_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
+  labs(x = "",y="Distance down estuary (km)",fill=expression("DOC (mg L"^-1*")"))+
+  theme_classic(base_size=10)
+
+# POC heatmaps
+pocs <- ggplot()+
+  geom_tile(interp_poc,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
+  labs(x = "",y="Distance down estuary (km)",fill=expression("POC (mg L"^-1*")"))+
+  theme_classic(base_size=10)
+
+pocb <- ggplot()+
+  geom_tile(interp_poc_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
+  labs(x = "",y="Distance down estuary (km)",fill=expression("POC (mg L"^-1*")"))+
+  theme_classic(base_size=10)
+
+test <- ggarrange(sals,salb,chlas,chlab,docs,docb,pocs,pocb,nrow=4,ncol=2,labels=c("A","B","C","D","E","F","G","H"))
+
+ggsave("Fig_Output/heatmaps_EnvC.png",test,width = 8, height = 10)
+
+# Plot DO heatmaps - probably not going to use these?
+ggplot()+
+  geom_tile(interp_do,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray")+
+  labs(x = "",y="Distance down estuary (km)",fill="% DO")+
+  theme_classic(base_size=15)
+
+ggplot()+
+  geom_tile(interp_do_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray")+
+  labs(x = "",y="Distance down estuary (km)",fill="% DO")+
+  theme_classic(base_size=15)
+
+### Then interpret and plot various Fl and Abs parameters? What would be best here?
+# Start with BIX and HIX
+interp_hixd <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$HIX_DOM,
+                      xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_hixd <- interp2xyz(interp_hixd,data.frame=T)
+interp_hixd$Date <- as.Date(interp_hixd$x)
+
+interp_hixd_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$HIX_DOM,
+                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_hixd_b <- interp2xyz(interp_hixd_b,data.frame=T)
+interp_hixd_b$Date <- as.Date(interp_hixd_b$x)
+
+interp_hixp <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$HIX_POM,
+                      xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_hixp <- interp2xyz(interp_hixp,data.frame=T)
+interp_hixp$Date <- as.Date(interp_hixp$x)
+
+interp_hixp_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$HIX_POM,
+                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_hixp_b <- interp2xyz(interp_hixp_b,data.frame=T)
+interp_hixp_b$Date <- as.Date(interp_hixp_b$x)
+
+interp_bixd <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$BIX_DOM,
+                      xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_bixd <- interp2xyz(interp_bixd,data.frame=T)
+interp_bixd$Date <- as.Date(interp_bixd$x)
+
+interp_bixd_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$BIX_DOM,
+                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_bixd_b <- interp2xyz(interp_bixd_b,data.frame=T)
+interp_bixd_b$Date <- as.Date(interp_bixd_b$x)
+
+interp_bixp <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$BIX_POM,
+                      xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_bixp <- interp2xyz(interp_bixp,data.frame=T)
+interp_bixp$Date <- as.Date(interp_bixp$x)
+
+interp_bixp_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$BIX_POM,
+                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_bixp_b <- interp2xyz(interp_bixp_b,data.frame=T)
+interp_bixp_b$Date <- as.Date(interp_bixp_b$x)
+
+# Plot heatmaps for HIX and BIX; POM and DOM; S and B
+hixds <- ggplot()+
+  geom_tile(interp_hixd,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,26))+
+  labs(x = "",y="Distance down estuary (km)",fill="HIX")+
+  theme_classic(base_size=15)
+
+hixdb <- ggplot()+
+  geom_tile(interp_hixd_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,26))+
+  labs(x = "",y="Distance down estuary (km)",fill="HIX")+
+  theme_classic(base_size=15)
+
+hixps <- ggplot()+
+  geom_tile(interp_hixp,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,26))+
+  labs(x = "",y="Distance down estuary (km)",fill="HIX")+
+  theme_classic(base_size=15)
+
+hixpb <- ggplot()+
+  geom_tile(interp_hixp_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,26))+
+  labs(x = "",y="Distance down estuary (km)",fill="HIX")+
+  theme_classic(base_size=15)
+
+bixds <- ggplot()+
+  geom_tile(interp_bixd,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,1.3))+
+  labs(x = "",y="Distance down estuary (km)",fill="BIX")+
+  theme_classic(base_size=15)
+
+bixdb <- ggplot()+
+  geom_tile(interp_bixd_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,1.3))+
+  labs(x = "",y="Distance down estuary (km)",fill="BIX")+
+  theme_classic(base_size=15)
+
+bixps <- ggplot()+
+  geom_tile(interp_bixp,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,1.3))+
+  labs(x = "",y="Distance down estuary (km)",fill="BIX")+
+  theme_classic(base_size=15)
+
+bixpb <- ggplot()+
+  geom_tile(interp_bixp_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,1.3))+
+  labs(x = "",y="Distance down estuary (km)",fill="BIX")+
+  theme_classic(base_size=15)
+
+fl <- ggarrange(hixds,hixdb,hixps,hixpb,bixds,bixdb,bixps,bixpb,nrow=4,ncol=2,labels=c("A","B","C","D","E","F","G","H"))
+
+ggsave("Fig_Output/heatmaps_Fl.png",fl,width = 8, height = 10)
+
 ###### UPDATED EXPLORATORY GRAPHS FOR REVISIONS ######
 # Create graphs that capture temporal and spatial variability of various parameters
 # Calculate mean and SD for each station for each season (Summer 2015; Fall 2015; Winter 2015/2016; Spring 2015;
@@ -202,163 +485,6 @@ ggplot()+
   geom_line(mean_b,mapping=aes(x=Station,y=Sal,color=Season))+
   geom_point(mean_b,mapping=aes(x=Station,y=Sal,color=Season))+
   geom_errorbar(stdev_b,mapping=aes(x=Station,ymin=mean_b$Sal-Sal,ymax=mean_b$Sal+Sal,color=Season))
-
-# Meh - not a great visualization....
-# Try heatmaps?
-# Need to interpret among data first....
-# Separate into S and B
-mydata_s <- my_data2 %>% 
-  filter(Depth == "S") %>% 
-  mutate(Date = as.Date(Date))
-mydata_b <- my_data2 %>% 
-  filter(Depth == "B") %>% 
-  mutate(Date=as.Date(Date))
-
-interp_sal <- interp(x=mydata_s$Date, y=mydata_s$Station, z=mydata_s$Sal,
-                     xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
-                     yo = seq(0,180,by = 1),
-                     extrap = F, linear = T, duplicate = "strip")
-interp_sal <- interp2xyz(interp_sal,data.frame=T)
-interp_sal$Date <- as.Date(interp_sal$x)
-
-interp_sal_b <- interp(x=mydata_b$Date, y=mydata_b$Station, z=mydata_b$Sal,
-                       xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
-                       yo = seq(0,180,by = 1),
-                       extrap = F, linear = T, duplicate = "strip")
-interp_sal_b <- interp2xyz(interp_sal_b,data.frame=T)
-interp_sal_b$Date <- as.Date(interp_sal_b$x)
-
-interp_do <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DO_Sat,
-                    xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
-                    yo = seq(0,180,by = 1),
-                    extrap = F, linear = T, duplicate = "strip")
-interp_do <- interp2xyz(interp_do,data.frame=T)
-interp_do$Date <- as.Date(interp_do$x)
-
-interp_do_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DO_Sat,
-                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
-                      yo = seq(0,180,by = 1),
-                      extrap = F, linear = T, duplicate = "strip")
-interp_do_b <- interp2xyz(interp_do_b,data.frame=T)
-interp_do_b$Date <- as.Date(interp_do_b$x)
-
-interp_chla <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$Chla,
-                         xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
-                         yo = seq(0,180,by = 1),
-                         extrap = F, linear = T, duplicate = "strip")
-interp_chla <- interp2xyz(interp_chla,data.frame=T)
-interp_chla$Date <- as.Date(interp_chla$x)
-
-interp_chla_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$Chla,
-                        xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
-                        yo = seq(0,180,by = 1),
-                        extrap = F, linear = T, duplicate = "strip")
-interp_chla_b <- interp2xyz(interp_chla_b,data.frame=T)
-interp_chla_b$Date <- as.Date(interp_chla_b$x)
-
-# Plot salinity heatmap
-ggplot()+
-  geom_tile(interp_sal,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray",limits=c(0,20))+
-  labs(x = "",y="Distance down estuary (km)",fill="Sal")+
-  theme_classic(base_size=15)
-
-ggplot()+
-  geom_tile(interp_sal_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray",limits=c(0,20))+
-  labs(x = "",y="Distance down estuary (km)",fill="Sal")+
-  theme_classic(base_size=15)
-
-# Plot DO heatmaps
-ggplot()+
-  geom_tile(interp_do,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray")+
-  labs(x = "",y="Distance down estuary (km)",fill="% DO")+
-  theme_classic(base_size=15)
-
-ggplot()+
-  geom_tile(interp_do_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray")+
-  labs(x = "",y="Distance down estuary (km)",fill="% DO")+
-  theme_classic(base_size=15)
-
-# Plot chla heatmaps
-ggplot()+
-  geom_tile(interp_chla,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray",limits=c(0,130))+
-  labs(x = "",y="Distance down estuary (km)",fill="Chla")+
-  theme_classic(base_size=15)
-
-ggplot()+
-  geom_tile(interp_chla_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray",limits=c(0,130))+
-  labs(x = "",y="Distance down estuary (km)",fill="Chla")+
-  theme_classic(base_size=15)
-
-# What if we did a graph of sal, DOC, POC? Then a separate heatmap of FDOM parameters?
-interp_doc <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DOC_mg,
-                     xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
-                     yo = seq(0,180,by = 1),
-                     extrap = F, linear = T, duplicate = "strip")
-interp_doc <- interp2xyz(interp_doc,data.frame=T)
-interp_doc$Date <- as.Date(interp_doc$x)
-
-interp_doc_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DOC_mg,
-                       xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
-                       yo = seq(0,180,by = 1),
-                       extrap = F, linear = T, duplicate = "strip")
-interp_doc_b <- interp2xyz(interp_doc_b,data.frame=T)
-interp_doc_b$Date <- as.Date(interp_doc_b$x)
-
-interp_poc <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$POC_mg,
-                     xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
-                     yo = seq(0,180,by = 1),
-                     extrap = F, linear = T, duplicate = "strip")
-interp_poc <- interp2xyz(interp_poc,data.frame=T)
-interp_poc$Date <- as.Date(interp_poc$x)
-
-interp_poc_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$POC_mg,
-                       xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
-                       yo = seq(0,180,by = 1),
-                       extrap = F, linear = T, duplicate = "strip")
-interp_poc_b <- interp2xyz(interp_poc_b,data.frame=T)
-interp_poc_b$Date <- as.Date(interp_poc_b$x)
-
-# DOC heatmaps
-ggplot()+
-  geom_tile(interp_doc,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray",limits=c(4,15))+
-  labs(x = "",y="Distance down estuary (km)",fill="DOC")+
-  theme_classic(base_size=15)
-
-ggplot()+
-  geom_tile(interp_doc_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray",limits=c(4,15))+
-  labs(x = "",y="Distance down estuary (km)",fill="DOC")+
-  theme_classic(base_size=15)
-
-# POC heatmaps
-ggplot()+
-  geom_tile(interp_poc,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradient(low="#A9D6E5", high="#012A4A", space="Lab", na.value="gray",limits=c(0,6))+
-  labs(x = "",y="Distance down estuary (km)",fill="POC")+
-  theme_classic(base_size=15)
-
-ggplot()+
-  geom_tile(interp_poc_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
-  scale_fill_gradientn(colours = blue2green2red(60), na.value="gray",limits=c(0,6))+
-  labs(x = "",y="Distance down estuary (km)",fill="POC")+
-  theme_classic(base_size=15)
 
 # Filter out S and B
 long_b <- long_data %>% filter(Depth == "B")
