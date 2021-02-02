@@ -640,7 +640,7 @@ with(env_s,points(dom_s_rda_final,display="sites",col=c("black","black","black",
 #with(env_s,legend("bottomleft",legend=levels(Season),bty="n",col=c("black","black","black","black"),
 #                  pch=c(21,22,23,24),pt.bg=colvec,cex=1.5))
 arrows(0,0,dom_s_rspe_sc2[,1], dom_s_rspe_sc2[,2],lty="dashed",col="black",adj=0.5,length=0)
-text(dom_s_rda_final,display = "species", labels=c("DOC","DOC:DON","SUVA","HIX","BIX"), scaling=2, cex = 1.5, 
+text(dom_s_rda_final,display = "species", labels=c("DOC","DOC:DON","SUVA","BIX"), scaling=2, cex = 1.5, 
      col = "black")
 #text(1.6,0.6,labels="DOC",cex=1.5,col="black")
 #text(2.4,-0.55,labels="DOC:DON",cex=1.5,col="black")
