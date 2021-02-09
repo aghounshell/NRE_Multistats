@@ -1,5 +1,6 @@
 # Script to plot box plots for 2015-2016 and calculate long term median (2000-2019)
 # A Hounshell, 11 Mar 2020
+# Updated: 09 Feb 2021 in response to revisions
 
 # Load in libraries
 pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr,ggplot2,akima,lubridate,colorRamps,RColorBrewer)
@@ -10,6 +11,12 @@ my_data <- read.csv(file.choose())
 my_data2 <- my_data[complete.cases(my_data),]
 my_data2$Date <- as.POSIXct(strptime(my_data2$Date, "%m/%d/%Y", tz="EST"))
 
+# Updated season to reflect summer 2015 and summer 2016
+my_data2 <- my_data2 %>% 
+  mutate(Season = ifelse(Date < '2015-09-01' & Season == "Summer","Summer15",
+                         ifelse(Date > '2016-06-01' & Season == "Summer","Summer16",
+                                Season)))
+
 # Load in historical data: to calculate median (NRWQ_2000to2019)
 long_data <- read.csv(file.choose())
 
@@ -18,6 +25,39 @@ long_data$DOC <- long_data$DOC*12.011/1000
 
 # Convert POC from ug/L to mg/L
 long_data$POC <- long_data$POC/1000
+
+## Filter out S and B
+#long_b <- long_data %>% filter(Depth == "B")
+#long_s <- long_data %>% filter(Depth == "S")
+
+#sal_b <- median(long_b$YSI_Salinity,na.rm=TRUE)
+#sal_s <- median(long_s$YSI_Salinity,na.rm=TRUE)
+
+# Separate by season and calculate median
+long_median_s <-  long_data %>% 
+  filter(Depth == "S") %>% 
+  group_by(Season) %>% 
+  summarise_if(is.numeric,median,na.rm=TRUE)
+
+long_median_b <- long_data %>% 
+  filter(Depth == "B") %>% 
+  group_by(Season) %>% 
+  summarise_if(is.numeric,median,na.rm=TRUE)
+
+## Calculate median for the yearly data (2015-2016) for each season
+med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM,Flushing_Time) %>% group_by(Season) %>% 
+  summarise_if(is.numeric,median,na.rm=TRUE)
+
+# Plot salinity and chla
+# Separate into S and B
+my_data2_s <- my_data2 %>% 
+  filter(Depth == "S")
+my_data2_b <- my_data2 %>% 
+  filter(Depth == "B")
+
+# Define seasons
+my_data2_s$Season<-factor(my_data2_s$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
+my_data2_b$Season<-factor(my_data2_b$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
 
 ############ Heatmaps for spatial/temporal visualizations of key parameters? #######################
 ## In response to paper revisions: 26 Jan 2021
@@ -75,35 +115,102 @@ interp_chla_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$Chla,
 interp_chla_b <- interp2xyz(interp_chla_b,data.frame=T)
 interp_chla_b$Date <- as.Date(interp_chla_b$x)
 
-# Plot salinity heatmap
-sals <- ggplot()+
+# Plot salinity heatmap + boxplots from above
+
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure3.jpg",width=400,height=440,units="mm",res=800)
+
+# Salinty surface heatmap
+sal_s_heat <- ggplot()+
   geom_tile(interp_sal,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
-  labs(x = "",y="Distance down estuary (km)",fill="Sal")+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="Sal")+
+  theme_classic(base_size=25)
 
-salb <- ggplot()+
+# Salinity surface boxplot
+# Convert to ggboxplot
+sal_s_box <- ggplot(data = my_data2_s,aes(Season,Sal))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=7.46,xend=1.3,yend=7.46),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=6.14,xend=2.3,yend=6.14),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=4.84,xend=3.3,yend=4.84),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=2.85,xend=4.3,yend=2.85),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=7.46,xend=5.3,yend=7.46),size=1,color="#005b96",linetype="longdash")+
+  annotate(geom="text",x=4.2,y=19,label="- - - 2000-2019\nmedian",color="#005b96",size=7)+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,20))+
+  ylab("Surface Salinity")+
+  theme_classic(base_size = 21)
+
+# Salinity bottom heatmap
+sal_b_heat <- ggplot()+
   geom_tile(interp_sal_b,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
-  labs(x = "",y="Distance down estuary (km)",fill="Sal")+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="Sal")+
+  theme_classic(base_size=25)
 
-# Plot chla heatmaps
-chlas <- ggplot()+
+# Salinity bottom boxplot
+sal_b_box <- ggplot(data = my_data2_b,aes(Season,Sal))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=14.28,xend=1.3,yend=14.28),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=11.98,xend=2.3,yend=11.98),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=10.2,xend=3.3,yend=10.2),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=7.37,xend=4.3,yend=7.37),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=14.28,xend=5.3,yend=14.28),size=1,color="#005b96",linetype="longdash")+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,20))+
+  ylab("Bottom Salinity")+
+  theme_classic(base_size = 21)
+
+# Chla surface heatmap
+chla_s_heat <- ggplot()+
   geom_tile(interp_chla,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
-  labs(x = "",y="Distance down estuary (km)",fill=expression(paste("Chla (",mu,"g L"^-1*")")))+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="Chla")+
+  theme_classic(base_size=25)
 
-chlab <- ggplot()+
+# Chla surface boxplot
+ylab.text=expression(paste("Surface Chla (",mu,"g L"^"-1"*")"))
+chla_s_box <- ggplot(data = my_data2_s,aes(Season,Chla))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=16.12,xend=1.3,yend=16.12),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=13.89,xend=2.3,yend=13.89),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=11.67,xend=3.3,yend=11.67),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=13.58,xend=4.3,yend=13.58),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=16.12,xend=5.3,yend=16.12),size=1,color="#005b96",linetype="longdash")+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,135))+
+  ylab(ylab.text)+
+  theme_classic(base_size = 21)
+
+# Chla bottom heatmap
+chla_b_heat <- ggplot()+
   geom_tile(interp_chla_b,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
-  labs(x = "",y="Distance down estuary (km)",fill=expression(paste("Chla (",mu,"g L"^-1*")")))+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="Chla")+
+  theme_classic(base_size=25)
+
+# Chla bottom boxplot
+ylab.text=expression(paste("Bottom Chla (",mu,"g L"^"-1"*")"))
+chla_b_box <- ggplot(data = my_data2_b,aes(Season,Chla))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=9.5,xend=1.3,yend=9.5),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=8.72,xend=2.3,yend=8.72),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=11.99,xend=3.3,yend=11.99),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=11.25,xend=4.3,yend=11.25),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=9.5,xend=5.3,yend=9.5),size=1,color="#005b96",linetype="longdash")+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,135))+
+  ylab(ylab.text)+
+  theme_classic(base_size = 21)
+
+ggarrange(sal_s_heat,sal_s_box,sal_b_heat,sal_b_box,chla_s_heat,chla_s_box,chla_b_heat,chla_b_box,
+          nrow=4,ncol=2,widths=c(2,1))
+
+dev.off()
 
 # What if we did a graph of sal, DOC, POC? Then a separate heatmap of FDOM parameters?
 interp_doc <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DOC_mg,
@@ -486,76 +593,7 @@ ggplot()+
   geom_point(mean_b,mapping=aes(x=Station,y=Sal,color=Season))+
   geom_errorbar(stdev_b,mapping=aes(x=Station,ymin=mean_b$Sal-Sal,ymax=mean_b$Sal+Sal,color=Season))
 
-# Filter out S and B
-long_b <- long_data %>% filter(Depth == "B")
-long_s <- long_data %>% filter(Depth == "S")
-
-sal_b <- median(long_b$YSI_Salinity,na.rm=TRUE)
-sal_s <- median(long_s$YSI_Salinity,na.rm=TRUE)
-
-# Separate by season and calculate median
-long_winter <- long_data %>% filter(Season=="Winter")
-long_spring <- long_data %>% filter(Season=="Spring")
-long_summer <- long_data %>% filter(Season=="Summer")
-long_fall <- long_data %>% filter(Season=="Fall")
-
-# Calculate median for each season
-# Salinity
-sal_winter <- median(long_winter$YSI_Salinity,na.rm=TRUE)
-sal_spring <- median(long_spring$YSI_Salinity,na.rm=TRUE)
-sal_summer <- median(long_summer$YSI_Salinity,na.rm=TRUE)
-sal_fall <- median(long_fall$YSI_Salinity,na.rm=TRUE)
-
-# Chla
-chla_winter <- median(long_winter$Correct.Chla_IV,na.rm=TRUE)
-chla_spring <- median(long_spring$Correct.Chla_IV,na.rm=TRUE)
-chla_summer <- median(long_summer$Correct.Chla_IV,na.rm=TRUE)
-chla_fall <- median(long_fall$Correct.Chla_IV,na.rm=TRUE)
-
-# DOC
-doc_winter <- median(long_winter$DOC,na.rm=TRUE)
-doc_spring <- median(long_spring$DOC,na.rm=TRUE)
-doc_summer <- median(long_summer$DOC,na.rm=TRUE)
-doc_fall <- median(long_fall$DOC,na.rm=TRUE)
-
-# POC
-poc_winter <- median(long_winter$POC,na.rm=TRUE)
-poc_spring <- median(long_spring$POC,na.rm=TRUE)
-poc_summer <- median(long_summer$POC,na.rm=TRUE)
-poc_fall <- median(long_fall$POC,na.rm=TRUE)
-
-## Calculate median for the yearly data (2015-2016) for each season
-med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM,Flushing_Time) %>% group_by(Season) %>% 
-  summarize_all(funs(median))
-
-median(my_data2$Flushing_Time)
-
-# Plot salinity and chla
-my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
-
-
-jpeg("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure3.jpg",width=200,height=110,units="mm",res=800)
-
-par(mar=c(5.1,5.1,4.1,2.1))
-par(mfrow=c(1,2))
-
-boxplot(Sal~Season,data=my_data2,varwidth=TRUE,ylab="Salinity",cex.lab=0.8,cex.axis=0.8,col="white")
-segments(0.7,11.03,1.3,11.03,col="#005b96",lwd=2,lty=5) # Summer
-segments(1.7,9.39,2.3,9.39,col="#005b96",lwd=2,lty=5) # Fall
-segments(2.7,7.53,3.3,7.53,col="#005b96",lwd=2,lty=5) # Winter
-segments(3.7,4.73,4.3,4.73,col="#005b96",lwd=2,lty=5) # Spring
-text(3.5,19,labels="- - - 2000-2019\nmedian",col="#005b96",cex=0.8)
-
-# Chla plotted w/o outliers
-ylab.text=expression(paste("Chla (",mu,"g L"^"-1"*")"))
-boxplot(Chla~Season,data=my_data2,varwidth=TRUE,ylab=ylab.text,cex.lab=0.8,cex.axis=0.8,col="white")
-segments(0.7,12.27,1.3,12.27,col="#005b96",lwd=2,lty=5) #Summer
-segments(1.7,10.40,2.3,10.40,col="#005b96",lwd=2,lty=5) #Fall
-segments(2.7,11.86,3.3,11.86,col="#005b96",lwd=2,lty=5) #Winter
-segments(3.7,12.23,4.3,12.23,col="#005b96",lwd=2,lty=5) #Spring
-text(3.5,125,labels="- - - 2000-2019\nmedian",col="#005b96",cex=0.8)
-
-dev.off()
+########################################
 
 # Plot stratication index for SI (1100 x 600)
 my_data2$Season<-factor(my_data2$Season, levels=c("Summer", "Fall", "Winter", "Spring"))
