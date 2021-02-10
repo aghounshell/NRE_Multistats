@@ -93,10 +93,11 @@ interp_chla_b$Date <- as.Date(interp_chla_b$x)
 jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure3.jpg",width=400,height=440,units="mm",res=800)
 
 # Salinty surface heatmap
-sal_s_heat <- ggplot()+
+ggplot()+
   geom_tile(interp_sal,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
+  geom_vline(xintercept=as.POSIXct("2015-09-01"),color="white",size=1)+
   labs(x = "",y="Distance (km)",fill="Sal")+
   theme_classic(base_size=25)
 
@@ -118,7 +119,7 @@ sal_s_box <- ggplot(data = mydata_s,aes(Season,Sal))+
 # Salinity bottom heatmap
 sal_b_heat <- ggplot()+
   geom_tile(interp_sal_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
   labs(x = "",y="Distance (km)",fill="Sal")+
   theme_classic(base_size=25)
@@ -139,7 +140,7 @@ sal_b_box <- ggplot(data = mydata_b,aes(Season,Sal))+
 # Chla surface heatmap
 chla_s_heat <- ggplot()+
   geom_tile(interp_chla,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
   labs(x = "",y="Distance (km)",fill="Chla")+
   theme_classic(base_size=25)
@@ -161,7 +162,7 @@ chla_s_box <- ggplot(data = mydata_s,aes(Season,Chla))+
 # Chla bottom heatmap
 chla_b_heat <- ggplot()+
   geom_tile(interp_chla_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
   labs(x = "",y="Distance (km)",fill="Chla")+
   theme_classic(base_size=25)
@@ -220,7 +221,7 @@ jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure4.jpg",width=400,he
 # DOC heatmap S
 docs_heat <- ggplot()+
   geom_tile(interp_doc,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
   labs(x = "",y="Distance (km)",fill="DOC")+
   theme_classic(base_size=25)
@@ -242,7 +243,7 @@ docs_box <- ggplot(data = mydata_s,aes(Season,DOC_mg))+
 # DOC B heat map
 docb_heat <- ggplot()+
   geom_tile(interp_doc_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
   labs(x = "",y="Distance (km)",fill="DOC")+
   theme_classic(base_size=25)
@@ -262,7 +263,7 @@ docb_box <- ggplot(data = mydata_b,aes(Season,DOC_mg))+
 # POC heatmap S
 pocs_heat <- ggplot()+
   geom_tile(interp_poc,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
   labs(x = "",y="Distance (km)",fill="POC")+
   theme_classic(base_size=25)
@@ -283,7 +284,7 @@ pocs_box <- ggplot(data = mydata_s,aes(Season,POC_mg))+
 # POC heatmap B
 pocb_heat <- ggplot()+
   geom_tile(interp_poc_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
   labs(x = "",y="Distance (km)",fill="POC")+
   theme_classic(base_size=25)
