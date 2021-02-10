@@ -6,7 +6,7 @@
 pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr,ggplot2,akima,lubridate,colorRamps,RColorBrewer)
 
 # Load in data (Database_DOSat.csv)
-my_data <- read.csv(file.choose())
+my_data <- read.csv('C:/Users/ahoun/Desktop/NRE_Multistats/Data/Database_DOSat.csv')
 # Remove un-complete data rows (any rows that do not have all data associated with them)
 my_data2 <- my_data[complete.cases(my_data),]
 my_data2$Date <- as.POSIXct(strptime(my_data2$Date, "%m/%d/%Y", tz="EST"))
@@ -18,7 +18,7 @@ my_data2 <- my_data2 %>%
                                 Season)))
 
 # Load in historical data: to calculate median (NRWQ_2000to2019)
-long_data <- read.csv(file.choose())
+long_data <- read.csv('C:/Users/ahoun/Desktop/NRE_Multistats/Data/NRWQ_2000to2019.csv')
 
 # Convert DOC from uM to mg/L
 long_data$DOC <- long_data$DOC*12.011/1000
@@ -26,45 +26,26 @@ long_data$DOC <- long_data$DOC*12.011/1000
 # Convert POC from ug/L to mg/L
 long_data$POC <- long_data$POC/1000
 
-## Filter out S and B
-#long_b <- long_data %>% filter(Depth == "B")
-#long_s <- long_data %>% filter(Depth == "S")
-
-#sal_b <- median(long_b$YSI_Salinity,na.rm=TRUE)
-#sal_s <- median(long_s$YSI_Salinity,na.rm=TRUE)
-
 # Separate by season and calculate median
 long_median_s <-  long_data %>% 
   filter(Depth == "S") %>% 
   group_by(Season) %>% 
   summarise_if(is.numeric,median,na.rm=TRUE)
 
+long_median_s <- as.data.frame(long_median_s)
+
 long_median_b <- long_data %>% 
   filter(Depth == "B") %>% 
   group_by(Season) %>% 
   summarise_if(is.numeric,median,na.rm=TRUE)
+
+long_median_b <- as.data.frame(long_median_b)
 
 ## Calculate median for the yearly data (2015-2016) for each season
 med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM,Flushing_Time) %>% group_by(Season) %>% 
   summarise_if(is.numeric,median,na.rm=TRUE)
 
 # Plot salinity and chla
-# Separate into S and B
-my_data2_s <- my_data2 %>% 
-  filter(Depth == "S")
-my_data2_b <- my_data2 %>% 
-  filter(Depth == "B")
-
-# Define seasons
-my_data2_s$Season<-factor(my_data2_s$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
-my_data2_b$Season<-factor(my_data2_b$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
-
-############ Heatmaps for spatial/temporal visualizations of key parameters? #######################
-## In response to paper revisions: 26 Jan 2021
-
-# Meh - not a great visualization....
-# Try heatmaps?
-# Need to interpret among data first....
 # Separate into S and B
 mydata_s <- my_data2 %>% 
   filter(Depth == "S") %>% 
@@ -73,6 +54,12 @@ mydata_b <- my_data2 %>%
   filter(Depth == "B") %>% 
   mutate(Date=as.Date(Date))
 
+# Define seasons
+mydata_s$Season<-factor(my_data2_s$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
+mydata_b$Season<-factor(my_data2_b$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
+
+############ Heatmaps for spatial/temporal visualizations of key parameters? #######################
+## In response to paper revisions: 26 Jan 2021
 interp_sal <- interp(x=mydata_s$Date, y=mydata_s$Station, z=mydata_s$Sal,
                      xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
                      yo = seq(0,180,by = 1),
@@ -86,20 +73,6 @@ interp_sal_b <- interp(x=mydata_b$Date, y=mydata_b$Station, z=mydata_b$Sal,
                        extrap = F, linear = T, duplicate = "strip")
 interp_sal_b <- interp2xyz(interp_sal_b,data.frame=T)
 interp_sal_b$Date <- as.Date(interp_sal_b$x)
-
-interp_do <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DO_Sat,
-                    xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
-                    yo = seq(0,180,by = 1),
-                    extrap = F, linear = T, duplicate = "strip")
-interp_do <- interp2xyz(interp_do,data.frame=T)
-interp_do$Date <- as.Date(interp_do$x)
-
-interp_do_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DO_Sat,
-                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
-                      yo = seq(0,180,by = 1),
-                      extrap = F, linear = T, duplicate = "strip")
-interp_do_b <- interp2xyz(interp_do_b,data.frame=T)
-interp_do_b$Date <- as.Date(interp_do_b$x)
 
 interp_chla <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$Chla,
                       xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
@@ -115,7 +88,7 @@ interp_chla_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$Chla,
 interp_chla_b <- interp2xyz(interp_chla_b,data.frame=T)
 interp_chla_b$Date <- as.Date(interp_chla_b$x)
 
-# Plot salinity heatmap + boxplots from above
+# Plot salinity heatmap + boxplots from above - Figure 3 in MS
 
 jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure3.jpg",width=400,height=440,units="mm",res=800)
 
@@ -129,7 +102,7 @@ sal_s_heat <- ggplot()+
 
 # Salinity surface boxplot
 # Convert to ggboxplot
-sal_s_box <- ggplot(data = my_data2_s,aes(Season,Sal))+
+sal_s_box <- ggplot(data = mydata_s,aes(Season,Sal))+
   geom_boxplot()+
   geom_segment(aes(x=0.7,y=7.46,xend=1.3,yend=7.46),size=1,color="#005b96",linetype="longdash")+
   geom_segment(aes(x=1.7,y=6.14,xend=2.3,yend=6.14),size=1,color="#005b96",linetype="longdash")+
@@ -151,7 +124,7 @@ sal_b_heat <- ggplot()+
   theme_classic(base_size=25)
 
 # Salinity bottom boxplot
-sal_b_box <- ggplot(data = my_data2_b,aes(Season,Sal))+
+sal_b_box <- ggplot(data = mydata_b,aes(Season,Sal))+
   geom_boxplot()+
   geom_segment(aes(x=0.7,y=14.28,xend=1.3,yend=14.28),size=1,color="#005b96",linetype="longdash")+
   geom_segment(aes(x=1.7,y=11.98,xend=2.3,yend=11.98),size=1,color="#005b96",linetype="longdash")+
@@ -173,7 +146,7 @@ chla_s_heat <- ggplot()+
 
 # Chla surface boxplot
 ylab.text=expression(paste("Surface Chla (",mu,"g L"^"-1"*")"))
-chla_s_box <- ggplot(data = my_data2_s,aes(Season,Chla))+
+chla_s_box <- ggplot(data = mydata_s,aes(Season,Chla))+
   geom_boxplot()+
   geom_segment(aes(x=0.7,y=16.12,xend=1.3,yend=16.12),size=1,color="#005b96",linetype="longdash")+
   geom_segment(aes(x=1.7,y=13.89,xend=2.3,yend=13.89),size=1,color="#005b96",linetype="longdash")+
@@ -195,7 +168,7 @@ chla_b_heat <- ggplot()+
 
 # Chla bottom boxplot
 ylab.text=expression(paste("Bottom Chla (",mu,"g L"^"-1"*")"))
-chla_b_box <- ggplot(data = my_data2_b,aes(Season,Chla))+
+chla_b_box <- ggplot(data = mydata_b,aes(Season,Chla))+
   geom_boxplot()+
   geom_segment(aes(x=0.7,y=9.5,xend=1.3,yend=9.5),size=1,color="#005b96",linetype="longdash")+
   geom_segment(aes(x=1.7,y=8.72,xend=2.3,yend=8.72),size=1,color="#005b96",linetype="longdash")+
@@ -212,7 +185,7 @@ ggarrange(sal_s_heat,sal_s_box,sal_b_heat,sal_b_box,chla_s_heat,chla_s_box,chla_
 
 dev.off()
 
-# What if we did a graph of sal, DOC, POC? Then a separate heatmap of FDOM parameters?
+## Update Figure 4 in MS with heatmaps and boxplots of DOC and POC concentration
 interp_doc <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DOC_mg,
                      xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
                      yo = seq(0,180,by = 1),
@@ -241,39 +214,113 @@ interp_poc_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$POC_mg,
 interp_poc_b <- interp2xyz(interp_poc_b,data.frame=T)
 interp_poc_b$Date <- as.Date(interp_poc_b$x)
 
-# DOC heatmaps
-docs <- ggplot()+
+## Create Figure 4 - DOC and POC heatmaps + boxplots
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure4.jpg",width=400,height=440,units="mm",res=800)
+
+# DOC heatmap S
+docs_heat <- ggplot()+
   geom_tile(interp_doc,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
-  labs(x = "",y="Distance down estuary (km)",fill=expression("DOC (mg L"^-1*")"))+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="DOC")+
+  theme_classic(base_size=25)
 
-docb <- ggplot()+
+# DOC S boxplot
+docs_box <- ggplot(data = mydata_s,aes(Season,DOC_mg))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=long_median_s[3,21],xend=1.3,yend=long_median_s[3,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=long_median_s[1,21],xend=2.3,yend=long_median_s[1,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=long_median_s[4,21],xend=3.3,yend=long_median_s[4,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=long_median_s[2,21],xend=4.3,yend=long_median_s[2,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=long_median_s[3,21],xend=5.3,yend=long_median_s[3,21]),size=1,color="#005b96",linetype="longdash")+
+  annotate(geom="text",x=4.2,y=14,label="- - - 2000-2019\nmedian",color="#005b96",size=7)+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,15))+
+  ylab(expression("Surface DOC (mg L"^-1*")"))+
+  theme_classic(base_size = 21)
+
+# DOC B heat map
+docb_heat <- ggplot()+
   geom_tile(interp_doc_b,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
-  labs(x = "",y="Distance down estuary (km)",fill=expression("DOC (mg L"^-1*")"))+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="DOC")+
+  theme_classic(base_size=25)
 
-# POC heatmaps
-pocs <- ggplot()+
+# DOC B boxplot
+docb_box <- ggplot(data = mydata_b,aes(Season,DOC_mg))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=long_median_b[3,21],xend=1.3,yend=long_median_b[3,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=long_median_b[1,21],xend=2.3,yend=long_median_b[1,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=long_median_b[4,21],xend=3.3,yend=long_median_b[4,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=long_median_b[2,21],xend=4.3,yend=long_median_b[2,21]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=long_median_b[3,21],xend=5.3,yend=long_median_b[3,21]),size=1,color="#005b96",linetype="longdash")+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,15))+
+  ylab(expression("Bottom DOC (mg L"^-1*")"))+
+  theme_classic(base_size = 21)
+
+# POC heatmap S
+pocs_heat <- ggplot()+
   geom_tile(interp_poc,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
-  labs(x = "",y="Distance down estuary (km)",fill=expression("POC (mg L"^-1*")"))+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="POC")+
+  theme_classic(base_size=25)
 
-pocb <- ggplot()+
+# POC boxplot S
+pocs_box <- ggplot(data = mydata_s,aes(Season,POC_mg))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=long_median_s[3,18],xend=1.3,yend=long_median_s[3,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=long_median_s[1,18],xend=2.3,yend=long_median_s[1,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=long_median_s[4,18],xend=3.3,yend=long_median_s[4,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=long_median_s[2,18],xend=4.3,yend=long_median_s[2,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=long_median_s[3,18],xend=5.3,yend=long_median_s[3,18]),size=1,color="#005b96",linetype="longdash")+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,6))+
+  ylab(expression("Surface POC (mg L"^-1*")"))+
+  theme_classic(base_size = 21)
+
+# POC heatmap B
+pocb_heat <- ggplot()+
   geom_tile(interp_poc_b,mapping=aes(x=Date,y=y,fill=z))+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
-  labs(x = "",y="Distance down estuary (km)",fill=expression("POC (mg L"^-1*")"))+
-  theme_classic(base_size=10)
+  labs(x = "",y="Distance (km)",fill="POC")+
+  theme_classic(base_size=25)
 
-test <- ggarrange(sals,salb,chlas,chlab,docs,docb,pocs,pocb,nrow=4,ncol=2,labels=c("A","B","C","D","E","F","G","H"))
+# POC boxplot B
+pocb_box <- ggplot(data = mydata_b,aes(Season,POC_mg))+
+  geom_boxplot()+
+  geom_segment(aes(x=0.7,y=long_median_b[3,18],xend=1.3,yend=long_median_b[3,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=1.7,y=long_median_b[1,18],xend=2.3,yend=long_median_b[1,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=2.7,y=long_median_b[4,18],xend=3.3,yend=long_median_b[4,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=3.7,y=long_median_b[2,18],xend=4.3,yend=long_median_b[2,18]),size=1,color="#005b96",linetype="longdash")+
+  geom_segment(aes(x=4.7,y=long_median_b[3,18],xend=5.3,yend=long_median_b[3,18]),size=1,color="#005b96",linetype="longdash")+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,6))+
+  ylab(expression("Bottom POC (mg L"^-1*")"))+
+  theme_classic(base_size = 21)
 
-ggsave("Fig_Output/heatmaps_EnvC.png",test,width = 8, height = 10)
+ggarrange(docs_heat,docs_box,docb_heat,docb_box,pocs_heat,pocs_box,pocb_heat,pocb_box,
+          nrow=4,ncol=2,widths=c(2,1))
+
+dev.off()
+
+
+# Interp DO
+interp_do <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DO_Sat,
+                    xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                    yo = seq(0,180,by = 1),
+                    extrap = F, linear = T, duplicate = "strip")
+interp_do <- interp2xyz(interp_do,data.frame=T)
+interp_do$Date <- as.Date(interp_do$x)
+
+interp_do_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DO_Sat,
+                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_do_b <- interp2xyz(interp_do_b,data.frame=T)
+interp_do_b$Date <- as.Date(interp_do_b$x)
 
 # Plot DO heatmaps - probably not going to use these?
 ggplot()+
