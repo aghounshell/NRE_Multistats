@@ -57,6 +57,10 @@ mydata_b <- my_data2 %>%
 # Define seasons
 mydata_s$Season<-factor(my_data2_s$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
 mydata_b$Season<-factor(my_data2_b$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
+my_data2$Season<-factor(my_data2$Season, levels=c("Summer15","Fall","Winter","Spring","Summer16"))
+
+# Define depth
+my_data2$Depth <- factor(my_data2$Depth, levels=c("S","B"))
 
 ############ Heatmaps for spatial/temporal visualizations of key parameters? #######################
 ## In response to paper revisions: 26 Jan 2021
@@ -93,11 +97,14 @@ interp_chla_b$Date <- as.Date(interp_chla_b$x)
 jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure3.jpg",width=400,height=440,units="mm",res=800)
 
 # Salinty surface heatmap
-ggplot()+
+sal_s_heat <- ggplot()+
   geom_tile(interp_sal,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
-  geom_vline(xintercept=as.POSIXct("2015-09-01"),color="white",size=1)+
   labs(x = "",y="Distance (km)",fill="Sal")+
   theme_classic(base_size=25)
 
@@ -119,6 +126,10 @@ sal_s_box <- ggplot(data = mydata_s,aes(Season,Sal))+
 # Salinity bottom heatmap
 sal_b_heat <- ggplot()+
   geom_tile(interp_sal_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
   labs(x = "",y="Distance (km)",fill="Sal")+
@@ -140,6 +151,10 @@ sal_b_box <- ggplot(data = mydata_b,aes(Season,Sal))+
 # Chla surface heatmap
 chla_s_heat <- ggplot()+
   geom_tile(interp_chla,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
   labs(x = "",y="Distance (km)",fill="Chla")+
@@ -162,6 +177,10 @@ chla_s_box <- ggplot(data = mydata_s,aes(Season,Chla))+
 # Chla bottom heatmap
 chla_b_heat <- ggplot()+
   geom_tile(interp_chla_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
   labs(x = "",y="Distance (km)",fill="Chla")+
@@ -221,6 +240,10 @@ jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure4.jpg",width=400,he
 # DOC heatmap S
 docs_heat <- ggplot()+
   geom_tile(interp_doc,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
   labs(x = "",y="Distance (km)",fill="DOC")+
@@ -243,6 +266,10 @@ docs_box <- ggplot(data = mydata_s,aes(Season,DOC_mg))+
 # DOC B heat map
 docb_heat <- ggplot()+
   geom_tile(interp_doc_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
   labs(x = "",y="Distance (km)",fill="DOC")+
@@ -263,6 +290,10 @@ docb_box <- ggplot(data = mydata_b,aes(Season,DOC_mg))+
 # POC heatmap S
 pocs_heat <- ggplot()+
   geom_tile(interp_poc,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
   labs(x = "",y="Distance (km)",fill="POC")+
@@ -284,6 +315,10 @@ pocs_box <- ggplot(data = mydata_s,aes(Season,POC_mg))+
 # POC heatmap B
 pocb_heat <- ggplot()+
   geom_tile(interp_poc_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
   labs(x = "",y="Distance (km)",fill="POC")+
@@ -307,6 +342,77 @@ ggarrange(docs_heat,docs_box,docb_heat,docb_box,pocs_heat,pocs_box,pocb_heat,poc
 
 dev.off()
 
+############ Figure 5 - boxplots of OM indicators: C:N, SUVA, BIX, HIX (?)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure5.jpg",width=400,height=440,units="mm",res=800)
+
+doctodon <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,DOC_DON,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab("DOC:DON")+
+  ylim(0,50)+
+  theme_classic(base_size = 21)
+
+poctopn <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,POCtoPN,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab("POC:PN")+
+  ylim(0,50)+
+  theme_classic(base_size = 21)
+
+suva_dom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,SUVA_DOM,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab(expression("DOM SUVA (L mg"^-1*"C m"^-1*")"))+
+  ylim(0,5)+
+  theme_classic(base_size = 21)
+
+suva_pom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,SUVA_POC,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab(expression("POM SUVA (L mg"^-1*"C m"^-1*")"))+
+  ylim(0,5)+
+  theme_classic(base_size = 21)
+
+bix_dom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,BIX_DOM,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab("DOM BIX")+
+  ylim(0,1.3)+
+  theme_classic(base_size = 21)
+
+bix_pom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,BIX_POM,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab("POM BIX")+
+  ylim(0,1.3)+
+  theme_classic(base_size = 21)
+
+hix_dom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,HIX_DOM,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab("DOM HIX")+
+  ylim(0,26)+
+  theme_classic(base_size = 21)
+
+hix_pom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(Season,HIX_POM,color=Depth))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_color_manual(values=c("black","grey53"))+
+  ylab("POM HIX")+
+  ylim(0,26)+
+  theme_classic(base_size = 21)
+
+ggarrange(doctodon,poctopn,suva_dom,suva_pom,bix_dom,bix_pom,hix_dom,hix_pom,
+          nrow=4,ncol=2)
+
+dev.off()
 
 # Interp DO
 interp_do <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DO_Sat,
