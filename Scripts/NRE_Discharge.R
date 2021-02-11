@@ -6,20 +6,18 @@
 pacman::p_load(dplyr,ggplot2,tidyverse,lubridate,ggpubr)
 
 # Load daily (averaged) discharge data (in cfs)
-q <- read_csv("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Data/Daily_Q.csv")
+q <- read_csv("C:/Users/ahoun/Desktop/NRE_Multistats/Data/Daily_Q.csv")
 q$datetime <- as.POSIXct(strptime(q$datetime, "%m/%d/%Y", tz="EST"))
 
 # Convert to cms and scale to area of ungaged watershed (Peierls et al.)
 q$`85489_00060_00003` <- q$`85489_00060_00003`*0.02832/0.69
 
 # Load in average Q
-q_avg <- read_csv("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Data/Avg_Q.csv")
+q_avg <- read_csv("C:/Users/ahoun/Desktop/NRE_Multistats/Data/Avg_Q.csv")
 q_avg$DateTime <- as.POSIXct(strptime(q_avg$DateTime, "%m/%d/%Y", tz="EST"))
 q_avg$mean_va <- q_avg$mean_va*0.02832/0.69
 
 dis <- ggplot()+
-  geom_line(q,mapping=aes(x=datetime,y=q$`85489_00060_00003`,linetype="Q"),size=1)+
-  geom_line(q_avg,mapping=aes(x=DateTime,y=mean_va,linetype="Yearly average"),size=1)+
   geom_vline(xintercept = as.POSIXct("2015-07-20"),color="#D3D3D3")+ 
   geom_vline(xintercept = as.POSIXct("2015-08-03"),color="#D3D3D3")+ 
   geom_vline(xintercept = as.POSIXct("2015-08-17"),color="#D3D3D3")+ 
@@ -42,6 +40,12 @@ dis <- ggplot()+
   geom_vline(xintercept = as.POSIXct("2016-06-20"),color="#D3D3D3")+
   geom_vline(xintercept = as.POSIXct("2016-07-06"),color="#D3D3D3")+ 
   geom_vline(xintercept = as.POSIXct("2016-07-18"),color="#D3D3D3")+
+  geom_vline(xintercept = as.POSIXct("2015-09-01"),color="#D3D3D3",linetype="dashed")+
+  geom_vline(xintercept = as.POSIXct("2015-12-01"),color="#D3D3D3",linetype="dashed")+
+  geom_vline(xintercept = as.POSIXct("2016-03-01"),color="#D3D3D3",linetype="dashed")+
+  geom_vline(xintercept = as.POSIXct("2016-06-01"),color="#D3D3D3",linetype="dashed")+
+  geom_line(q,mapping=aes(x=datetime,y=q$`85489_00060_00003`,linetype="Q"),size=1)+
+  geom_line(q_avg,mapping=aes(x=DateTime,y=mean_va,linetype="Yearly average"),size=1)+
   xlab("Time")+
   ylab(expression(paste("Discharge (m"^3*" s"^-1*")")))+
   theme_classic(base_size=15)+
@@ -49,4 +53,4 @@ dis <- ggplot()+
         legend.box.background = element_rect(color="black"), 
         legend.box.margin = margin(0.2,0.2,0.2,0.2))
 
-ggsave("C:/Users/ahoun/OneDrive/Desktop/NRE_Multistats/Plots/Figure2.jpg",dis,dpi=800,width=174,height=100,units=c("mm"))
+ggsave("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure2.jpg",dis,dpi=800,width=174,height=90,units=c("mm"))
