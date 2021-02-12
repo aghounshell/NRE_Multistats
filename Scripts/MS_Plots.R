@@ -42,7 +42,9 @@ long_median_b <- long_data %>%
 long_median_b <- as.data.frame(long_median_b)
 
 ## Calculate median for the yearly data (2015-2016) for each season
-med <- my_data2 %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM,Flushing_Time) %>% group_by(Season) %>% 
+med_s <- mydata_s %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM,Flushing_Time) %>% group_by(Season) %>% 
+  summarise_if(is.numeric,median,na.rm=TRUE)
+med_b <- mydata_b %>% select(Season,Sal,Chla,DOC_mg,POC_mg,,HIX_DOM,HIX_POM,Flushing_Time) %>% group_by(Season) %>% 
   summarise_if(is.numeric,median,na.rm=TRUE)
 
 # Plot salinity and chla
