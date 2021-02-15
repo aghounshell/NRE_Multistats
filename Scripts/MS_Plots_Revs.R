@@ -352,6 +352,60 @@ ggarrange(doctodon,poctopn,suva_dom,suva_pom,bix_dom,bix_pom,hix_dom,hix_pom,
 
 dev.off()
 
+#### Plot HIX vs. BIX Biplots for Supplementary (Fig S3)
+# Updated with Summer 2015/Summer 2016 seasons
+# Updated to include surface and bottom
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS3.jpg",width=400,height=250,units="mm",res=800)
+
+hixbix_dom_s <- ggplot(mydata_s,mapping=aes(x=BIX_DOM,y=HIX_DOM,color=Season,shape=Season,fill=Season))+
+  geom_point(size=2.5)+
+  scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_shape_manual(values=c(24,21,22,23,25))+
+  ylab("Surface DOM HIX")+
+  xlab("Surface DOM BIX")+
+  xlim(c(0,1.3))+
+  ylim(c(0,30))+
+  theme_classic(base_size=20)
+
+hixbix_dom_b <- ggplot(mydata_b,mapping=aes(x=BIX_DOM,y=HIX_DOM,color=Season,shape=Season,fill=Season))+
+  geom_point(size=2.5)+
+  scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_shape_manual(values=c(24,21,22,23,25))+
+  ylab("Bottom DOM HIX")+
+  xlab("Bottom DOM BIX")+
+  xlim(c(0,1.3))+
+  ylim(c(0,30))+
+  theme_classic(base_size=20)
+
+hixbix_pom_s <- ggplot(mydata_s,mapping=aes(x=BIX_POM,y=HIX_POM,color=Season,shape=Season,fill=Season))+
+  geom_point(size=2.5)+
+  scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_shape_manual(values=c(24,21,22,23,25))+
+  ylab("Surface POM HIX")+
+  xlab("Surface POM BIX")+
+  xlim(c(0,1.3))+
+  ylim(c(0,30))+
+  theme_classic(base_size=20)
+
+hixbix_pom_b <- ggplot(mydata_b,mapping=aes(x=BIX_POM,y=HIX_POM,color=Season,shape=Season,fill=Season))+
+  geom_point(size=2.5)+
+  scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+  scale_shape_manual(values=c(24,21,22,23,25))+
+  ylab("Bottom POM HIX")+
+  xlab("Bottom POM BIX")+
+  xlim(c(0,1.3))+
+  ylim(c(0,30))+
+  theme_classic(base_size=20)
+
+ggarrange(hixbix_dom_s,hixbix_dom_b,hixbix_pom_s,hixbix_pom_b,
+          nrow=2,ncol=2)
+
+dev.off()
+
 ######################## OLD CODE ##############################
 # Interp DO
 interp_do <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DO_Sat,
