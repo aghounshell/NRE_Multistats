@@ -280,8 +280,92 @@ ggarrange(docs_heat,docs_box,docb_heat,docb_box,pocs_heat,pocs_box,pocb_heat,poc
 
 dev.off()
 
-############ Figure 5 - boxplots of OM indicators: C:N, SUVA, BIX, HIX (?)
+############ Figure 5 - boxplots of OM indicators with station (C:N, SUVA, BIX, HIX)
 jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure5.jpg",width=400,height=440,units="mm",res=800)
+
+doctodon <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),DOC_DON,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("DOC:DON")+
+  ylim(0,50)+
+  theme_classic(base_size = 21)
+
+poctopn <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),POCtoPN,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("POC:PN")+
+  ylim(0,50)+
+  theme_classic(base_size = 21)
+
+suva_dom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),SUVA_DOM,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab(expression("DOM SUVA (L mg"^-1*"C m"^-1*")"))+
+  ylim(0,5)+
+  theme_classic(base_size = 21)
+
+suva_pom <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),SUVA_POC,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab(expression("POM SUVA (L mg"^-1*"C m"^-1*")"))+
+  ylim(0,5)+
+  theme_classic(base_size = 21)
+
+bix_dom <- ggplot()+
+  geom_hline(yintercept = 0.6,linetype="dashed")+
+  geom_hline(yintercept = 0.8,linetype="dashed")+
+  geom_hline(yintercept = 1,linetype="dashed")+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),BIX_DOM,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("DOM BIX")+
+  ylim(0,1.3)+
+  theme_classic(base_size = 21)
+
+bix_pom <- ggplot()+
+  geom_hline(yintercept = 0.6,linetype="dashed")+
+  geom_hline(yintercept = 0.8,linetype="dashed")+
+  geom_hline(yintercept = 1,linetype="dashed")+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),BIX_POM,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("POM BIX")+
+  ylim(0,1.3)+
+  theme_classic(base_size = 21)
+
+hix_dom <- ggplot()+
+  geom_hline(yintercept = 6,linetype="dashed")+
+  geom_hline(yintercept = 10,linetype="dashed")+
+  geom_hline(yintercept = 16,linetype="dashed")+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),HIX_DOM,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("DOM HIX")+
+  ylim(0,26)+
+  theme_classic(base_size = 21)
+
+hix_pom <- ggplot()+
+  geom_hline(yintercept = 6,linetype="dashed")+
+  geom_hline(yintercept = 10,linetype="dashed")+
+  geom_hline(yintercept = 16,linetype="dashed")+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),HIX_POM,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("POM HIX")+
+  ylim(0,26)+
+  theme_classic(base_size = 21)
+
+ggarrange(doctodon,poctopn,suva_dom,suva_pom,bix_dom,bix_pom,hix_dom,hix_pom,
+          nrow=4,ncol=2)
+
+dev.off()
+
+############ Figure 5 - boxplots of OM indicators with season: C:N, SUVA, BIX, HIX
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure6_new.jpg",width=400,height=440,units="mm",res=800)
 
 doctodon <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,DOC_DON,color=Depth))+
@@ -316,6 +400,9 @@ suva_pom <- ggplot()+
   theme_classic(base_size = 21)
 
 bix_dom <- ggplot()+
+  geom_hline(yintercept = 0.6,linetype="dashed")+
+  geom_hline(yintercept = 0.8,linetype="dashed")+
+  geom_hline(yintercept = 1,linetype="dashed")+
   geom_boxplot(data = my_data2,aes(Season,BIX_DOM,color=Depth))+
   scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
   scale_color_manual(values=c("black","grey53"))+
@@ -324,6 +411,9 @@ bix_dom <- ggplot()+
   theme_classic(base_size = 21)
 
 bix_pom <- ggplot()+
+  geom_hline(yintercept = 0.6,linetype="dashed")+
+  geom_hline(yintercept = 0.8,linetype="dashed")+
+  geom_hline(yintercept = 1,linetype="dashed")+
   geom_boxplot(data = my_data2,aes(Season,BIX_POM,color=Depth))+
   scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
   scale_color_manual(values=c("black","grey53"))+
@@ -332,6 +422,9 @@ bix_pom <- ggplot()+
   theme_classic(base_size = 21)
 
 hix_dom <- ggplot()+
+  geom_hline(yintercept = 6,linetype="dashed")+
+  geom_hline(yintercept = 10,linetype="dashed")+
+  geom_hline(yintercept = 16,linetype="dashed")+
   geom_boxplot(data = my_data2,aes(Season,HIX_DOM,color=Depth))+
   scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
   scale_color_manual(values=c("black","grey53"))+
@@ -340,6 +433,9 @@ hix_dom <- ggplot()+
   theme_classic(base_size = 21)
 
 hix_pom <- ggplot()+
+  geom_hline(yintercept = 6,linetype="dashed")+
+  geom_hline(yintercept = 10,linetype="dashed")+
+  geom_hline(yintercept = 16,linetype="dashed")+
   geom_boxplot(data = my_data2,aes(Season,HIX_POM,color=Depth))+
   scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
   scale_color_manual(values=c("black","grey53"))+

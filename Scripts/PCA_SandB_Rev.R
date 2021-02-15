@@ -21,10 +21,10 @@
 
 # Load in libraries needed
 pacman::p_load(vegan,adespatial,ade4,PerformanceAnalytics,corrplot,Hmisc,ggplot2,tidyverse,vegan3d,
-               scatterplot3d,rgl,car)
+               scatterplot3d,rgl,car,patchwork)
 
 # Load in data (Database_DOSat.csv)
-my_data <- read.csv(file.choose())
+my_data <- read.csv('C:/Users/ahoun/Desktop/NRE_Multistats/Data/Database_DOSat.csv')
 # Remove un-complete data rows (any rows that do not have all data associated with them)
 my_data2 <- my_data[complete.cases(my_data),]
 my_data2$Date <- as.POSIXct(strptime(my_data2$Date, "%m/%d/%Y"))
@@ -92,7 +92,185 @@ chart.Correlation(pom_b_scale, histogram=TRUE, method=c("pearson"))
 
 dev.off()
 
-## Conduct PCA on each scaled data martix: no transformations; no removal of outliers
+## Construct correlation plots for publication - use unscaled data for better interpretation
+cor(env_s$Temp,env_s$Sal,method="pearson")
+cor(env_s$Temp,env_s$DO_Sat,method="pearson")
+cor(env_s$DO_Sat,env_s$Sal,method="pearson")
+cor(env_s$Temp,env_s$Turb,method="pearson")
+cor(env_s$Sal,env_s$Turb,method="pearson")
+cor(env_s$DO_Sat,env_s$Turb,method="pearson")
+cor(env_s$Temp,env_s$Chla,method="pearson")
+cor(env_s$Sal,env_s$Chla,method="pearson")
+cor(env_s$DO_Sat,env_s$Chla,method="pearson")
+cor(env_s$Turb,env_s$Chla,method="pearson")
+
+# Surface Environmental
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS4.jpg",width=420,height=400,units="mm",res=800)
+
+p1 <- ggplot(data=env_s,mapping=aes(x=Temp))+
+        geom_histogram(binwidth = 1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+p2 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Temp,y=Sal,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Temp,y=Sal),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=10,y=20,label="r = 0.39",size=6)+
+        ylab(expression('Temp ('*degree*C*')'))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none")
+
+
+p3 <- ggplot(data=env_s,mapping=aes(x=Sal))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+p4 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Temp,y=DO_Sat,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Temp,y=DO_Sat),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=10,y=160,label="r = 0.13",size=6)+
+        ylab("DO Sat (%)")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",plot.background=element_rect(fill = "grey93"),
+              panel.background=element_rect(fill="grey93"))
+
+
+p5 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Sal,y=DO_Sat,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Sal,y=DO_Sat),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=15,y=150,label="r = 0.34",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank(),
+              plot.background=element_rect(fill = "grey93"),
+              panel.background=element_rect(fill="grey93"))
+
+
+p6 <- ggplot(data=env_s,mapping=aes(x=DO_Sat))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)+
+        theme(plot.background=element_rect(fill = "grey93"),
+              panel.background=element_rect(fill="grey93"))
+
+p7 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Temp,y=Turb,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Temp,y=Turb),method=lm,se=FALSE,color="black")+
+        ylab("Turb (NTU)")+
+        annotate(geom="text",x=25,y=28,label="r = -0.56",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank())
+
+
+p8 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Sal,y=Turb,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Sal,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=5,y=30,label="r = -0.57",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+
+p9 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=DO_Sat,y=Turb,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=DO_Sat,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=55,y=30,label="r = -0.27",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank(),
+              plot.background=element_rect(fill = "grey93"),
+                    panel.background=element_rect(fill="grey93"))
+
+
+p10 <- ggplot(data=env_s,mapping=aes(x=Turb))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+p11 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Temp,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Temp,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=10,y=130,label="r = 0.12",size=6)+
+        ylab(expression(paste("Surface Chla (",mu,"g L"^"-1"*")")))+
+        xlab(expression('Temp ('*degree*C*')'))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none")
+
+
+p12 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Sal,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Sal,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=5,y=130,label="r = 0.29",size=6)+
+        xlab("Sal")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+
+p13 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=DO_Sat,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=DO_Sat,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=55,y=130,label="r = 0.50",size=6)+
+        xlab("DO Sat (%)")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank(),
+              plot.background=element_rect(fill = "grey93"),
+              panel.background=element_rect(fill="grey93"))
+
+
+p14 <- ggplot()+
+        geom_point(data=env_s,mapping=aes(x=Turb,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_s,mapping=aes(x=Turb,y=Chla),method=lm,se=FALSE,color="black")+
+        ylab("Turb (NTU")+
+        annotate(geom="text",x=20,y=130,label="r = -0.28",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+
+p15 <- ggplot(data=env_s,mapping=aes(x=Chla))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+layout <- '
+A####
+BC###
+DEG##
+HIJK#
+LMNOP'
+
+wrap_plots(A=p1, B=p2, C=p3, D=p4, E=p5, G=p6, H=p7, I=p8, J=p9, K=p10, L=p11, M=p12, N=p13, O=p14, P=p15, design=layout)
+
+dev.off()
+
+## Conduct PCA on each scaled data matrix: no transformations; no removal of outliers
 env_s_pca <- rda(env_s_scale)
 summary(env_s_pca,axes=0)
 plot(env_s_pca)
