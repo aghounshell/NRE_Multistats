@@ -4,13 +4,101 @@
 # Removed long-term data (13 Feb 2021) - doesn't add!
 
 # Load in libraries
-pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr,ggplot2,akima,lubridate,colorRamps,RColorBrewer)
+pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr,ggplot2,akima,lubridate,colorRamps,
+               RColorBrewer,rLakeAnalyzer)
 
 # Load in data (Database_DOSat.csv)
 my_data <- read.csv('C:/Users/ahoun/Desktop/NRE_Multistats/Data/Database_DOSat.csv')
+my_data$Date <- as.POSIXct(strptime(my_data$Date, "%m/%d/%Y", tz="EST"))
+# Separate into surface and bottom
+mydata_all_s <- my_data %>% 
+  filter(Depth == "S")
+mydata_all_b <- my_data %>% 
+  filter(Depth == "B")
+# Calculate water density
+mydata_all_s <- mydata_all_s %>% 
+  mutate(density = water.density(mydata_all_s$Temp,sal = mydata_all_s$Sal))
+mydata_all_b <- mydata_all_b %>% 
+  mutate(density = water.density(mydata_all_b$Temp,sal = mydata_all_b$Sal))
+
+Strat = mydata_all_b$density - mydata_all_s$density
+Strat <- cbind.data.frame(mydata_all_s$Date,mydata_all_s$Season,mydata_all_s$Station,Strat)
+Strat <- Strat %>% 
+  rename("Date" = "mydata_all_s$Date","Season" = "mydata_all_s$Season","Station" = "mydata_all_s$Station")
+Strat <- Strat[complete.cases(Strat),]
+Strat <- Strat %>% 
+  mutate(Season = ifelse(Date < '2015-09-01' & Season == "Summer","Summer15",
+                         ifelse(Date > '2016-06-01' & Season == "Summer","Summer16",
+                                Season)))
+Strat$Season<-factor(Strat$Season, levels=c("Summer15", "Fall", "Winter", "Spring","Summer16"))
+
+# Plot be season and by station
+sum15_strat <- Strat %>% 
+  filter(Season == "Summer15")
+fall_strat <- Strat %>% 
+  filter(Season == "Fall")
+winter_strat <- Strat %>% 
+  filter(Season == "Winter")
+spring_strat <- Strat %>% 
+  filter(Season == "Spring")
+sum16_strat <- Strat %>% 
+  filter(Season == "Summer16")
+
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS10.jpg",width=400,height=350,units="mm",res=800)
+
+sum15 <- ggplot(sum15_strat,mapping=aes(as.factor(Station),Strat,fill=Season))+
+  geom_boxplot()+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("Stratification (kg m"^-3*")")))+
+  scale_fill_manual(values=c("#D81B60"))+
+  ylim(c(0,10))+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+fall <- ggplot(fall_strat,mapping=aes(as.factor(Station),Strat,fill=Season))+
+  geom_boxplot()+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("Stratification (kg m"^-3*")")))+
+  scale_fill_manual(values=c("#FFC107"))+
+  ylim(c(0,10))+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+winter <- ggplot(winter_strat,mapping=aes(as.factor(Station),Strat,fill=Season))+
+  geom_boxplot()+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("Stratification (kg m"^-3*")")))+
+  scale_fill_manual(values=c("#1E88E5"))+
+  ylim(c(0,10))+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+spring <- ggplot(spring_strat,mapping=aes(as.factor(Station),Strat,fill=Season))+
+  geom_boxplot()+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("Stratification (kg m"^-3*")")))+
+  scale_fill_manual(values=c("#004D40"))+
+  ylim(c(0,10))+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+sum16 <- ggplot(sum16_strat,mapping=aes(as.factor(Station),Strat,fill=Season))+
+  geom_boxplot()+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("Stratification (kg m"^-3*")")))+
+  scale_fill_manual(values=c("#F7C1BB"))+
+  ylim(c(0,10))+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+ggarrange(sum15,fall,winter,spring,sum16,
+          nrow=3,ncol=2)
+
+dev.off()
+
 # Remove un-complete data rows (any rows that do not have all data associated with them)
 my_data2 <- my_data[complete.cases(my_data),]
-my_data2$Date <- as.POSIXct(strptime(my_data2$Date, "%m/%d/%Y", tz="EST"))
+#my_data2$Date <- as.POSIXct(strptime(my_data2$Date, "%m/%d/%Y", tz="EST"))
 
 # Updated season to reflect summer 2015 and summer 2016
 my_data2 <- my_data2 %>% 
@@ -289,7 +377,8 @@ doctodon <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab("DOC:DON")+
   ylim(0,50)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 poctopn <- ggplot()+
   geom_boxplot(data = my_data2,aes(as.factor(Station),POCtoPN,color=Depth))+
@@ -297,7 +386,8 @@ poctopn <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab("POC:PN")+
   ylim(0,50)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position=c(0.8,0.8))
 
 suva_dom <- ggplot()+
   geom_boxplot(data = my_data2,aes(as.factor(Station),SUVA_DOM,color=Depth))+
@@ -305,7 +395,8 @@ suva_dom <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab(expression("DOM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 suva_pom <- ggplot()+
   geom_boxplot(data = my_data2,aes(as.factor(Station),SUVA_POC,color=Depth))+
@@ -313,7 +404,8 @@ suva_pom <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab(expression("POM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 bix_dom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -324,7 +416,8 @@ bix_dom <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab("DOM BIX")+
   ylim(0,1.3)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 bix_pom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -335,7 +428,8 @@ bix_pom <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab("POM BIX")+
   ylim(0,1.3)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 hix_dom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -346,7 +440,8 @@ hix_dom <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab("DOM HIX")+
   ylim(0,26)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 hix_pom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -357,7 +452,8 @@ hix_pom <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab("POM HIX")+
   ylim(0,26)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 ggarrange(doctodon,poctopn,suva_dom,suva_pom,bix_dom,bix_pom,hix_dom,hix_pom,
           nrow=4,ncol=2)
@@ -373,7 +469,8 @@ doctodon <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab("DOC:DON")+
   ylim(0,50)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 poctopn <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,POCtoPN,color=Depth))+
@@ -381,7 +478,8 @@ poctopn <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab("POC:PN")+
   ylim(0,50)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position=c(0.8,0.8))
 
 suva_dom <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,SUVA_DOM,color=Depth))+
@@ -389,7 +487,8 @@ suva_dom <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab(expression("DOM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 suva_pom <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,SUVA_POC,color=Depth))+
@@ -397,7 +496,8 @@ suva_pom <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab(expression("POM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 bix_dom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -408,7 +508,8 @@ bix_dom <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab("DOM BIX")+
   ylim(0,1.3)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 bix_pom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -419,7 +520,8 @@ bix_pom <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab("POM BIX")+
   ylim(0,1.3)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 hix_dom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -430,7 +532,8 @@ hix_dom <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab("DOM HIX")+
   ylim(0,26)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 hix_pom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -441,7 +544,8 @@ hix_pom <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab("POM HIX")+
   ylim(0,26)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
 
 ggarrange(doctodon,poctopn,suva_dom,suva_pom,bix_dom,bix_pom,hix_dom,hix_pom,
           nrow=4,ncol=2)
