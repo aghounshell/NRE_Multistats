@@ -476,7 +476,6 @@ poctopn <- ggplot()+
   scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
   scale_color_manual(values=c("black","grey53"))+
   ylab("POC:PN")+
-  ylim(0,50)+
   theme_classic(base_size = 21)+
   theme(legend.position=c(0.8,0.8))
 
