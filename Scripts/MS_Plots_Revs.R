@@ -604,7 +604,22 @@ ggarrange(hixbix_dom_s,hixbix_dom_b,hixbix_pom_s,hixbix_pom_b,
 
 dev.off()
 
-######################## OLD CODE ##############################
+########## Heatmaps + seasonal box plots for Turb and DO (Fig S13)
+# Interp turb
+interp_turb <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$Turb,
+                    xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
+                    yo = seq(0,180,by = 1),
+                    extrap = F, linear = T, duplicate = "strip")
+interp_turb <- interp2xyz(interp_turb,data.frame=T)
+interp_turb$Date <- as.Date(interp_turb$x)
+
+interp_turb_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$Turb,
+                      xo = seq(min(mydata_b$Date),max(mydata_b$Date),by=1),
+                      yo = seq(0,180,by = 1),
+                      extrap = F, linear = T, duplicate = "strip")
+interp_turb_b <- interp2xyz(interp_turb_b,data.frame=T)
+interp_turb_b$Date <- as.Date(interp_turb_b$x)
+
 # Interp DO
 interp_do <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$DO_Sat,
                     xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
@@ -620,22 +635,115 @@ interp_do_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DO_Sat,
 interp_do_b <- interp2xyz(interp_do_b,data.frame=T)
 interp_do_b$Date <- as.Date(interp_do_b$x)
 
-# Plot DO heatmaps - probably not going to use these?
-ggplot()+
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS13.jpg",width=400,height=440,units="mm",res=800)
+
+# Turb S heatmap
+turbs_heat <- ggplot()+
+  geom_tile(interp_turb,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",lim=c(0,27))+
+  labs(x = "",y="Distance (km)",fill="Turb")+
+  theme_classic(base_size=25)
+
+# Turb s seasonal boxplot
+turbs_box <- ggplot(data = mydata_s,aes(Season,Turb))+
+  geom_boxplot()+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,27))+
+  ylab("Turidity (NTU)")+
+  theme_classic(base_size = 21)
+
+# Turb B heatmap
+turbb_heat <- ggplot()+
+  geom_tile(interp_turb_b,mapping=aes(x=Date,y=y,fill=z))+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
+  scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",lim=c(0,27))+
+  labs(x = "",y="Distance (km)",fill="Turb")+
+  theme_classic(base_size=25)
+
+# Turb B seasonal boxplot
+turbb_box <- ggplot(data = mydata_b,aes(Season,Turb))+
+  geom_boxplot()+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylim(c(0,27))+
+  ylab("Turbidity (NTU)")+
+  theme_classic(base_size = 21)
+
+# DO S heatmap
+dos_heat <- ggplot()+
   geom_tile(interp_do,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray")+
   labs(x = "",y="Distance down estuary (km)",fill="% DO")+
-  theme_classic(base_size=15)
+  theme_classic(base_size=25)
 
-ggplot()+
+# DO S seasonal boxplot
+dos_box <- ggplot(data = mydata_s,aes(Season,DO_Sat))+
+  geom_boxplot()+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylab("DO Saturation (%)")+
+  theme_classic(base_size = 21)
+
+# DO B heatmap
+dob_heat <- ggplot()+
   geom_tile(interp_do_b,mapping=aes(x=Date,y=y,fill=z))+
-  geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.7)+
+  geom_vline(xintercept=as.Date("2015-09-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2015-12-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-03-01"),color="grey",size=1)+
+  geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
+  geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray")+
   labs(x = "",y="Distance down estuary (km)",fill="% DO")+
-  theme_classic(base_size=15)
+  theme_classic(base_size=25)
 
-### Then interpret and plot various Fl and Abs parameters? What would be best here?
+# DO B seasonal boxplot
+dob_box <- ggplot(data = mydata_b,aes(Season,DO_Sat))+
+  geom_boxplot()+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  ylab("DO Saturation (%)")+
+  theme_classic(base_size = 21)
+
+ggarrange(turbs_heat,turbs_box,turbb_heat,turbb_box,dos_heat,dos_box,dob_heat,dob_box,
+          nrow=4,ncol=2,widths=c(2,1))
+
+dev.off()
+
+########## Fig S14 - Boxplots of Turb and DO down estuary
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS14.jpg",width=200,height=220,units="mm",res=800)
+
+turb_season <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),Turb,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("Turb (NTU)")+
+  ylim(0,27)+
+  theme_classic(base_size = 21)
+
+do_season <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),DO_Sat,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("% DO")+
+  theme_classic(base_size = 21)
+
+ggarrange(turb_season,do_season,nrow=2,ncol=1,common.legend = TRUE)
+
+dev.off()
+
+######################## OLD CODE ##############################
+## Then interpret and plot various Fl and Abs parameters? What would be best here?
 # Start with BIX and HIX
 interp_hixd <- interp(x=mydata_s$Date,y=mydata_s$Station,z=mydata_s$HIX_DOM,
                       xo = seq(min(mydata_s$Date),max(mydata_s$Date),by=1),
