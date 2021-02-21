@@ -664,12 +664,12 @@ with(pom_s,points(pom_s_pca_2,display="sites",col=c("black","black","black","bla
 arrows(0, 0, pomspe_s_sc2[,1], pomspe_s_sc2[,2], angle=20, col="black")
 text(pom_s_pca_2, display = "species", labels=c("","","","","",""), scaling=2, 
      cex = 1, col = "black")
-text(2.0,-1.3,labels="POC",cex=2,col="black")
-text(-0.2,-1.4,labels="POC:PN",cex=2,col="black")
+text(2.0,-1.2,labels="POC",cex=2,col="black")
+text(-0.7,-1.5,labels="POC:PN",cex=2,col="black")
 text(0.2,-2.5,labels="a254",cex=2,col="black")
-text(-1.9,-1.6,labels="SUVA",cex=2,col="black")
-text(-2.5,0.3,labels="HIX",cex=2,col="black")
-text(2.1,0.0,labels="BIX",cex=2,col="black")
+text(-1.9,-1.5,labels="SUVA",cex=2,col="black")
+text(-2.4,0.3,labels="HIX",cex=2,col="black")
+text(1.9,0.0,labels="BIX",cex=2,col="black")
 
 # pom_b
 pom_b$Season<-factor(pom_b$Season, levels=c("Summer15","Fall","Winter", "Spring", "Summer16"))
@@ -684,12 +684,12 @@ with(pom_b,points(pom_b_pca_2,display="sites",col=c("black","black","black","bla
                   bg=colvec[Season],cex=2))
 arrows(0, 0, pomspe_b_sc2[,1], pomspe_b_sc2[,2], angle=20, col="black")
 text(pom_b_pca_2, display = "species", labels=c("","","","","",""), scaling=2, cex = 1, col = "black")
-text(1.0,-2.1,labels="POC",cex=2,col="black")
-text(-2.3,-1.1,labels="POC:PN",cex=2,col="black")
-text(-1.6,-1.9,labels="a254",cex=2,col="black")
-text(-2.9,-0.2,labels="SUVA",cex=2,col="black")
-text(-1.5,1.6,labels="HIX",cex=2,col="black")
-text(1.8,-0.7,labels="BIX",cex=2,col="black")
+text(1.3,-1.9,labels="POC",cex=2,col="black")
+text(-1.8,-0.9,labels="POC:PN",cex=2,col="black")
+text(-1.7,-1.9,labels="a254",cex=2,col="black")
+text(-2.5,-0.2,labels="SUVA",cex=2,col="black")
+text(-1.5,1.4,labels="HIX",cex=2,col="black")
+text(1.8,-0.5,labels="BIX",cex=2,col="black")
 
 dev.off()
 
@@ -809,13 +809,14 @@ plot(dom_s_rda_final,scaling=2,display="sites",xlab="RDA1 (93% fitted,46% total 
      ylab="RDA2 (6% fitted, 3% total var.)",cex.axis=1.5,cex.lab=1.5,ylim=c(-2.5,5))
 with(env_s,points(dom_s_rda_final,display="sites",col=c("black","black","black","black","black"),scaling=2,pch=sq[Season],
                   bg=colvec[Season],cex=1.5))
-#with(env_s,legend("bottomleft",legend=levels(Season),bty="n",col=c("black","black","black","black"),
-#                  pch=c(21,22,23,24),pt.bg=colvec,cex=1.5))
+with(env_s,legend("bottomleft",legend=levels(Season),bty="n",col=c("black","black","black","black"),
+                  pch=c(21,22,23,24),pt.bg=colvec,cex=1.5))
 arrows(0,0,dom_s_rspe_sc2[,1], dom_s_rspe_sc2[,2],lty="dashed",col="black",adj=0.5,length=0)
-text(dom_s_rda_final,display = "species", labels=c("DOC","DOC:DON","SUVA","BIX"), scaling=2, cex = 1.5, 
+text(dom_s_rda_final,display = "species", labels=c("","","SUVA","BIX"), scaling=2, cex = 1.5, 
      col = "black")
-#text(1.6,0.6,labels="DOC",cex=1.5,col="black")
-#text(2.4,-0.55,labels="DOC:DON",cex=1.5,col="black")
+text(1.6,0.3,labels="DOC",cex=1.5,col="black")
+legend(1.6,0.3,"DOC:DON",box.col="white",bg="white",cex=1.5)
+#text(1.1,0.9,labels="DOC:DON",cex=1.5,col="black")
 #text(2.6,0.1,labels="a254",cex=1.5,col="black")
 #text(-2.6,0.4,labels="BIX",cex=1.5,col="black")
 #text(0.4,1.0,labels="T",cex=1.5,col="white")
@@ -848,8 +849,8 @@ plot(dom_b_rda_final,scaling=2,display="sites",xlab="RDA1 (90% fitted, 46% total
      ylab="RDA2 (10% fitted, 5% total var.)",cex.axis=1.5,cex.lab=1.5,xlim=c(-4,3.5))
 with(env_b,points(dom_b_rda_final,display="sites",col=c("black","black","black","black","black"),scaling=2,pch=sq[Season],
                   bg=colvec[Season],cex=1.5))
-with(env_b,legend("topleft",legend=levels(Season),bty="n",col=c("black","black","black","black","black"),
-                  pch=c(24,21,22,23,25),pt.bg=colvec,cex=1.5))
+#with(env_b,legend("topleft",legend=levels(Season),bty="n",col=c("black","black","black","black","black"),
+#                  pch=c(24,21,22,23,25),pt.bg=colvec,cex=1.5))
 arrows(0,0,dom_b_rspe_sc2[,1], dom_b_rspe_sc2[,2],lty="dashed",col="black",adj=0.5,length=0)
 text(dom_b_rda_final,display = "species", labels=c("DOC","DON","DOC:DON","BIX"), scaling=2, cex = 1.5, 
      col = "black")
