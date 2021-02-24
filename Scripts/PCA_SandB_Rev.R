@@ -93,6 +93,7 @@ chart.Correlation(pom_b_scale, histogram=TRUE, method=c("pearson"))
 dev.off()
 
 ## Construct correlation plots for publication - use unscaled data for better interpretation
+# Calculate correlations for surface environmental data
 cor(env_s$Temp,env_s$Sal,method="pearson")
 cor(env_s$Temp,env_s$DO_Sat,method="pearson")
 cor(env_s$DO_Sat,env_s$Sal,method="pearson")
@@ -269,6 +270,177 @@ LMNOP'
 wrap_plots(A=p1, B=p2, C=p3, D=p4, E=p5, G=p6, H=p7, I=p8, J=p9, K=p10, L=p11, M=p12, N=p13, O=p14, P=p15, design=layout)
 
 dev.off()
+
+# Bottom Environmental
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS5.jpg",width=420,height=400,units="mm",res=800)
+
+p1 <- ggplot(data=env_b,mapping=aes(x=Temp))+
+        geom_histogram(binwidth = 1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+cor(env_b$Temp,env_b$Sal,method="pearson")
+
+p2 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Temp,y=Sal,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Temp,y=Sal),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=10,y=20,label="r = 0.49",size=6)+
+        ylab(expression('Temp ('*degree*C*')'))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none")
+
+
+p3 <- ggplot(data=env_b,mapping=aes(x=Sal))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+cor(env_b$Temp,env_b$DO_Sat,method="pearson")
+
+p4 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Temp,y=DO_Sat,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Temp,y=DO_Sat),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=10,y=110,label="r = -0.65",size=6)+
+        ylab("DO Sat (%)")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none")
+
+cor(env_b$DO_Sat,env_b$Sal,method="pearson")
+
+p5 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Sal,y=DO_Sat,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Sal,y=DO_Sat),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=15,y=110,label="r = -0.42",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+p6 <- ggplot(data=env_b,mapping=aes(x=DO_Sat))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+cor(env_b$Temp,env_b$Turb,method="pearson")
+
+p7 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Temp,y=Turb,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Temp,y=Turb),method=lm,se=FALSE,color="black")+
+        ylab("Turb (NTU)")+
+        annotate(geom="text",x=25,y=28,label="r = -0.46",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank())
+
+cor(env_b$Sal,env_b$Turb,method="pearson")
+
+p8 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Sal,y=Turb,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Sal,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=5,y=30,label="r = -0.66",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+cor(env_b$DO_Sat,env_b$Turb,method="pearson")
+
+p9 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=DO_Sat,y=Turb,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=DO_Sat,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=55,y=30,label="r = 0.36",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+p10 <- ggplot(data=env_b,mapping=aes(x=Turb))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+cor(env_b$Temp,env_b$Chla,method="pearson")
+
+p11 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Temp,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Temp,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=10,y=100,label="r = -0.04",size=6)+
+        ylab(expression(paste("Bottom Chla (",mu,"g L"^"-1"*")")))+
+        xlab(expression('Temp ('*degree*C*')'))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none")
+
+cor(env_b$Sal,env_b$Chla,method="pearson")
+
+p12 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Sal,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Sal,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=5,y=100,label="r = 0.18",size=6)+
+        xlab("Sal")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+cor(env_b$DO_Sat,env_b$Chla,method="pearson")
+
+p13 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=DO_Sat,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=DO_Sat,y=Turb),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=55,y=100,label="r = 0.13",size=6)+
+        xlab("DO Sat (%)")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+cor(env_b$Turb,env_b$Chla,method="pearson")
+
+p14 <- ggplot()+
+        geom_point(data=env_b,mapping=aes(x=Turb,y=Chla,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=env_b,mapping=aes(x=Turb,y=Chla),method=lm,se=FALSE,color="black")+
+        ylab("Turb (NTU")+
+        annotate(geom="text",x=20,y=100,label="r = -0.19",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+
+p15 <- ggplot(data=env_b,mapping=aes(x=Chla))+
+        geom_histogram(binwidth=1)+
+        ylab("Count")+
+        theme_classic(base_size=21)
+
+layout <- '
+A####
+BC###
+DEG##
+HIJK#
+LMNOP'
+
+wrap_plots(A=p1, B=p2, C=p3, D=p4, E=p5, G=p6, H=p7, I=p8, J=p9, K=p10, L=p11, M=p12, N=p13, O=p14, P=p15, design=layout)
+
+dev.off()
+
+
 
 ## Conduct PCA on each scaled data matrix: no transformations; no removal of outliers
 env_s_pca <- rda(env_s_scale)
@@ -794,7 +966,7 @@ pom_b_rbp.sc2 <- scores(pom_b_rda_final,display="bp",choices=c(1,2),scaling=2)
 ## Plot RDA results
 #pdf("C:/Users/ahoun/OneDrive/Desktop/NRE_MultiStats/Plots/RDA_SandB.pdf", width=12, height=8)
 
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure6_Rev.jpg",width=250,height=250,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure8.jpg",width=250,height=250,units="mm",res=800)
 
 par(mar=c(5.1,5.1,4.1,2.1))
 par(mfrow=c(2,2))
@@ -807,35 +979,34 @@ sq<-c(24,21,22,23,25)
 
 plot(dom_s_rda_final,scaling=2,display="sites",xlab="RDA1 (93% fitted,46% total var.)",
      ylab="RDA2 (6% fitted, 3% total var.)",cex.axis=1.5,cex.lab=1.5,ylim=c(-2.5,5))
-with(env_s,points(dom_s_rda_final,display="sites",col=c("black","black","black","black","black"),scaling=2,pch=sq[Season],
+with(dom_s,points(dom_s_rda_final,display="sites",col=c("black","black","black","black","black"),scaling=2,pch=sq[Season],
                   bg=colvec[Season],cex=1.5))
-with(env_s,legend("bottomleft",legend=levels(Season),bty="n",col=c("black","black","black","black"),
-                  pch=c(21,22,23,24),pt.bg=colvec,cex=1.5))
+with(dom_s,legend("topleft",legend=levels(Season),bty="n",col=c("black","black","black","black","black"),
+                  pch=c(24,21,22,23,25),pt.bg=colvec,cex=1.5))
 arrows(0,0,dom_s_rspe_sc2[,1], dom_s_rspe_sc2[,2],lty="dashed",col="black",adj=0.5,length=0)
 text(dom_s_rda_final,display = "species", labels=c("","","SUVA","BIX"), scaling=2, cex = 1.5, 
      col = "black")
-text(1.6,0.3,labels="DOC",cex=1.5,col="black")
-legend(1.6,0.3,"DOC:DON",box.col="white",bg="white",cex=1.5)
-#text(1.1,0.9,labels="DOC:DON",cex=1.5,col="black")
-#text(2.6,0.1,labels="a254",cex=1.5,col="black")
+text(1.8,0.3,labels="DOC",cex=1.5,col="black")
+rect(0.5,0.5,3.1,1.1,col="white",border=NA,density=70)
+text(1.6,0.8,labels="DOC:DON",cex=1.5,col="black")
+#text(2.6,0.1,labels="SUVA",cex=1.5,col="black")
 #text(-2.6,0.4,labels="BIX",cex=1.5,col="black")
-#text(0.4,1.0,labels="T",cex=1.5,col="white")
 text(dom_s_rda_final,display="bp",labels=c("Sal","Temp","Turb"),scaling=2,cex=1.5,col="black")
 
 plot(pom_s_rda_final,scaling=2,display="sites",xlab="RDA1 (63% fitted, 28% total var.)",
      ylab="RDA2 (35% fitted, 16% total var.)",cex.axis=1.5,cex.lab=1.5,ylim=c(-3,1.5),xlim=c(-2,3))
-with(env_s,points(pom_s_rda_final,display="sites",col=c("black","black","black","black","black"),scaling=2,pch=sq[Season],
+with(dom_s,points(pom_s_rda_final,display="sites",col=c("black","black","black","black","black"),scaling=2,pch=sq[Season],
                   bg=colvec[Season],cex=1.5))
 arrows(0,0,pom_s_rspe_sc2[,1], pom_s_rspe_sc2[,2],lty="dashed",col="black",adj=0.5,length=0)
-text(pom_s_rda_final,display = "species", labels=c("POC","POC:PN","a254","SUVA","HIX","BIX"), scaling=2, 
+text(pom_s_rda_final,display = "species", labels=c("POC","","","SUVA","HIX",""), scaling=2, 
      cex = 1.5, col = "black")
 #text(2.55,-0.2,labels="POC",cex=1.5,col="black")
-#text(-0.4,-0.8,labels="POC:PN",cex=1.5,col="black")
-#text(0.8,-1.85,labels="a254",cex=1.5,col="black")
+rect(-1.2,-0.85,0,-0.55,col="white",border=NA,density=70)
+text(-0.6,-0.7,labels="POC:PN",cex=1.5,col="black")
+text(0.7,-1.85,labels="a254",cex=1.5,col="black")
 #text(-1.65,-1.3,labels="SUVA",cex=1.5,col="black")
 #text(-1.8,-0.3,labels="HIX",cex=1.5,col="black")
-#text(1.1,0.4,labels="BIX",cex=1.5,col="black")
-#text(1.3,-0.5,labels="T",cex=1.5,col="black")
+text(1.1,0.3,labels="BIX",cex=1.5,col="black")
 text(pom_s_rda_final,display="bp",labels=c("Chla","Turb","Sal"),scaling=2,cex=1.5,col="black")
 
 ## Bottom
@@ -852,13 +1023,12 @@ with(env_b,points(dom_b_rda_final,display="sites",col=c("black","black","black",
 #with(env_b,legend("topleft",legend=levels(Season),bty="n",col=c("black","black","black","black","black"),
 #                  pch=c(24,21,22,23,25),pt.bg=colvec,cex=1.5))
 arrows(0,0,dom_b_rspe_sc2[,1], dom_b_rspe_sc2[,2],lty="dashed",col="black",adj=0.5,length=0)
-text(dom_b_rda_final,display = "species", labels=c("DOC","DON","DOC:DON","BIX"), scaling=2, cex = 1.5, 
+text(dom_b_rda_final,display = "species", labels=c("","DON","","BIX"), scaling=2, cex = 1.5, 
      col = "black")
-#text(-2.6,0.35,labels="DOC",cex=1.5,col="black")
-#text(-2.65,-0.7,labels="DOC:DON",cex=1.5,col="black")
-#text(-2.8,-0.2,labels="SUVA",cex=1.5,col="black")
+text(-2.1,0.1,labels="DOC",cex=1.5,col="black")
+#text(-2.65,-0.7,labels="DON",cex=1.5,col="black")
+text(-1.8,-1.0,labels="DOC:DON",cex=1.5,col="black")
 #text(2.6,-0.2,labels="BIX",cex=1.5,col="black")
-#text(-0.7,0.9,labels="T",cex=1.5,col="black")
 text(dom_b_rda_final,display="bp",labels=c("Sal","Temp","DO","Chla"),scaling=2,cex=1.5,col="black")
 
 # POM Bottom
@@ -867,17 +1037,17 @@ plot(pom_b_rda_final,scaling=2,display="sites",xlab="RDA1 (62% fitted, 26% total
 with(env_b,points(pom_b_rda_final,display="sites",col=c("black","black","black","black"),scaling=2,pch=sq[Season],
                   bg=colvec[Season],cex=1.5))
 arrows(0,0,pom_b_rspe_sc2[,1], pom_b_rspe_sc2[,2],lty="dashed",col="black",adj=0.5,length=0)
-text(pom_b_rda_final,display = "species", labels=c("POC","POC:PN","a254","SUVA","HIX","BIX"), scaling=2, 
+text(pom_b_rda_final,display = "species", labels=c("","","a254","SUVA","",""), scaling=2, 
      cex = 1.5, col = "black")
-#text(2.1,1,labels="POC",cex=1.5,col="black")
-#text(-0.9,0.75,labels="POC:PN",cex=1.5,col="black")
+text(1.2,1.8,labels="POC",cex=1.5,col="black")
+text(-1.5,0.2,labels="POC:PN",cex=1.5,col="black")
 #text(-0.6,1.9,labels="a254",cex=1.5,col="black")
 #text(-1.8,1.05,labels="SUVA",cex=1.5,col="black")
-#text(-0.8,0.3,labels="HIX",cex=1.5,col="white")
-#text(0.8,-0.5,labels="BIX",cex=1.5,col="black")
-#text(-0.7,0.9,labels="T",cex=1.5,col="black")
-#text(0.9,1.1,labels="N",cex=1.5,col="black")
+rect(-1.1,-0.35,-0.6,0,col="white",border=NA,density=70)
+text(-0.9,-0.2,labels="HIX",cex=1.5,col="black")
 text(pom_b_rda_final,display="bp",labels=c("Turb","Chla","Sal"),scaling=2,cex=1.5,col="black")
+rect(0.6,-0.15,1.0,0.15,col="white",border=NA,density=70)
+text(0.8,0,labels="BIX",cex=1.5,col="black")
 
 dev.off()
 
