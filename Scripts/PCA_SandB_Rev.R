@@ -111,6 +111,7 @@ jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS4.jpg",width=420,h
 p1 <- ggplot(data=env_s,mapping=aes(x=Temp))+
         geom_histogram(binwidth = 1)+
         ylab("Count")+
+        xlab(expression('Temp ('*degree*C*')'))+
         theme_classic(base_size=21)
 
 p2 <- ggplot()+
@@ -120,9 +121,9 @@ p2 <- ggplot()+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=env_s,mapping=aes(x=Temp,y=Sal),method=lm,se=FALSE,color="black")+
         annotate(geom="text",x=10,y=20,label="r = 0.39",size=6)+
-        ylab(expression('Temp ('*degree*C*')'))+
+        ylab("Sal")+
         theme_classic(base_size=21)+
-        theme(legend.position = "none")
+        theme(legend.position = "none",axis.title.x=element_blank())
 
 
 p3 <- ggplot(data=env_s,mapping=aes(x=Sal))+
@@ -139,7 +140,7 @@ p4 <- ggplot()+
         annotate(geom="text",x=10,y=160,label="r = 0.13",size=6)+
         ylab("DO Sat (%)")+
         theme_classic(base_size=21)+
-        theme(legend.position = "none",plot.background=element_rect(fill = "grey93"),
+        theme(legend.position = "none",axis.title.x=element_blank(),plot.background=element_rect(fill = "grey93"),
               panel.background=element_rect(fill="grey93"))
 
 
@@ -159,6 +160,7 @@ p5 <- ggplot()+
 p6 <- ggplot(data=env_s,mapping=aes(x=DO_Sat))+
         geom_histogram(binwidth=1)+
         ylab("Count")+
+        xlab("DO Sat (%)")+
         theme_classic(base_size=21)+
         theme(plot.background=element_rect(fill = "grey93"),
               panel.background=element_rect(fill="grey93"))
@@ -202,6 +204,7 @@ p9 <- ggplot()+
 p10 <- ggplot(data=env_s,mapping=aes(x=Turb))+
         geom_histogram(binwidth=1)+
         ylab("Count")+
+        xlab("Turb (NTU)")+
         theme_classic(base_size=21)
 
 p11 <- ggplot()+
@@ -211,7 +214,7 @@ p11 <- ggplot()+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=env_s,mapping=aes(x=Temp,y=Turb),method=lm,se=FALSE,color="black")+
         annotate(geom="text",x=10,y=130,label="r = 0.12",size=6)+
-        ylab(expression(paste("Surface Chla (",mu,"g L"^"-1"*")")))+
+        ylab(expression(paste("Chla (",mu,"g L"^"-1"*")")))+
         xlab(expression('Temp ('*degree*C*')'))+
         theme_classic(base_size=21)+
         theme(legend.position = "none")
@@ -249,7 +252,7 @@ p14 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=env_s,mapping=aes(x=Turb,y=Chla),method=lm,se=FALSE,color="black")+
-        ylab("Turb (NTU")+
+        xlab("Turb (NTU")+
         annotate(geom="text",x=20,y=130,label="r = -0.28",size=6)+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.y=element_blank())
@@ -258,6 +261,7 @@ p14 <- ggplot()+
 p15 <- ggplot(data=env_s,mapping=aes(x=Chla))+
         geom_histogram(binwidth=1)+
         ylab("Count")+
+        xlab(expression(paste("Chla (",mu,"g L"^"-1"*")")))+
         theme_classic(base_size=21)
 
 layout <- '
@@ -277,6 +281,7 @@ jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS5.jpg",width=420,h
 p1 <- ggplot(data=env_b,mapping=aes(x=Temp))+
         geom_histogram(binwidth = 1)+
         ylab("Count")+
+        xlab(expression('Temp ('*degree*C*')'))+
         theme_classic(base_size=21)
 
 cor(env_b$Temp,env_b$Sal,method="pearson")
@@ -288,9 +293,9 @@ p2 <- ggplot()+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=env_b,mapping=aes(x=Temp,y=Sal),method=lm,se=FALSE,color="black")+
         annotate(geom="text",x=10,y=20,label="r = 0.49",size=6)+
-        ylab(expression('Temp ('*degree*C*')'))+
+        ylab("Sal")+
         theme_classic(base_size=21)+
-        theme(legend.position = "none")
+        theme(legend.position = "none",axis.title.x=element_blank())
 
 
 p3 <- ggplot(data=env_b,mapping=aes(x=Sal))+
@@ -309,7 +314,7 @@ p4 <- ggplot()+
         annotate(geom="text",x=10,y=110,label="r = -0.65",size=6)+
         ylab("DO Sat (%)")+
         theme_classic(base_size=21)+
-        theme(legend.position = "none")
+        theme(legend.position = "none",axis.title.x=element_blank())
 
 cor(env_b$DO_Sat,env_b$Sal,method="pearson")
 
@@ -326,6 +331,7 @@ p5 <- ggplot()+
 p6 <- ggplot(data=env_b,mapping=aes(x=DO_Sat))+
         geom_histogram(binwidth=1)+
         ylab("Count")+
+        xlab("DO Sat (%)")+
         theme_classic(base_size=21)
 
 cor(env_b$Temp,env_b$Turb,method="pearson")
@@ -368,6 +374,7 @@ p9 <- ggplot()+
 p10 <- ggplot(data=env_b,mapping=aes(x=Turb))+
         geom_histogram(binwidth=1)+
         ylab("Count")+
+        xlab("Turb (NTU)")+
         theme_classic(base_size=21)
 
 cor(env_b$Temp,env_b$Chla,method="pearson")
@@ -379,7 +386,7 @@ p11 <- ggplot()+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=env_b,mapping=aes(x=Temp,y=Turb),method=lm,se=FALSE,color="black")+
         annotate(geom="text",x=10,y=100,label="r = -0.04",size=6)+
-        ylab(expression(paste("Bottom Chla (",mu,"g L"^"-1"*")")))+
+        ylab(expression(paste("Chla (",mu,"g L"^"-1"*")")))+
         xlab(expression('Temp ('*degree*C*')'))+
         theme_classic(base_size=21)+
         theme(legend.position = "none")
@@ -418,7 +425,7 @@ p14 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=env_b,mapping=aes(x=Turb,y=Chla),method=lm,se=FALSE,color="black")+
-        ylab("Turb (NTU")+
+        xlab("Turb (NTU)")+
         annotate(geom="text",x=20,y=100,label="r = -0.19",size=6)+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.y=element_blank())
@@ -427,6 +434,7 @@ p14 <- ggplot()+
 p15 <- ggplot(data=env_b,mapping=aes(x=Chla))+
         geom_histogram(binwidth=1)+
         ylab("Count")+
+        xlab(expression(paste("Chla (",mu,"g L"^"-1"*")")))+
         theme_classic(base_size=21)
 
 layout <- '
@@ -439,6 +447,241 @@ LMNOP'
 wrap_plots(A=p1, B=p2, C=p3, D=p4, E=p5, G=p6, H=p7, I=p8, J=p9, K=p10, L=p11, M=p12, N=p13, O=p14, P=p15, design=layout)
 
 dev.off()
+
+## Surface DOM
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS6.jpg",width=600,height=420,units="mm",res=800)
+
+p1 <- ggplot(data=dom_s,mapping=aes(x=DOC_mg))+
+        geom_histogram(binwidth = 1)+
+        ylab("Count")+
+        xlab(expression(paste("DOC (mg L"^"-1"*")")))+
+        theme_classic(base_size=21)
+
+cor(dom_s$DOC_mg,dom_s$DON_mg,method="pearson")
+
+p2 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_mg,y=DON_mg,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=DON_mg),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=6,y=0.6,label="r = 0.81",size=6)+
+        ylab(expression(paste("DON (mg L"^"-1"*")")))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank())
+
+p3 <- ggplot(data=dom_s,mapping=aes(x=DON_mg))+
+        geom_histogram(binwidth = 0.1)+
+        ylab("Count")+
+        xlab(expression(paste("DON (mg L"^"-1"*")")))+
+        theme_classic(base_size=21)
+
+cor(dom_s$DOC_mg,dom_s$DOC_DON,method="pearson")
+
+p4 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_mg,y=DOC_DON,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=DOC_DON),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=13,y=45,label="r = 0.51",size=6)+
+        ylab("DOC:DON")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank())
+
+cor(dom_s$DON_mg,dom_s$DOC_DON,method="pearson")
+
+p5 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DON_mg,y=DOC_DON,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=DOC_DON),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=0.54,y=45,label="r = 0.51",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+p6 <- ggplot(data=dom_s,mapping=aes(x=DOC_DON))+
+        geom_histogram(binwidth = 1)+
+        ylab("Count")+
+        xlab("DOC:DON")+
+        theme_classic(base_size=21)
+
+cor(dom_s$DOC_mg,dom_s$a254_DOM,method="pearson")
+
+p7 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_mg,y=a254_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=a254_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=6,y=125,label="r = 0.96",size=6)+
+        ylab("a254")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank())
+
+cor(dom_s$DON_mg,dom_s$a254_DOM,method="pearson")
+
+p8 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DON_mg,y=a254_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=a254_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=0.25,y=125,label="r = 0.79",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+cor(dom_s$DOC_DON,dom_s$a254_DOM,method="pearson")
+
+p9 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_DON,y=a254_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_DON,y=a254_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=45,y=125,label="r = 0.47",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+p10 <- ggplot(data=dom_s,mapping=aes(x=a254_DOM))+
+        geom_histogram(binwidth = 1)+
+        ylab("Count")+
+        xlab("a254")+
+        theme_classic(base_size=21)
+
+cor(dom_s$DOC_mg,dom_s$SUVA_DOM,method="pearson")
+
+p11 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_mg,y=SUVA_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=SUVA_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=6,y=4.5,label="r = 0.63",size=6)+
+        ylab("SUVA")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank())
+
+cor(dom_s$DON_mg,dom_s$SUVA_DOM,method="pearson")
+
+p12 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DON_mg,y=SUVA_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=SUVA_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=0.25,y=4.5,label="r = 0.52",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+cor(dom_s$DOC_DON,dom_s$SUVA_DOM,method="pearson")
+
+p13 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_DON,y=SUVA_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_DON,y=SUVA_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=45,y=4.5,label="r = 0.47",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+cor(dom_s$a254_DOM,dom_s$SUVA_DOM,method="pearson")
+
+p14 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=a254_DOM,y=SUVA_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=a254_DOM,y=SUVA_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=30,y=4.5,label="r = 0.82",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+p15 <- ggplot(data=dom_s,mapping=aes(x=SUVA_DOM))+
+        geom_histogram(binwidth = 0.1)+
+        ylab("Count")+
+        xlab("SUVA")+
+        theme_classic(base_size=21)
+
+cor(dom_s$DOC_mg,dom_s$HIX_DOM,method="pearson")
+
+p16 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_mg,y=HIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=HIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=6,y=21,label="r = 0.80",size=6)+
+        ylab("HIX")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank())
+
+cor(dom_s$DON_mg,dom_s$HIX_DOM,method="pearson")
+
+p17 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DON_mg,y=HIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=HIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=0.25,y=21,label="r = 0.64",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+cor(dom_s$DOC_DON,dom_s$HIX_DOM,method="pearson")
+
+p18 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_DON,y=HIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_DON,y=HIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=21,y=21,label="r = 0.43",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+cor(dom_s$a254_DOM,dom_s$HIX_DOM,method="pearson")
+
+p19 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=a254_DOM,y=HIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=a254_DOM,y=HIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=30,y=21,label="r = 0.88",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+cor(dom_s$SUVA_DOM,dom_s$HIX_DOM,method="pearson")
+
+p20 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=SUVA_DOM,y=HIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=SUVA_DOM,y=HIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=2.3,y=21,label="r = 0.78",size=6)+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
+
+p21 <- ggplot(data=dom_s,mapping=aes(x=HIX_DOM))+
+        geom_histogram(binwidth = 1)+
+        ylab("Count")+
+        xlab("HIX")+
+        theme_classic(base_size=21)
+
+############## START HERE #####################
+
+
+dev.off()
+
+## Bottom DOM
+
+## Surface POM
+
+## Bottom POM
 
 
 
