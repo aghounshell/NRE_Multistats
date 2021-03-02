@@ -449,7 +449,7 @@ wrap_plots(A=p1, B=p2, C=p3, D=p4, E=p5, G=p6, H=p7, I=p8, J=p9, K=p10, L=p11, M
 dev.off()
 
 ## Surface DOM
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS6.jpg",width=600,height=420,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS6.jpg",width=600,height=400,units="mm",res=800)
 
 p1 <- ggplot(data=dom_s,mapping=aes(x=DOC_mg))+
         geom_histogram(binwidth = 1)+
@@ -465,7 +465,7 @@ p2 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=DON_mg),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=6,y=0.6,label="r = 0.81",size=6)+
+        annotate(geom="text",x=7,y=0.52,label="r = 0.81",size=6)+
         ylab(expression(paste("DON (mg L"^"-1"*")")))+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank())
@@ -497,7 +497,7 @@ p5 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=DOC_DON),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=0.54,y=45,label="r = 0.51",size=6)+
+        annotate(geom="text",x=0.5,y=45,label="r = -0.08",size=6)+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
 
@@ -515,7 +515,7 @@ p7 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=a254_DOM),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=6,y=125,label="r = 0.96",size=6)+
+        annotate(geom="text",x=7,y=125,label="r = 0.96",size=6)+
         ylab("a254")+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank())
@@ -528,7 +528,7 @@ p8 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=a254_DOM),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=0.25,y=125,label="r = 0.79",size=6)+
+        annotate(geom="text",x=0.3,y=125,label="r = 0.79",size=6)+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
 
@@ -540,7 +540,7 @@ p9 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DOC_DON,y=a254_DOM),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=45,y=125,label="r = 0.47",size=6)+
+        annotate(geom="text",x=40,y=125,label="r = 0.47",size=6)+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
 
@@ -558,7 +558,7 @@ p11 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=SUVA_DOM),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=6,y=4.5,label="r = 0.63",size=6)+
+        annotate(geom="text",x=12.5,y=2.5,label="r = 0.63",size=6)+
         ylab("SUVA")+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank())
@@ -571,7 +571,7 @@ p12 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=SUVA_DOM),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=0.25,y=4.5,label="r = 0.52",size=6)+
+        annotate(geom="text",x=0.3,y=4.5,label="r = 0.52",size=6)+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
 
@@ -613,7 +613,7 @@ p16 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=HIX_DOM),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=6,y=21,label="r = 0.80",size=6)+
+        annotate(geom="text",x=7,y=21,label="r = 0.80",size=6)+
         ylab("HIX")+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank())
@@ -626,7 +626,7 @@ p17 <- ggplot()+
         scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
         scale_shape_manual(values=c(24,21,22,23,25))+
         geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=HIX_DOM),method=lm,se=FALSE,color="black")+
-        annotate(geom="text",x=0.25,y=21,label="r = 0.64",size=6)+
+        annotate(geom="text",x=0.3,y=21,label="r = 0.64",size=6)+
         theme_classic(base_size=21)+
         theme(legend.position = "none",axis.title.x=element_blank(),axis.title.y=element_blank())
 
@@ -672,8 +672,102 @@ p21 <- ggplot(data=dom_s,mapping=aes(x=HIX_DOM))+
         xlab("HIX")+
         theme_classic(base_size=21)
 
-############## START HERE #####################
+cor(dom_s$DOC_mg,dom_s$BIX_DOM,method="pearson")
 
+p22 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_mg,y=BIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_mg,y=BIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=13,y=0.8,label="r = -0.54",size=6)+
+        ylab("BIX")+
+        xlab(expression(paste("DOC (mg L"^"-1"*")")))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none")
+
+cor(dom_s$DON_mg,dom_s$BIX_DOM,method="pearson")
+
+p23 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DON_mg,y=BIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DON_mg,y=BIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=0.3,y=0.8,label="r = -0.44",size=6)+
+        xlab(expression(paste("DON (mg L"^"-1"*")")))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+cor(dom_s$DOC_DON,dom_s$BIX_DOM,method="pearson")
+
+p24 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=DOC_DON,y=BIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=DOC_DON,y=BIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=45,y=0.8,label="r = -0.32",size=6)+
+        xlab("DOC:DON")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+cor(dom_s$a254_DOM,dom_s$BIX_DOM,method="pearson")
+
+p25 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=a254_DOM,y=BIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=a254_DOM,y=BIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=120,y=0.8,label="r = -0.66",size=6)+
+        xlab("a254")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+cor(dom_s$SUVA_DOM,dom_s$BIX_DOM,method="pearson")
+
+p26 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=SUVA_DOM,y=BIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=SUVA_DOM,y=BIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=3.8,y=0.8,label="r = -0.77",size=6)+
+        xlab(expression(paste("SUVA (L mg"^"-1"*"C m"^"-1"*")")))+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+cor(dom_s$HIX_DOM,dom_s$BIX_DOM,method="pearson")
+
+p27 <- ggplot()+
+        geom_point(data=dom_s,mapping=aes(x=HIX_DOM,y=BIX_DOM,color=Season,shape=Season,fill=Season),size=3)+
+        scale_color_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_fill_manual(values=c("#D81B60","#FFC107","#1E88E5","#004D40","#F7C1BB"))+
+        scale_shape_manual(values=c(24,21,22,23,25))+
+        geom_smooth(data=dom_s,mapping=aes(x=HIX_DOM,y=BIX_DOM),method=lm,se=FALSE,color="black")+
+        annotate(geom="text",x=20,y=0.8,label="r = -0.77",size=6)+
+        xlab("HIX")+
+        theme_classic(base_size=21)+
+        theme(legend.position = "none",axis.title.y=element_blank())
+
+p28 <- ggplot(data=dom_s,mapping=aes(x=BIX_DOM))+
+        geom_histogram(binwidth = 0.05)+
+        ylab("Count")+
+        xlab("BIX")+
+        theme_classic(base_size=21)
+
+layout <- '
+A######
+BC#####
+DEG####
+HIJK###
+LMNOP##
+QRSUVW#
+XYZabcd'
+
+wrap_plots(A=p1, B=p2, C=p3, D=p4, E=p5, G=p6, H=p7, I=p8, J=p9, K=p10, L=p11, M=p12, N=p13, O=p14, P=p15, 
+           Q=p16, R=p17, S=p18, U=p19, V=p20, W=p21, X=p22, Y=p23, Z=p24, a=p25, b=p26, c=p27, d=p28, design=layout)
 
 dev.off()
 
