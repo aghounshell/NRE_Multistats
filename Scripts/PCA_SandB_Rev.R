@@ -1840,8 +1840,7 @@ wrap_plots(A=p1, B=p2, C=p3, D=p4, E=p5, G=p6, H=p7, I=p8, J=p9, K=p10, L=p11, M
 
 dev.off()
 
-
-
+#############################################################################
 ## Conduct PCA on each scaled data matrix: no transformations; no removal of outliers
 env_s_pca <- rda(env_s_scale)
 summary(env_s_pca,axes=0)

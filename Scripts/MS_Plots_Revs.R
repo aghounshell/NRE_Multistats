@@ -159,6 +159,38 @@ interp_chla_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$Chla,
 interp_chla_b <- interp2xyz(interp_chla_b,data.frame=T)
 interp_chla_b$Date <- as.Date(interp_chla_b$x)
 
+### Calculate statistical differences between seasons for surface and bottom box plots
+kruskal.test(Sal ~ Season, data = mydata_s) # Statistically significant difference w/ season
+pairwise.wilcox.test(mydata_s$Sal, mydata_s$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(Sal ~ Season, data = mydata_b) # Statistically significant difference w/ season
+pairwise.wilcox.test(mydata_b$Sal, mydata_b$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(Chla ~ Season, data = mydata_s) # Statistically significant difference w/ season
+pairwise.wilcox.test(mydata_s$Chla, mydata_s$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(Chla ~ Season, data = mydata_b) # Statistically significant difference w/ season
+pairwise.wilcox.test(mydata_b$Chla, mydata_b$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(DOC_mg ~ Season, data = mydata_s) # Statistically significant difference w/ season
+pairwise.wilcox.test(mydata_s$DOC_mg, mydata_s$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(DOC_mg ~ Season, data = mydata_b) # Statistically significant difference w/ season
+pairwise.wilcox.test(mydata_b$DOC_mg, mydata_b$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(POC_mg ~ Season, data = mydata_s) # NOT STATISTICALLY DIFFERENT!
+pairwise.wilcox.test(mydata_s$POC_mg, mydata_s$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(POC_mg ~ Season, data = mydata_b) # Barely statistically different
+pairwise.wilcox.test(mydata_b$POC_mg, mydata_b$Season, p.adjust.method="BH",correct=FALSE)
+
+# Look at OM quality too?
+kruskal.test(HIX_DOM ~ Season, data = mydata_s) # Barely statistically different
+pairwise.wilcox.test(mydata_s$HIX_DOM, mydata_s$Season, p.adjust.method="BH",correct=FALSE)
+
+kruskal.test(BIX_DOM ~ Season, data = mydata_s) # Barely statistically different
+pairwise.wilcox.test(mydata_s$BIX_DOM, mydata_s$Season, p.adjust.method="BH",correct=FALSE)
+
 # Plot salinity heatmap + boxplots from above - Figure 3 in MS
 
 jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure3.jpg",width=400,height=440,units="mm",res=800)
