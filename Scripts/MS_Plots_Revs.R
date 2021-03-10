@@ -400,6 +400,50 @@ ggarrange(docs_heat,docs_box,docb_heat,docb_box,pocs_heat,pocs_box,pocb_heat,poc
 
 dev.off()
 
+########### Figure S3 - boxplots of Sal, Chla, [C] by station
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS3.jpg",width=400,height=300,units="mm",res=800)
+
+sal <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),Sal,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab("Salnity")+
+  ylim(0,20)+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+chla <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),Chla,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("Chla (",mu,"g L"^"-1"*")")))+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")+
+  theme(legend.position=c(0.8,0.8))
+
+doc <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),DOC_mg,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("DOC (mg L"^"-1"*")")))+
+  ylim(0,15)+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+poc <- ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Station),POC_mg,color=Depth))+
+  scale_color_manual(values=c("black","grey53"))+
+  xlab("Distance down estuary (km)")+
+  ylab(expression(paste("POC (mg L"^"-1"*")")))+
+  ylim(0,5)+
+  theme_classic(base_size = 21)+
+  theme(legend.position="none")
+
+ggarrange(sal,chla,doc,poc,
+          nrow=2,ncol=2)
+
+dev.off()
+
 ############ Figure 5 - boxplots of OM indicators with station (C:N, SUVA, BIX, HIX)
 jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure5.jpg",width=400,height=440,units="mm",res=800)
 
@@ -667,7 +711,7 @@ interp_do_b <- interp(x=mydata_b$Date,y=mydata_b$Station,z=mydata_b$DO_Sat,
 interp_do_b <- interp2xyz(interp_do_b,data.frame=T)
 interp_do_b$Date <- as.Date(interp_do_b$x)
 
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS13.jpg",width=400,height=440,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS11.jpg",width=400,height=440,units="mm",res=800)
 
 # Turb S heatmap
 turbs_heat <- ggplot()+
@@ -718,7 +762,7 @@ dos_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray")+
-  labs(x = "",y="Distance down estuary (km)",fill="% DO")+
+  labs(x = "",y="Distance (km)",fill="% DO")+
   theme_classic(base_size=25)
 
 # DO S seasonal boxplot
@@ -737,7 +781,7 @@ dob_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray")+
-  labs(x = "",y="Distance down estuary (km)",fill="% DO")+
+  labs(x = "",y="Distance (km)",fill="% DO")+
   theme_classic(base_size=25)
 
 # DO B seasonal boxplot
@@ -771,6 +815,17 @@ do_season <- ggplot()+
   theme_classic(base_size = 21)
 
 ggarrange(turb_season,do_season,nrow=2,ncol=1,common.legend = TRUE)
+
+dev.off()
+
+### Plot flushing time by season (box plots)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/FigureS13.jpg",width=200,height=150,units="mm",res=800)
+
+ggplot()+
+  geom_boxplot(data = my_data2,aes(as.factor(Season),Flushing_Time))+
+  xlab("Season")+
+  ylab("Flushing Time (d)")+
+  theme_classic(base_size = 21)
 
 dev.off()
 
