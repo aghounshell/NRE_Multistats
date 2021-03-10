@@ -1,0 +1,1303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="edi.181.1" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0  https://nis.lternet.edu/schemas/EML/eml-2.2.0/xsd/eml.xsd" system="edi">
+  <access authSystem="https://pasta.edirepository.org/authentication" order="allowFirst" scope="document">
+    <allow>
+      <principal>uid=ahounshell,o=EDI,dc=edirepository,dc=org</principal>
+      <permission>all</permission>
+    </allow>
+    <allow>
+      <principal>public</principal>
+      <permission>read</permission>
+    </allow>
+  </access>
+  <dataset>
+    <title>Time series of environmental parameters and organic matter analyses for dissolved and particulate organic matter in the Neuse River Estuary, North Carolina, USA 2015-2016</title>
+    <creator>
+      <individualName>
+        <givenName>Alexandria</givenName>
+        <givenName>G.</givenName>
+        <surName>Hounshell</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>alexgh@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-1616-9399</userId>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Nathan</givenName>
+        <givenName>S.</givenName>
+        <surName>Hall</surName>
+      </individualName>
+      <organizationName>University of North Carolina - Chapel Hill</organizationName>
+      <electronicMailAddress>nshall@unc.edu</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Jeremy</givenName>
+        <givenName>S.</givenName>
+        <surName>Braddy</surName>
+      </individualName>
+      <organizationName>University of North Carolina - Chapel Hill</organizationName>
+      <electronicMailAddress>jbraddy@email.unc.edu</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Karen</givenName>
+        <givenName>L.</givenName>
+        <surName>Rossignol</surName>
+      </individualName>
+      <organizationName>University of North Carolina - Chapel Hill</organizationName>
+      <electronicMailAddress>krossign@email.unc.edu</electronicMailAddress>
+    </creator>
+    <creator>
+      <individualName>
+        <givenName>Randy</givenName>
+        <surName>Sloup</surName>
+      </individualName>
+      <organizationName>University of North Carolina - Chapel Hill</organizationName>
+      <electronicMailAddress>randys@email.unc.edu</electronicMailAddress>
+    </creator>
+    <pubDate>2021-03-10</pubDate>
+    <abstract>
+      <para>Environmental parameters and organic matter analyses (concentration, absorbance, fluorescence) for dissolved and particulate organic matter for the Neuse River Estuary, North Carolina, USA from 20 July 2015-28 July 2016. Samples were collected bi-weekly from July 2015-October 2015 and March 2016-July 2016 and monthly from November 2015-February 2016. The dataset consists of environmental parameters measured (water temperature, salinity, percent dissolved oxygen, turbidity, chlorophyll-a) and calculated (flushing time) as well as organic matter analyses for dissolved and particulate organic matter (concentration, absorbance, fluorescence) from surface (0.2 m below surface) and bottom (0.5 m above bottom) at 11 stations from the furthest extent of saltwater intrusion (Station 0) to the mouth of the estuary (Station 180). Data were collected as part of the Neuse River Estuary Modeling and Monitoring Program (ModMon; http://paerllab.web.unc.edu/projects/modmon/) at the University of North Carolina - Chapel Hill, Institute of Marine Science.</para>
+    </abstract>
+    <keywordSet>
+      <keyword>University of North Carolina - Chapel Hill</keyword>
+      <keyword>ModMon</keyword>
+      <keyword>Neuse River Estuary</keyword>
+      <keywordThesaurus>paerl lab controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>salinity</keyword>
+      <keyword>turbidity</keyword>
+      <keyword>water temperature</keyword>
+      <keyword>dissolved oxygen</keyword>
+      <keyword>chlorophyll a</keyword>
+      <keyword>dissolved organic carbon</keyword>
+      <keyword>particulate organic carbon</keyword>
+      <keyword>fluorescence</keyword>
+      <keyword>estuary</keyword>
+      <keyword>organic matter</keyword>
+      <keywordThesaurus>lter controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>absorbance</keyword>
+      <keywordThesaurus>cuahsi controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <intellectualRights>
+      <para>This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available "as is." The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.
+</para>
+    </intellectualRights>
+    <coverage>
+      <geographicCoverage>
+        <geographicDescription>"Neuse River Estuary is located in eastern North Carolina, USA"</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-76.485125</westBoundingCoordinate>
+          <eastBoundingCoordinate>-77.153169</eastBoundingCoordinate>
+          <northBoundingCoordinate>35.223531</northBoundingCoordinate>
+          <southBoundingCoordinate>34.914575</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2015-07-20</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2016-07-28</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+    </coverage>
+    <maintenance>
+      <description>completed</description>
+    </maintenance>
+    <contact>
+      <individualName>
+        <givenName>Alexandria</givenName>
+        <givenName>G.</givenName>
+        <surName>Hounshell</surName>
+      </individualName>
+      <organizationName>Virginia Tech</organizationName>
+      <electronicMailAddress>alexgh@vt.edu</electronicMailAddress>
+      <userId directory="https://orcid.org">https://orcid.org/0000-0003-1616-9399</userId>
+    </contact>
+    <methods>
+      <methodStep>
+        <description>
+          <para>Samples for physical, chemical, biological, and organic matter (dissolved and particulate organic matter, DOM and POM respectively) analyses were collected as part of the Neuse River Monitoring and Modeling Program (ModMon; http://paerllab.web.unc.edu/projects/modmon/) conducted by the University of North Carolina - Chapel Hill, Institute of Marine Sciences (UNC-CH IMS) (Paerl et al. 2018). Samples were collected from July 20, 2015 to July 28, 2016; bi-weekly from March through October and monthly from November through February. For each sampling date (n = 22), samples were collected at 11 stations in the NRE spanning the upstream-most location of salinity intrusion (Station 0) to the mouth of the estuary (Station 180). In situ measurements (water temperature, salinity, turbidity, percent dissolved oxygen) were collected at discrete depths on the sunlit side of the research vessel using a Yellow Springs Instruments (YSI Incorporated, Ohio) multiparameter sonde (Model 6600 or 6600 EDS-S Extended Deployment System) equipped with a YSI conductivity/temperature probe (Model 6560), a YSI pulsed dissolved oxygen probe (Model 6562), and a self-cleaning YSI turbidity probe (Model 6026 or 6136). The YSI sonde was coupled to a either a YSI 610 DM datalogger or a YSI 650 MDS Multi-parameter Display System datalogger. In situ measurements were performed at the surface (approximately 0.2 meters) and at the bottom of the water column (approximately 0.5 meters from the sediment layer).</para>
+          <para>For each sampling date, a surface (0.2 m below surface) and bottom (0.5 m above bottom) water sample were collected for chemical, biological, and organic matter analyses at each of the 11 stations using a peristaltic pump. Samples were maintained in the dark at ambient temperature and returned to UNC-CH Institute of Marine Sciences within ~6 hours of collection. Samples were filtered through pre-combusted (450 degrees C, 4 h) GF/F glass fiber filters (0.7 _m nominal pore size). The filtrate was collected and stored frozen at -20_C in the dark until dissolved nutrient and DOM quantitative and qualitative analysis. Filters were collected and stored frozen at -20 degrees C in the dark until chlorophyll-a analysis, conducted within one month of collection, and POM quantitative and qualitative analysis, as described below.</para>
+          <para>The freshwater flushing time for each station and date was calculated using the date-specific fraction of freshwater method (Alber and Sheldon, 1999) as described in Peierls et al. 2012. Briefly, the date-specific average discharge is an iterative calculation that averages the riverine discharge over the flushing time period.</para>
+          <para>Organic matter analysis</para>
+          <para>DOC concentration ([DOC]) was measured via high-temperature catalytic oxidation on a Shimadzu TOC-5000 analyzer (Peierls et al. 2003): Water samples were vacuum filtered (less than 25 kilopascal) using pre-combusted Whatman glass microfiber filters (GF/F). The filtrate was stored in pre-combusted glass scintillation vials with Teflon closures and frozen at -20 degrees Celsius until analysis. The Shimadzu TOC-5000A Analyzer uses high temperature catalytic oxidation followed by non-dispersive infrared analysis of the carbon dioxide produced.  Samples were acidified to a pH less than 2 and sparged with air before they were analyzed for non-volatile organic carbon. Total dissolved nitrogen (TDN), nitrate + nitrite, and ammonium were determined colorimetrically using a Lachat QuickChem autoanalyzer (Peierls et al. 2003). Dissolved organic nitrogen ([DON]) was determined by subtracting the dissolved inorganic nitrogen species (DIN, as nitrate + nitrite and ammonium) from TDN. The molar ratio of dissolved organic carbon (DOC) to dissolved organic nitrogen (DON) or DOC:DON was calculated.</para>
+          <para>Particulate organic carbon concentration ([POC]) and particulate nitrogen ([PN]) were determined on one set of collected filters via high temperature combustion on a Costech ECS 4010 analyzer, after vapor acidification (HCl) to remove carbonates (Paerl et al., 2018). After drying at 60 degrees C, the filters were rolled in tin disks and injected into a Costech Analytical Technologies, Inc. Elemental Combustion System CHNS-O ECS 4010 for elemental analysis. Atropine standards were used to develop a calibration curve (C 70.56%, N 4.84%, and carbon response ratio of 0.025 +/-0.003). NIST Buffalo River Sediment Reference Material 8704 (C 3.351% +/-0.017, N 0.20% +/-0.04) and/or Acetanilide Bypass (C 71.09%, N 10.36%, carbon response ratio of 0.055 +/- 0.003) were used for calibration or as a check standard. </para>
+          <para>Samples for fluorescent base-extracted particulate organic matter (BEPOM) were extracted following Osburn et al. 2012. Briefly, seston on collected filters was extracted using 10 mL of 0.1 M NaOH and stored in the dark at 4 degrees C for 24 hours. Samples were then neutralized with concentrated HCl (~ 100 _L) to measured neutral pH (~ 7.0) and filtered through 0.2 _m porosity, PES filters. Filtered extracts were immediately analyzed for absorbance and fluorescence as described below. For absorbance and fluorescence, DOM and neutralized BEPOM samples were filtered through 0.2 _m mesh size, polyethersulfone (PES) filters immediately prior to analysis to ensure optical consistency.</para>
+          <para>Absorbance spectra for filtered DOM and extracted BEPOM samples were measured on a Shimadzu UV-1700 Pharma-Spec spectrophotometer. Absorbance spectra were corrected using a Nanopure water blank measured at the beginning of each day of analysis. All samples with &gt; 0.4 raw absorbance units at 240 nm were diluted, and final results were corrected for dilution (Osburn et al. 2012). Absorbance values at 254 nm were converted to Napierian absorbance coefficients (a_, 1/m) (Spencer et al. 2013). Specific UV absorbance (SUVA254) (L/mg C/m) was calculated as decadal a254/[OC] (as [DOC] or [POC], respectively) for each sample (Weishaar et al. 2003). </para>
+          <para>Fluorescence spectra (i.e., excitation-emission matrices, EEMs) were measured on a Varian Cary Eclipse spectrofluorometer. Excitation wavelengths were scanned from 240 to 450 nm at 5 nm increments, and emission wavelengths were scanned from 300 to 600 nm at 2 nm increments. Instrument excitation and emission corrections were applied to each sample in addition to corrections for inner-filtering effects, calibrated against the Raman signal of Nanopure water, and standardized to quinine sulfate equivalents (Q.S.E.) (Murphy et al. 2013).</para>
+          <para>The humification index (HIX) and biological index (BIX) were calculated from measured fluorescence spectra and used as indicators of the relative quality of OM in estuaries from more terrestrial, humic-like OM to more biological, autochthonously produced OM (Huguet et al. 2009). HIX is the ratio of the H (435-480 nm) and L (300-345 nm) regions of fluorescence measured at an excitation wavelength of 254 nm. HIX is indicative of the degree of humification and aromaticity of the fluorescent organic matter (OM) in a sample and generally decreases down estuary. BIX is calculated as the ratio between the _ (380 nm) (Peak M) and _ (430 nm) (Peak C) regions of fluorescence measured at an excitation wavelength of 310 nm. BIX is an indicator of autochthonous, recently produced fluorescent OM and generally increases down estuaries (Huguet et al. 2009). In addition to fluorescent indicators such as HIX and BIX, peak-picking methods were used to identify previously selected and characterized EEM fluorescent peaks from the literature (Coble 2007; Fellman et al. 2010).&#13;
+ &#13;
+Chlorophyll-a (Chl a) analysis</para>
+          <para>Chl a concentration was measured using the modified in vitro fluorescence technique in EPA Method 445.0 (Welshmeyer 1994, Arar et al.  1997): Fifty milliliters of each water sample were vacuum filtered (less than 25 kilopascals) through duplicate filters at low ambient light conditions using 25 mm Whatman glass microfibre filters (GF/F). The filters were blotted dry, wrapped in foil and frozen immediately at -20 degrees C until analysis. Chl a was extracted from the filter using a tissue grinder and 10 mL of 90 percent reagent grade aqueous acetone. The samples remained in the acetone overnight at -20 degrees C. The extracts were filter-clarified using a centrifuge and analyzed on a Turner Designs TD-700 fluorometer that was configured for the non-acidification method of Welschmeyer (1994). The value reported is the average Chl a concentration measured from the two filters. The fluorometer was calibrated with a known concentration of pure Chl a that was determined using a TurnerDesigns Trilogy fluorometer. The calibration was checked daily against a solid secondary standard. </para>
+          <para>References</para>
+          <para>Alber, M., Sheldon, J.E., 1999. Use of a date-specific method to examine variability in the flushing times of Georgia estuaries. Estuarine, Coastal and Shelf Science. 49, 469-482.</para>
+          <para>Arar, E.J., Collins, G.B., 1997. In Vitro Determination of Chlorophyll a and Pheophytin a in Marine and Freshwater Algae by Fluorescence. EPA Method 445.0. Technical report for USA-EPA, Cincinnati, Ohio, September 1997.</para>
+          <para>Coble, P.G., 2007. Marine optical biogeochemistry: The chemistry of ocean color. Chemical Reviews 107, 402-418. https://doi.org/10.1021/cr050350</para>
+          <para>Fellman, J.B., Hood, E., Spencer, R.G.M., 2010. Fluorescence spectroscopy opens new windows into dissolved organic matter dynamics in freshwater ecosystems: A review. Limnology and Oceanography 55, 2452-2462. https://doi.org/10.4319/lo.2010.55.6.2452</para>
+          <para>Huguet, A., Vacher, L., Relexans, S., Saubusse, S., Froidefond, J.M., Parlanti, E., 2009. Properties of fluorescent dissolved organic matter in the Gironde Estuary. Organic Geochemistry 40, 706-719. https://doi.org/10.1016/j.orggeochem.2009.03.002</para>
+          <para>Murphy, K.R., Stedmon, C.A., Graeber, D., Bro, R., 2013. Decomposition routines for Excitation Emission Matrices. Analytical Methods 5(23), 1-29. https://doi.org/10.1039/c3ay41160e.drEEM</para>
+          <para>Osburn, C.L., Handsel, L.T., Mikan, M.P., Paerl, H.W., Montgomery, M.T., 2012. Fluorescence tracking of dissolved and particulate organic matter quality in a river-dominated estuary. Environmental Science &amp; Technology 46, 8628-8636. https://doi.org/10.1021/es3007723</para>
+          <para>Paerl, H.W., Crosswell, J.R., Dam, B. Van, Hall, N.S., Rossignol, K.L., Osburn, C.L., Hounshell, A.G., Sloup, R.S., Harding, L.W., 2018. Two decades of tropical cyclone impacts on North Carolina's estuarine carbon, nutrient and phytoplankton dynamics: implications for biogeochemical cycling and water quality in a stormier world. Biogeochemistry 141(3), 307-332. https://doi.org/10.1007/s10533-018-0438-x</para>
+          <para>Peierls, B.L., Christian, R.R., Paerl, H.W., 2003. Water Quality and Phytoplankton as Indicators of Hurricane Impacts on a Large Estuarine Ecosystem. Estuaries 26, 1329-1343. https://doi.org/10.1007/BF02803635</para>
+          <para>Peierls, B.L., Hall, N.S., Paerl, H.W., 2012. Non-monotonic Responses of Phytoplankton Biomass Accumulation to Hydrologic Variability: A Comparison of Two Coastal Plain North Carolina Estuaries. Estuaries and Coasts 1-17. https://doi.org/10.1007/s12237-012-9547-2</para>
+          <para>Spencer, R.G.M., Aiken, G.R., Dornblaser, M.M., Butler, K.D., Holmes, R.M., Fiske, G., Mann, P.J., Stubbins, A., 2013. Chromophoric dissolved organic matter export from U.S. rivers. Geophysical Research Letters 40, 1575-1579. https://doi.org/10.1002/grl.50357</para>
+          <para>Weishaar, J.L., Fram, M.S., Fujii, R., Mopper, K., 2003. Evaluation of Specific Ultraviolet Absorbance as an Indicator of the Chemical Composition and Reactivity of Dissolved Organic Carbon. Environmental Science &amp; Technology 4702-4708. https://doi.org/10.1021/es030360x</para>
+          <para>Welschmeyer, N.A. 1994. Fluorometric analysis of chlorophyll a in the presence of chlorophyll b and pheopigments. Limnology and Oceanography 39, 1985-1992.&#13;
+</para>
+        </description>
+      </methodStep>
+    </methods>
+    <project>
+      <title>"USGS-WRRI: Role of Organic Nitrogen to Eutrophication Dynamics Along the Neuse River Estuary, NC"</title>
+      <personnel>
+        <individualName>
+          <givenName>Alexandria</givenName>
+          <givenName>G.</givenName>
+          <surName>Hounshell</surName>
+        </individualName>
+        <organizationName>Virginia Tech</organizationName>
+        <electronicMailAddress>alexgh@vt.edu</electronicMailAddress>
+        <userId directory="https://orcid.org">https://orcid.org/0000-0003-1616-9399</userId>
+        <role>Principal Investigator</role>
+      </personnel>
+      <funding>North Carolina Water Resources Research Institute</funding>
+      <relatedProject>
+        <title>No project title to report</title>
+        <personnel>
+          <individualName>
+            <givenName>Hans</givenName>
+            <givenName>W.</givenName>
+            <surName>Paerl</surName>
+          </individualName>
+          <organizationName>University of North Carolina - Chapel Hill</organizationName>
+          <electronicMailAddress>hans_paerl@unc.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0003-2211-1011</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>North Carolina Sea Grant Program Project R/MG-1505</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>No project title to report</title>
+        <personnel>
+          <individualName>
+            <givenName>Hans</givenName>
+            <givenName>W.</givenName>
+            <surName>Paerl</surName>
+          </individualName>
+          <organizationName>University of North Carolina - Chapel Hill</organizationName>
+          <electronicMailAddress>hans_paerl@unc.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0003-2211-1011</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>North Carolina Dept. of Environmental Quality/National Fish and Wildlife Foundation 8020.16.053916</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>Neuse River Estuary Monitoring and Modeling Project</title>
+        <personnel>
+          <individualName>
+            <givenName>Hans</givenName>
+            <givenName>W.</givenName>
+            <surName>Paerl</surName>
+          </individualName>
+          <organizationName>University of North Carolina - Chapel Hill</organizationName>
+          <electronicMailAddress>hans_paerl@unc.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0003-2211-1011</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>No funding to report</funding>
+      </relatedProject>
+      <relatedProject>
+        <title>RAPID: Collaborative Research: Carbon and nutrient responses in an estuarine-coastal complex impacted by floodwaters from Hurricane Matthew</title>
+        <personnel>
+          <individualName>
+            <givenName>Hans</givenName>
+            <givenName>W.</givenName>
+            <surName>Paerl</surName>
+          </individualName>
+          <organizationName>University of North Carolina - Chapel Hill</organizationName>
+          <electronicMailAddress>hans_paerl@unc.edu</electronicMailAddress>
+          <userId directory="https://orcid.org">https://orcid.org/0000-0003-2211-1011</userId>
+          <role>Principal Investigator</role>
+        </personnel>
+        <funding>"National Science Foundation, Division of Ocean Sciences" OCE-1705972</funding>
+      </relatedProject>
+    </project>
+    <dataTable>
+      <entityName>NRE Stats dataset</entityName>
+      <entityDescription>NRE Stats dataset</entityDescription>
+      <physical>
+        <objectName>NRE_Stats.csv</objectName>
+        <size unit="bytes">204479</size>
+        <authentication method="MD5">407ba20723e55aacd87cfec0fe1c42ea</authentication>
+        <dataFormat>
+          <textFormat>
+            <numHeaderLines>1</numHeaderLines>
+            <recordDelimiter>\r\n</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>Date</attributeName>
+          <attributeDefinition>"Date of water sample collection, filtration, and in situ measurements. Water sampling was conducted bi-weekly (March-October) and monthly (November-February)."</attributeDefinition>
+          <storageType>date</storageType>
+          <measurementScale>
+            <dateTime>
+              <formatString>mm/dd/YYYY</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Season</attributeName>
+          <attributeDefinition>The season when the water sample was collected and filtered and when the in situ measurements were performed in the field.</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>Fall</code>
+                    <definition>Season defined as September-November</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Spring</code>
+                    <definition>Season defined as March-May</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Summer</code>
+                    <definition>Season defined as June-August</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Winter</code>
+                    <definition>Season as December-February</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Station</attributeName>
+          <attributeDefinition>The name of the fixed sampling station. Defined as distance down estuary (km). Station names decrease in number (in increments of 10) from 180 (the most downstream station sampled) to 0 (the most upstream station sampled).</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>kilometer</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>whole</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">180</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Depth</attributeName>
+          <attributeDefinition>Depth from which the water sample was collected and where the in situ measurements were made. S = surface (0.2 m below surface) B = bottom (0.5 m above sediment layer)</attributeDefinition>
+          <storageType>string</storageType>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>B</code>
+                    <definition>Bottom depth (0.5 m above sediment layer)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>S</code>
+                    <definition>Surface depth (0.2 m below surface)</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Depth_num</attributeName>
+          <attributeDefinition>Depth converted to a number for data analysis. 1 = Surface; 2 = Bottom</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>natural</numberType>
+                <bounds>
+                  <minimum exclusive="false">1</minimum>
+                  <maximum exclusive="false">2</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Temp_C</attributeName>
+          <attributeDefinition>In situ water temperature</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>celsius</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">4.659999847</minimum>
+                  <maximum exclusive="false">31.44</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Sal_ppt</attributeName>
+          <attributeDefinition>In situ salinity</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>partsPerThousand</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.039999962</minimum>
+                  <maximum exclusive="false">19.96</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DO_mgL</attributeName>
+          <attributeDefinition>In situ dissolved oxygen concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.42</minimum>
+                  <maximum exclusive="false">12.81999969</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DO_Sat</attributeName>
+          <attributeDefinition>In situ percent saturation dissolved oxygen</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>percentSaturation</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">5.8</minimum>
+                  <maximum exclusive="false">156.1</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Turb_NTU</attributeName>
+          <attributeDefinition>In situ turbidity</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>nephlometricTurbidityUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">27</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Chla_ugL</attributeName>
+          <attributeDefinition>Chlorophyll a concentration measured by in vitro fluorometry</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>microgramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.547</minimum>
+                  <maximum exclusive="false">469.39</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Flushing_Time_d</attributeName>
+          <attributeDefinition>Freshwater flushing time</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>day</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.054255048</minimum>
+                  <maximum exclusive="false">163.7954964</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DOC_uM</attributeName>
+          <attributeDefinition>Dissolved organic carbon concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>microMolar</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">361.6744435</minimum>
+                  <maximum exclusive="false">1203.880813</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DOC_mgL</attributeName>
+          <attributeDefinition>Dissolved organic carbon concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">4.344071741</minimum>
+                  <maximum exclusive="false">14.45981245</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DON_ugL</attributeName>
+          <attributeDefinition>Dissolved organic nitrogen concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>microgramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">211.1</minimum>
+                  <maximum exclusive="false">1313.5</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DON_mgL</attributeName>
+          <attributeDefinition>Dissolved organic nitrogen concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.2111</minimum>
+                  <maximum exclusive="false">1.3135</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>DOCtoDON</attributeName>
+          <attributeDefinition>Molar ratio of dissolved organic carbon to dissolved organic nitrogen</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">12.69445512</minimum>
+                  <maximum exclusive="false">46.35995534</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>a254_DOM</attributeName>
+          <attributeDefinition>Naperian absorbance coefficients at 254 nm for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>perMeter</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">25.60936</minimum>
+                  <maximum exclusive="false">130.07344</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>SUVA_DOM</attributeName>
+          <attributeDefinition>SUVA for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>litersPerMilligramCarbonPerMeter</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">2.038926024</minimum>
+                  <maximum exclusive="false">5.102684312</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>HIX_DOM</attributeName>
+          <attributeDefinition>Humification index for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">5.605960593</minimum>
+                  <maximum exclusive="false">22.57899089</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>BIX_DOM</attributeName>
+          <attributeDefinition>Biological index for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.409541693</minimum>
+                  <maximum exclusive="false">0.828829574</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Max_FL_DOM</attributeName>
+          <attributeDefinition>Maximum fluorescent intensity for each excitation emission matrix for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">15.40360923</minimum>
+                  <maximum exclusive="false">86.81912094</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>B_DOM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 275 nm; Em = 310 nm for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.582713328</minimum>
+                  <maximum exclusive="false">8.155049141</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>T_DOM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 275 nm; Em = 340 nm for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">1.435040617</minimum>
+                  <maximum exclusive="false">11.44446255</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>A_DOM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 260 nm; Em = 380-460 nm for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">8.641830989</minimum>
+                  <maximum exclusive="false">40.87824352</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>C_DOM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 320-360 nm; Em = 370-410 nm for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">4.102604452</minimum>
+                  <maximum exclusive="false">27.20634302</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>M_DOM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 290-310 nm; Em = 370-410 nm for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">3.842645224</minimum>
+                  <maximum exclusive="false">22.18119536</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>N_DOM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 280 nm; Em = 370 nm for DOM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">2.837594251</minimum>
+                  <maximum exclusive="false">13.47611634</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>POC_uM</attributeName>
+          <attributeDefinition>Particulate organic carbon concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>microgramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">127.45</minimum>
+                  <maximum exclusive="false">11469.05</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>POC_mgL</attributeName>
+          <attributeDefinition>Particulate organic carbon concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.12745</minimum>
+                  <maximum exclusive="false">11.46905</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>PN_uM</attributeName>
+          <attributeDefinition>Particulate nitrogen concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>microgramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">37.55</minimum>
+                  <maximum exclusive="false">2417.85</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>PN_mgL</attributeName>
+          <attributeDefinition>Particulate nitrogen concentration</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>milligramsPerLiter</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.03755</minimum>
+                  <maximum exclusive="false">2.41785</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>POCtoPN</attributeName>
+          <attributeDefinition>Molar ratio of particulate organic carbon to particulate nitrogen</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">2.314869286</minimum>
+                  <maximum exclusive="false">19.37776129</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>a254_POM</attributeName>
+          <attributeDefinition>Naperian absorbance coefficients at 254 nm for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>perMeter</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.099029</minimum>
+                  <maximum exclusive="false">9.39624</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>SUVA_POM</attributeName>
+          <attributeDefinition>SUVA for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>litersPerMilligramCarbonPerMeter</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.057154788</minimum>
+                  <maximum exclusive="false">5.607476636</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>HIX_POM</attributeName>
+          <attributeDefinition>Humification index for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.192588832</minimum>
+                  <maximum exclusive="false">25.06086906</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>BIX_POM</attributeName>
+          <attributeDefinition>Biological index for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.150502353</minimum>
+                  <maximum exclusive="false">1.256748647</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Max_FL_POM</attributeName>
+          <attributeDefinition>Maximum fluorescent intensity for each excitation emission matrix for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.147272549</minimum>
+                  <maximum exclusive="false">34.44111675</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>B_POM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 275 nm; Em = 310 nm for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0</minimum>
+                  <maximum exclusive="false">14.8177701</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>T_POM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 275 nm; Em = 340 nm for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.00322142</minimum>
+                  <maximum exclusive="false">31.48084499</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>A_POM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 260 nm; Em = 380-460 nm for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.050663886</minimum>
+                  <maximum exclusive="false">4.547538945</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>C_POM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 320-360 nm; Em = 370-410 nm for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.036613037</minimum>
+                  <maximum exclusive="false">1.302415312</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>M_POM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 290-310 nm; Em = 370-410 nm for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.023316033</minimum>
+                  <maximum exclusive="false">3.583244149</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>N_POM</attributeName>
+          <attributeDefinition>Fluorescent intensity measured at Ex = 280 nm; Em = 370 nm for POM</attributeDefinition>
+          <storageType>float</storageType>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <customUnit>quinineSulfateUnits</customUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+                <bounds>
+                  <minimum exclusive="false">0.006253709</minimum>
+                  <maximum exclusive="false">20.07641746</maximum>
+                </bounds>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Value is missing</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+      <numberOfRecords>484</numberOfRecords>
+    </dataTable>
+  </dataset>
+  <additionalMetadata>
+    <metadata>
+      <unitList>
+        <unit id="partsPerThousand" multiplierToSI="" name="partsPerThousand" parentSI="" unitType="amountOfSubstance">
+          <description>parts per thousand</description>
+        </unit>
+        <unit id="percentSaturation" multiplierToSI="" name="percentSaturation" parentSI="" unitType="percentOfDissolvedOxygenSaturation">
+          <description>percent of dissolved oxygen saturation</description>
+        </unit>
+        <unit id="nephlometricTurbidityUnits" multiplierToSI="" name="nephlometricTurbidityUnits" parentSI="" unitType="unitsOfTurbidity">
+          <description>nephlometric turbidity units</description>
+        </unit>
+        <unit id="day" multiplierToSI="" name="day" parentSI="" unitType="flushingTimeInDays">
+          <description>flushing time calculated in days</description>
+        </unit>
+        <unit id="microMolar" multiplierToSI="1.00E-06" name="microMolar" parentSI="molarity" unitType="concentration">
+          <description>micromole per liter</description>
+        </unit>
+        <unit id="perMeter" multiplierToSI="" name="perMeter" parentSI="" unitType="absorbance">
+          <description>absorbance in per meter</description>
+        </unit>
+        <unit id="litersPerMilligramCarbonPerMeter" multiplierToSI="" name="litersPerMilligramCarbonPerMeter" parentSI="" unitType="SUVAConcentration">
+          <description>liters per milligram of carbon per meter</description>
+        </unit>
+        <unit id="quinineSulfateUnits" multiplierToSI="" name="quinineSulfateUnits" parentSI="" unitType="fluorescence">
+          <description>standardized fluorescence units</description>
+        </unit>
+      </unitList>
+    </metadata>
+  </additionalMetadata>
+</eml:eml>

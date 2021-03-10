@@ -1,0 +1,45 @@
+attributeName	attributeDefinition	class	unit	dateTimeFormatString	missingValueCode	missingValueCodeExplanation
+Date	Date of water sample collection, filtration, and in situ measurements. Water sampling was conducted bi-weekly (March-October) and monthly (November-February).	Date		mm/dd/YYYY	NA	Value is missing
+Season	The season when the water sample was collected and filtered and when the in situ measurements were performed in the field.	categorical			NA	Value is missing
+Station	The name of the fixed sampling station. Defined as distance down estuary (km). Station names decrease in number (in increments of 10) from 180 (the most downstream station sampled) to 0 (the most upstream station sampled).	numeric	kilometer		NA	Value is missing
+Depth	Depth from which the water sample was collected and where the in situ measurements were made. S = surface (0.2 m below surface) B = bottom (0.5 m above sediment layer)   	categorical			NA	Value is missing
+Depth_num	Depth converted to a number for data analysis. 1 = Surface; 2 = Bottom	numeric	dimensionless		NA	Value is missing
+Temp_C	In situ water temperature	numeric	celsius		NA	Value is missing
+Sal_ppt	In situ salinity	numeric	partsPerThousand		NA	Value is missing
+DO_mgL	In situ dissolved oxygen concentration	numeric	milligramsPerLiter		NA	Value is missing
+DO_Sat	In situ percent saturation dissolved oxygen	numeric	percentSaturation		NA	Value is missing
+Turb_NTU	In situ turbidity	numeric	nephlometricTurbidityUnits		NA	Value is missing
+Chla_ugL	Chlorophyll a concentration measured by in vitro fluorometry	numeric	microgramsPerLiter		NA	Value is missing
+Flushing_Time_d	Freshwater flushing time	numeric	day		NA	Value is missing
+DOC_uM	Dissolved organic carbon concentration	numeric	microMolar		NA	Value is missing
+DOC_mgL	Dissolved organic carbon concentration	numeric	milligramsPerLiter		NA	Value is missing
+DON_ugL	Dissolved organic nitrogen concentration	numeric	microgramsPerLiter		NA	Value is missing
+DON_mgL	Dissolved organic nitrogen concentration	numeric	milligramsPerLiter		NA	Value is missing
+DOCtoDON	Molar ratio of dissolved organic carbon to dissolved organic nitrogen	numeric	dimensionless		NA	Value is missing
+a254_DOM	Naperian absorbance coefficients at 254 nm for DOM	numeric	perMeter		NA	Value is missing
+SUVA_DOM	SUVA for DOM	numeric	litersPerMilligramCarbonPerMeter		NA	Value is missing
+HIX_DOM	Humification index for DOM	numeric	dimensionless		NA	Value is missing
+BIX_DOM	Biological index for DOM	numeric	dimensionless		NA	Value is missing
+Max_FL_DOM	Maximum fluorescent intensity for each excitation emission matrix for DOM	numeric	quinineSulfateUnits		NA	Value is missing
+B_DOM	Fluorescent intensity measured at Ex = 275 nm; Em = 310 nm for DOM	numeric	quinineSulfateUnits		NA	Value is missing
+T_DOM	Fluorescent intensity measured at Ex = 275 nm; Em = 340 nm for DOM	numeric	quinineSulfateUnits		NA	Value is missing
+A_DOM	Fluorescent intensity measured at Ex = 260 nm; Em = 380-460 nm for DOM	numeric	quinineSulfateUnits		NA	Value is missing
+C_DOM	Fluorescent intensity measured at Ex = 320-360 nm; Em = 370-410 nm for DOM	numeric	quinineSulfateUnits		NA	Value is missing
+M_DOM	Fluorescent intensity measured at Ex = 290-310 nm; Em = 370-410 nm for DOM	numeric	quinineSulfateUnits		NA	Value is missing
+N_DOM	Fluorescent intensity measured at Ex = 280 nm; Em = 370 nm for DOM	numeric	quinineSulfateUnits		NA	Value is missing
+POC_uM	Particulate organic carbon concentration	numeric	microgramsPerLiter		NA	Value is missing
+POC_mgL	Particulate organic carbon concentration	numeric	milligramsPerLiter		NA	Value is missing
+PN_uM	Particulate nitrogen concentration	numeric	microgramsPerLiter		NA	Value is missing
+PN_mgL	Particulate nitrogen concentration	numeric	milligramsPerLiter		NA	Value is missing
+POCtoPN	Molar ratio of particulate organic carbon to particulate nitrogen	numeric	dimensionless		NA	Value is missing
+a254_POM	Naperian absorbance coefficients at 254 nm for POM	numeric	perMeter		NA	Value is missing
+SUVA_POM	SUVA for POM	numeric	litersPerMilligramCarbonPerMeter		NA	Value is missing
+HIX_POM	Humification index for POM	numeric	dimensionless		NA	Value is missing
+BIX_POM	Biological index for POM	numeric	dimensionless		NA	Value is missing
+Max_FL_POM	Maximum fluorescent intensity for each excitation emission matrix for POM	numeric	quinineSulfateUnits		NA	Value is missing
+B_POM	Fluorescent intensity measured at Ex = 275 nm; Em = 310 nm for POM	numeric	quinineSulfateUnits		NA	Value is missing
+T_POM	Fluorescent intensity measured at Ex = 275 nm; Em = 340 nm for POM	numeric	quinineSulfateUnits		NA	Value is missing
+A_POM	Fluorescent intensity measured at Ex = 260 nm; Em = 380-460 nm for POM	numeric	quinineSulfateUnits		NA	Value is missing
+C_POM	Fluorescent intensity measured at Ex = 320-360 nm; Em = 370-410 nm for POM	numeric	quinineSulfateUnits		NA	Value is missing
+M_POM	Fluorescent intensity measured at Ex = 290-310 nm; Em = 370-410 nm for POM	numeric	quinineSulfateUnits		NA	Value is missing
+N_POM	Fluorescent intensity measured at Ex = 280 nm; Em = 370 nm for POM	numeric	quinineSulfateUnits		NA	Value is missing

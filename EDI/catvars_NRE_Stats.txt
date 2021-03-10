@@ -1,0 +1,7 @@
+attributeName	code	definition
+Depth	B	Bottom depth (0.5 m above sediment layer)
+Depth	S	Surface depth (0.2 m below surface)
+Season	Fall	Season defined as September-November
+Season	Spring	Season defined as March-May
+Season	Summer	Season defined as June-August
+Season	Winter	Season as December-February

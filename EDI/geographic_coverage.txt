@@ -1,0 +1,2 @@
+geographicDescription	northBoundingCoordinate	southBoundingCoordinate	eastBoundingCoordinate	westBoundingCoordinate
+"Neuse River Estuary is located in eastern North Carolina, USA"	35.223531	34.914575	-76.485125	-77.153169

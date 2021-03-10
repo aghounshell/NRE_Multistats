@@ -1,0 +1,9 @@
+id	unitType	parentSI	multiplierToSI	description
+partsPerThousand	amountOfSubstance			parts per thousand
+percentSaturation	percentOfDissolvedOxygenSaturation			percent of dissolved oxygen saturation
+nephlometricTurbidityUnits	unitsOfTurbidity			nephlometric turbidity units
+day	flushingTimeInDays			flushing time calculated in days
+microMolar	concentration	molarity	1.00E-06	micromole per liter
+perMeter	absorbance			absorbance in per meter
+litersPerMilligramCarbonPerMeter	SUVAConcentration			liters per milligram of carbon per meter
+quinineSulfateUnits	fluorescence			standardized fluorescence units

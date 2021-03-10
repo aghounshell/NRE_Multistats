@@ -1,0 +1,13 @@
+givenName	middleInitial	surName	organizationName	electronicMailAddress	userId	role	projectTitle	fundingAgency	fundingNumber
+Alexandria	G.	Hounshell	Virginia Tech	alexgh@vt.edu	0000-0003-1616-9399	creator			
+Alexandria	G.	Hounshell	Virginia Tech	alexgh@vt.edu	0000-0003-1616-9399	contact			
+Alexandria	G.	Hounshell	Virginia Tech	alexgh@vt.edu	0000-0003-1616-9399	PI	"USGS-WRRI: Role of Organic Nitrogen to Eutrophication Dynamics Along the Neuse River Estuary, NC"	North Carolina Water Resources Research Institute	
+Hans	W.	Paerl	University of North Carolina - Chapel Hill	hans_paerl@unc.edu	0000-0003-2211-1011	PI		North Carolina Sea Grant Program	Project R/MG-1505
+Hans	W.	Paerl	University of North Carolina - Chapel Hill	hans_paerl@unc.edu	0000-0003-2211-1011	PI		North Carolina Dept. of Environmental Quality/National Fish and Wildlife Foundation	8020.16.053916
+Hans	W.	Paerl	University of North Carolina - Chapel Hill	hans_paerl@unc.edu	0000-0003-2211-1011	PI	Neuse River Estuary Monitoring and Modeling Project		
+Hans	W.	Paerl	University of North Carolina - Chapel Hill	hans_paerl@unc.edu	0000-0003-2211-1011	PI	RAPID: Collaborative Research: Carbon and nutrient responses in an estuarine-coastal complex impacted by floodwaters from Hurricane Matthew	"National Science Foundation, Division of Ocean Sciences"	OCE-1705972
+Hans	W.	Paerl	University of North Carolina - Chapel Hill	hans_paerl@unc.edu	0000-0003-2211-1011	creator			
+Nathan	S.	Hall	University of North Carolina - Chapel Hill	nshall@unc.edu		creator			
+Jeremy	S.	Braddy	University of North Carolina - Chapel Hill	jbraddy@email.unc.edu		creator			
+Karen	L.	Rossignol	University of North Carolina - Chapel Hill	krossign@email.unc.edu		creator			
+Randy		Sloup	University of North Carolina - Chapel Hill	randys@email.unc.edu		creator			

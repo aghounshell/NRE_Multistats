@@ -1,0 +1,15 @@
+keyword	keywordThesaurus
+University of North Carolina - Chapel Hill	paerl lab controlled vocabulary
+ModMon	paerl lab controlled vocabulary
+Neuse River Estuary	paerl lab controlled vocabulary
+salinity	lter controlled vocabulary
+turbidity	lter controlled vocabulary
+water temperature	lter controlled vocabulary
+dissolved oxygen	lter controlled vocabulary
+chlorophyll a	lter controlled vocabulary
+dissolved organic carbon	lter controlled vocabulary
+particulate organic carbon	lter controlled vocabulary
+absorbance	cuahsi controlled vocabulary
+fluorescence	lter controlled vocabulary
+estuary	lter controlled vocabulary
+organic matter	lter controlled vocabulary
