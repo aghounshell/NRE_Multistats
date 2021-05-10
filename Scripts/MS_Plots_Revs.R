@@ -212,10 +212,11 @@ sal_s_heat <- ggplot()+
 # Convert to ggboxplot
 sal_s_box <- ggplot(data = mydata_s,aes(Season,Sal))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring"="Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,20))+
   ylab("Surface Salinity")+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 # Salinity bottom heatmap
 sal_b_heat <- ggplot()+
@@ -233,10 +234,11 @@ sal_b_heat <- ggplot()+
 # Salinity bottom boxplot
 sal_b_box <- ggplot(data = mydata_b,aes(Season,Sal))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring"="Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,20))+
   ylab("Bottom Salinity")+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 # Chla surface heatmap
 chla_s_heat <- ggplot()+
@@ -255,10 +257,11 @@ chla_s_heat <- ggplot()+
 ylab.text=expression(paste("Surface Chla (",mu,"g L"^"-1"*")"))
 chla_s_box <- ggplot(data = mydata_s,aes(Season,Chla))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring"="Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,135))+
   ylab(ylab.text)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 # Chla bottom heatmap
 chla_b_heat <- ggplot()+
@@ -277,10 +280,11 @@ chla_b_heat <- ggplot()+
 ylab.text=expression(paste("Bottom Chla (",mu,"g L"^"-1"*")"))
 chla_b_box <- ggplot(data = mydata_b,aes(Season,Chla))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring" = "Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,135))+
   ylab(ylab.text)+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 ggarrange(sal_s_heat,sal_s_box,sal_b_heat,sal_b_box,chla_s_heat,chla_s_box,chla_b_heat,chla_b_box,
           nrow=4,ncol=2,widths=c(2,1),labels = c("A.", "B.", "C.", "D.", "E.", "F.","G.","H."),
@@ -336,10 +340,11 @@ docs_heat <- ggplot()+
 # DOC S boxplot
 docs_box <- ggplot(data = mydata_s,aes(Season,DOC_mg))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring"="Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,15))+
   ylab(expression("Surface DOC (mg L"^-1*")"))+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 # DOC B heat map
 docb_heat <- ggplot()+
@@ -357,10 +362,11 @@ docb_heat <- ggplot()+
 # DOC B boxplot
 docb_box <- ggplot(data = mydata_b,aes(Season,DOC_mg))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring"="Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,15))+
   ylab(expression("Bottom DOC (mg L"^-1*")"))+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 # POC heatmap S
 pocs_heat <- ggplot()+
@@ -378,10 +384,11 @@ pocs_heat <- ggplot()+
 # POC boxplot S
 pocs_box <- ggplot(data = mydata_s,aes(Season,POC_mg))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring"="Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,6))+
   ylab(expression("Surface POC (mg L"^-1*")"))+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 # POC heatmap B
 pocb_heat <- ggplot()+
@@ -399,10 +406,11 @@ pocb_heat <- ggplot()+
 # POC boxplot B
 pocb_box <- ggplot(data = mydata_b,aes(Season,POC_mg))+
   geom_boxplot()+
-  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring","Summer16" = "Sum '16"))+
+  scale_x_discrete(labels=c("Summer15" = "Sum '15","Fall","Winter","Spring"="Spr.","Summer16" = "Sum '16"))+
   ylim(c(0,6))+
   ylab(expression("Bottom POC (mg L"^-1*")"))+
-  theme_classic(base_size = 21)
+  theme_classic(base_size = 21)+
+  theme(plot.margin = margin(10, 10, 10, 25))
 
 ggarrange(docs_heat,docs_box,docb_heat,docb_box,pocs_heat,pocs_box,pocb_heat,pocb_box,
           nrow=4,ncol=2,widths=c(2,1),labels = c("A.", "B.", "C.", "D.", "E.", "F.","G.","H."),
