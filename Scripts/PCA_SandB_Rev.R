@@ -2136,10 +2136,65 @@ pomspe_b_sc2 <- scores(pom_b_pca_2, choices=1:3, display="sp", scaling=2)
 # pdf("C:/Users/ahoun/OneDrive/Desktop/NRE_MultiStats/Plots/PCA_SandB_2.pdf", width=12, height=8)
 
 
+fig_label <- function(text, region="figure", pos="topleft", cex=NULL, ...) {
+        region <- match.arg(region, c("figure", "plot", "device"))
+        pos <- match.arg(pos, c("topleft", "top", "topright", 
+                                "left", "center", "right", 
+                                "bottomleft", "bottom", "bottomright"))
+        if(region %in% c("figure", "device")) {
+                ds <- dev.size("in")
+                # xy coordinates of device corners in user coordinates
+                x <- grconvertX(c(0, ds[1]), from="in", to="user")
+                y <- grconvertY(c(0, ds[2]), from="in", to="user")
+                # fragment of the device we use to plot
+                if(region == "figure") {
+                        # account for the fragment of the device that 
+                        # the figure is using
+                        fig <- par("fig")
+                        dx <- (x[2] - x[1])
+                        dy <- (y[2] - y[1])
+                        x <- x[1] + dx * fig[1:2]
+                        y <- y[1] + dy * fig[3:4]
+                } 
+        }
+        # much simpler if in plotting region
+        if(region == "plot") {
+                u <- par("usr")
+                x <- u[1:2]
+                y <- u[3:4]
+        }
+        sw <- strwidth(text, cex=cex) * 60/100
+        sh <- strheight(text, cex=cex) * 60/100
+        x1 <- switch(pos,
+                     topleft     =x[1] + sw, 
+                     left        =x[1] + sw,
+                     bottomleft  =x[1] + sw,
+                     top         =(x[1] + x[2])/2,
+                     center      =(x[1] + x[2])/2,
+                     bottom      =(x[1] + x[2])/2,
+                     topright    =x[2] - sw,
+                     right       =x[2] - sw,
+                     bottomright =x[2] - sw)
+        y1 <- switch(pos,
+                     topleft     =y[2] - sh,
+                     top         =y[2] - sh,
+                     topright    =y[2] - sh,
+                     left        =(y[1] + y[2])/2,
+                     center      =(y[1] + y[2])/2,
+                     right       =(y[1] + y[2])/2,
+                     bottomleft  =y[1] + sh,
+                     bottom      =y[1] + sh,
+                     bottomright =y[1] + sh)
+        old.par <- par(xpd=NA)
+        on.exit(par(old.par))
+        text(x1, y1, text, cex=cex, ...)
+        return(invisible(c(x,y)))
+}
+
 ## Re-arranged for publication: 6 panel graph with each PCA result
 # Env_S
 # Season ordered as: winter, spring, summer, fall
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure7.jpg",width=300,height=350,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure7_r2.jpg",width=300,height=350,units="mm",res=800)
 
 env_s$Season<-factor(env_s$Season, levels=c("Summer15","Fall","Winter", "Spring", "Summer16"))
 with(env_s,levels(Season))
@@ -2160,6 +2215,7 @@ text(-2.55,1.1,labels="Temp",cex=2,col="black")
 text(-2.55,-0.15,labels="Sal",cex=2,col="black")
 text(2.85,-0.35,labels="Turb",cex=2,col="black")
 text(-1.8,-2.3,labels="Chla",cex=2,col="black")
+fig_label("A.",region="figure",pos="topleft",cex=2.5)
 
 # Env_B
 # Season ordered as: winter, spring, summer, fall
@@ -2180,6 +2236,7 @@ text(-2.5,-0.65,labels="Sal",cex=2,col="black")
 text(2.55,-1.1,labels="%DO",cex=2,col="black")
 text(2.55,0.8,labels="Turb",cex=2,col="black")
 text(-0.3,-2.6,labels="Chla",cex=2,col="black")
+fig_label("B.",region="figure",pos="topleft",cex=2.5)
 
 # dom_s
 dom_s$Season<-factor(dom_s$Season, levels=c("Summer15","Fall","Winter", "Spring", "Summer16"))
@@ -2201,6 +2258,7 @@ text(2.7,0.5,labels="DOC",cex=2,col="black")
 text(1.95,2.2,labels="DOC:DON",cex=2,col="black")
 text(2.8,-1.0,labels="SUVA",cex=2,col="black")
 text(-2.6,1.1,labels="BIX",cex=2,col="black")
+fig_label("C.",region="figure",pos="topleft",cex=2.5)
 
 # dom_b
 dom_b$Season<-factor(dom_b$Season, levels=c("Summer15","Fall","Winter", "Spring", "Summer16"))
@@ -2220,6 +2278,7 @@ text(-2.9,-0.2,labels="DOC",cex=2,col="black")
 text(-2.5,1.7,labels="DON",cex=2,col="black")
 text(-2.2,-2.3,labels="DOC:DON",cex=2,col="black")
 text(2.6,0.1,labels="BIX",cex=2,col="black")
+fig_label("D.",region="figure",pos="topleft",cex=2.5)
 
 # pom_s
 pom_s$Season<-factor(pom_s$Season, levels=c("Summer15","Fall","Winter", "Spring", "Summer16"))
@@ -2241,6 +2300,7 @@ text(0.2,-2.5,labels="a254",cex=2,col="black")
 text(-1.9,-1.5,labels="SUVA",cex=2,col="black")
 text(-2.4,0.3,labels="HIX",cex=2,col="black")
 text(1.9,0.0,labels="BIX",cex=2,col="black")
+fig_label("E.",region="figure",pos="topleft",cex=2.5)
 
 # pom_b
 pom_b$Season<-factor(pom_b$Season, levels=c("Summer15","Fall","Winter", "Spring", "Summer16"))
@@ -2261,6 +2321,7 @@ text(-1.7,-1.9,labels="a254",cex=2,col="black")
 text(-2.5,-0.2,labels="SUVA",cex=2,col="black")
 text(-1.5,1.4,labels="HIX",cex=2,col="black")
 text(1.8,-0.5,labels="BIX",cex=2,col="black")
+fig_label("F.",region="figure",pos="topleft",cex=2.5)
 
 dev.off()
 
@@ -2391,6 +2452,7 @@ text(1.6,0.8,labels="DOC:DON",cex=1.5,col="black")
 #text(2.6,0.1,labels="SUVA",cex=1.5,col="black")
 #text(-2.6,0.4,labels="BIX",cex=1.5,col="black")
 text(dom_s_rda_final,display="bp",labels=c("Sal","Temp","Turb"),scaling=2,cex=1.5,col="black")
+fig_label("A.",region="figure",pos="topleft",cex=2)
 
 plot(pom_s_rda_final,scaling=2,display="sites",xlab="RDA1 (63% fitted, 28% total var.)",
      ylab="RDA2 (35% fitted, 16% total var.)",cex.axis=1.5,cex.lab=1.5,ylim=c(-3,1.5),xlim=c(-2,3))
@@ -2407,6 +2469,7 @@ text(0.7,-1.85,labels="a254",cex=1.5,col="black")
 #text(-1.8,-0.3,labels="HIX",cex=1.5,col="black")
 text(1.1,0.3,labels="BIX",cex=1.5,col="black")
 text(pom_s_rda_final,display="bp",labels=c("Chla","Turb","Sal"),scaling=2,cex=1.5,col="black")
+fig_label("B.",region="figure",pos="topleft",cex=2)
 
 ## Bottom
 env_b$Season<-factor(env_b$Season, levels=c("Summer15","Fall","Winter", "Spring", "Summer16"))
@@ -2429,6 +2492,7 @@ text(-2.1,0.1,labels="DOC",cex=1.5,col="black")
 text(-1.8,-1.0,labels="DOC:DON",cex=1.5,col="black")
 #text(2.6,-0.2,labels="BIX",cex=1.5,col="black")
 text(dom_b_rda_final,display="bp",labels=c("Sal","Temp","DO","Chla"),scaling=2,cex=1.5,col="black")
+fig_label("C.",region="figure",pos="topleft",cex=2)
 
 # POM Bottom
 plot(pom_b_rda_final,scaling=2,display="sites",xlab="RDA1 (62% fitted, 26% total var.)",
@@ -2447,6 +2511,7 @@ text(-0.9,-0.2,labels="HIX",cex=1.5,col="black")
 text(pom_b_rda_final,display="bp",labels=c("Turb","Chla","Sal"),scaling=2,cex=1.5,col="black")
 rect(0.6,-0.15,1.0,0.15,col="white",border=NA,density=70)
 text(0.8,0,labels="BIX",cex=1.5,col="black")
+fig_label("D.",region="figure",pos="topleft",cex=2)
 
 dev.off()
 
