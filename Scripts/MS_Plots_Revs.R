@@ -5,7 +5,7 @@
 
 # Load in libraries
 pacman::p_load(tidyverse,PerformanceAnalytics,GGally,dplyr,ggpubr,ggplot2,akima,lubridate,colorRamps,
-               RColorBrewer,rLakeAnalyzer)
+               RColorBrewer,rLakeAnalyzer,ggtext)
 
 # Load in data (Database_DOSat.csv)
 my_data <- read.csv('C:/Users/ahoun/Desktop/NRE_Multistats/Data/Database_DOSat.csv')
@@ -193,7 +193,7 @@ pairwise.wilcox.test(mydata_s$BIX_DOM, mydata_s$Season, p.adjust.method="BH",cor
 
 # Plot salinity heatmap + boxplots from above - Figure 3 in MS
 
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure3.jpg",width=400,height=440,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure3_r2.jpg",width=400,height=440,units="mm",res=800)
 
 # Salinty surface heatmap
 sal_s_heat <- ggplot()+
@@ -204,8 +204,9 @@ sal_s_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
-  labs(x = "",y="Distance (km)",fill="Sal")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="Sal")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # Salinity surface boxplot
 # Convert to ggboxplot
@@ -225,8 +226,9 @@ sal_b_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,20))+
-  labs(x = "",y="Distance (km)",fill="Sal")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="Sal")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # Salinity bottom boxplot
 sal_b_box <- ggplot(data = mydata_b,aes(Season,Sal))+
@@ -245,8 +247,9 @@ chla_s_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
-  labs(x = "",y="Distance (km)",fill="Chla")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="Chla")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # Chla surface boxplot
 ylab.text=expression(paste("Surface Chla (",mu,"g L"^"-1"*")"))
@@ -266,8 +269,9 @@ chla_b_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,130))+
-  labs(x = "",y="Distance (km)",fill="Chla")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="Chla")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # Chla bottom boxplot
 ylab.text=expression(paste("Bottom Chla (",mu,"g L"^"-1"*")"))
@@ -279,7 +283,8 @@ chla_b_box <- ggplot(data = mydata_b,aes(Season,Chla))+
   theme_classic(base_size = 21)
 
 ggarrange(sal_s_heat,sal_s_box,sal_b_heat,sal_b_box,chla_s_heat,chla_s_box,chla_b_heat,chla_b_box,
-          nrow=4,ncol=2,widths=c(2,1))
+          nrow=4,ncol=2,widths=c(2,1),labels = c("A.", "B.", "C.", "D.", "E.", "F.","G.","H."),
+          font.label=list(face="plain",size=25))
 
 dev.off()
 
@@ -313,7 +318,7 @@ interp_poc_b <- interp2xyz(interp_poc_b,data.frame=T)
 interp_poc_b$Date <- as.Date(interp_poc_b$x)
 
 ## Create Figure 4 - DOC and POC heatmaps + boxplots
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure4.jpg",width=400,height=440,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure4_r2.jpg",width=400,height=440,units="mm",res=800)
 
 # DOC heatmap S
 docs_heat <- ggplot()+
@@ -324,8 +329,9 @@ docs_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
-  labs(x = "",y="Distance (km)",fill="DOC")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="DOC")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # DOC S boxplot
 docs_box <- ggplot(data = mydata_s,aes(Season,DOC_mg))+
@@ -344,8 +350,9 @@ docb_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(4,15))+
-  labs(x = "",y="Distance (km)",fill="DOC")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="DOC")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # DOC B boxplot
 docb_box <- ggplot(data = mydata_b,aes(Season,DOC_mg))+
@@ -364,8 +371,9 @@ pocs_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_s,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
-  labs(x = "",y="Distance (km)",fill="POC")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="POC")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # POC boxplot S
 pocs_box <- ggplot(data = mydata_s,aes(Season,POC_mg))+
@@ -384,8 +392,9 @@ pocb_heat <- ggplot()+
   geom_vline(xintercept=as.Date("2016-06-01"),color="grey",size=1)+
   geom_point(mydata_b,mapping=aes(x=Date,y=Station),color="white",size=0.9)+
   scale_fill_distiller(palette = "YlGnBu",direction = 1,na.value="gray",limits=c(0,6))+
-  labs(x = "",y="Distance (km)",fill="POC")+
-  theme_classic(base_size=25)
+  labs(x = "",y=expression(paste("Distance down\n estuary (km)")),fill="POC")+
+  theme_classic(base_size=25)+
+  theme(plot.margin = margin(10, 10, 10, 50))
 
 # POC boxplot B
 pocb_box <- ggplot(data = mydata_b,aes(Season,POC_mg))+
@@ -396,7 +405,8 @@ pocb_box <- ggplot(data = mydata_b,aes(Season,POC_mg))+
   theme_classic(base_size = 21)
 
 ggarrange(docs_heat,docs_box,docb_heat,docb_box,pocs_heat,pocs_box,pocb_heat,pocb_box,
-          nrow=4,ncol=2,widths=c(2,1))
+          nrow=4,ncol=2,widths=c(2,1),labels = c("A.", "B.", "C.", "D.", "E.", "F.","G.","H."),
+          font.label=list(face="plain",size=25))
 
 dev.off()
 
@@ -445,7 +455,7 @@ ggarrange(sal,chla,doc,poc,
 dev.off()
 
 ############ Figure 5 - boxplots of OM indicators with station (C:N, SUVA, BIX, HIX)
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure5.jpg",width=400,height=440,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure5_r2.jpg",width=400,height=440,units="mm",res=800)
 
 doctodon <- ggplot()+
   geom_boxplot(data = my_data2,aes(as.factor(Station),DOC_DON,color=Depth))+
@@ -454,7 +464,7 @@ doctodon <- ggplot()+
   ylab("DOC:DON")+
   ylim(0,50)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 poctopn <- ggplot()+
   geom_boxplot(data = my_data2,aes(as.factor(Station),POCtoPN,color=Depth))+
@@ -462,7 +472,7 @@ poctopn <- ggplot()+
   xlab("Distance down estuary (km)")+
   ylab("POC:PN")+
   theme_classic(base_size = 21)+
-  theme(legend.position=c(0.8,0.8))
+  theme(legend.position=c(0.8,0.8),plot.margin = margin(10, 10, 10, 50))
 
 suva_dom <- ggplot()+
   geom_boxplot(data = my_data2,aes(as.factor(Station),SUVA_DOM,color=Depth))+
@@ -471,7 +481,7 @@ suva_dom <- ggplot()+
   ylab(expression("DOM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 suva_pom <- ggplot()+
   geom_boxplot(data = my_data2,aes(as.factor(Station),SUVA_POC,color=Depth))+
@@ -480,7 +490,7 @@ suva_pom <- ggplot()+
   ylab(expression("POM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 bix_dom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -492,7 +502,7 @@ bix_dom <- ggplot()+
   ylab("DOM BIX")+
   ylim(0,1.3)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 bix_pom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -504,7 +514,7 @@ bix_pom <- ggplot()+
   ylab("POM BIX")+
   ylim(0,1.3)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 hix_dom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -516,7 +526,7 @@ hix_dom <- ggplot()+
   ylab("DOM HIX")+
   ylim(0,26)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 hix_pom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -528,15 +538,16 @@ hix_pom <- ggplot()+
   ylab("POM HIX")+
   ylim(0,26)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 ggarrange(doctodon,poctopn,suva_dom,suva_pom,bix_dom,bix_pom,hix_dom,hix_pom,
-          nrow=4,ncol=2)
+          nrow=4,ncol=2,labels = c("A.", "B.", "C.", "D.", "E.", "F.","G.","H."),
+          font.label=list(face="plain",size=25))
 
 dev.off()
 
 ############ Figure 5 - boxplots of OM indicators with season: C:N, SUVA, BIX, HIX
-jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure6_new.jpg",width=400,height=440,units="mm",res=800)
+jpeg("C:/Users/ahoun/Desktop/NRE_Multistats/Fig_Output/Figure6_new_r2.jpg",width=400,height=440,units="mm",res=800)
 
 doctodon <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,DOC_DON,color=Depth))+
@@ -545,7 +556,7 @@ doctodon <- ggplot()+
   ylab("DOC:DON")+
   ylim(0,50)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 poctopn <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,POCtoPN,color=Depth))+
@@ -553,7 +564,7 @@ poctopn <- ggplot()+
   scale_color_manual(values=c("black","grey53"))+
   ylab("POC:PN")+
   theme_classic(base_size = 21)+
-  theme(legend.position=c(0.8,0.8))
+  theme(legend.position=c(0.8,0.8),plot.margin = margin(10, 10, 10, 50))
 
 suva_dom <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,SUVA_DOM,color=Depth))+
@@ -562,7 +573,7 @@ suva_dom <- ggplot()+
   ylab(expression("DOM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 suva_pom <- ggplot()+
   geom_boxplot(data = my_data2,aes(Season,SUVA_POC,color=Depth))+
@@ -571,7 +582,7 @@ suva_pom <- ggplot()+
   ylab(expression("POM SUVA (L mg"^-1*"C m"^-1*")"))+
   ylim(0,5)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 bix_dom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -583,7 +594,7 @@ bix_dom <- ggplot()+
   ylab("DOM BIX")+
   ylim(0,1.3)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 bix_pom <- ggplot()+
   geom_hline(yintercept = 0.6,linetype="dashed")+
@@ -595,7 +606,7 @@ bix_pom <- ggplot()+
   ylab("POM BIX")+
   ylim(0,1.3)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 hix_dom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -607,7 +618,7 @@ hix_dom <- ggplot()+
   ylab("DOM HIX")+
   ylim(0,26)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 hix_pom <- ggplot()+
   geom_hline(yintercept = 6,linetype="dashed")+
@@ -619,10 +630,11 @@ hix_pom <- ggplot()+
   ylab("POM HIX")+
   ylim(0,26)+
   theme_classic(base_size = 21)+
-  theme(legend.position="none")
+  theme(legend.position="none",plot.margin = margin(10, 10, 10, 50))
 
 ggarrange(doctodon,poctopn,suva_dom,suva_pom,bix_dom,bix_pom,hix_dom,hix_pom,
-          nrow=4,ncol=2)
+          nrow=4,ncol=2,labels = c("A.", "B.", "C.", "D.", "E.", "F.","G.","H."),
+          font.label=list(face="plain",size=25))
 
 dev.off()
 
